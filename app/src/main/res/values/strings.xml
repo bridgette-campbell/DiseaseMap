@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Disease Map</string>
+    <string name="logo">Logo</string>
+    <string name="sign_in_failed">Google Sign-In Failed</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="signed_out">Signed Out</string>
 </resources>

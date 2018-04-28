@@ -3,8 +3,8 @@ package edu.uw.tacoma.css.diseasemap;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -14,17 +14,17 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     public int RC_SIGN_IN = 1;
 
     private GoogleSignInClient mGoogleSignInClient;
-    private String TAG = "MainActivity";
+    private String TAG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         // Configure sign-in to request the user's ID, email address, and basic profile. ID and
         // basic profile are included in DEFAULT_SIGN_IN
@@ -51,20 +51,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        // Check for existing Google Sign In account. If the user is already signed in, the
+        // Check for existing Google Sign-In account. If the user is already signed in, the
         // GoogleSignInAccount will be non-null
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         updateUI(account);
     }
 
     private void updateUI(GoogleSignInAccount account) {
+
+        // Non-null account means the user is signed in
         if (account != null) {
-            // Launch the main activity since the user is already signed in
-            Log.v(TAG, "Log in succeeded");
-        }
-        else {
-            // Log in failed
-            Log.v(TAG, "Log in failed");
+
+            // Launch MapActivity
+            startActivity(new Intent(this, MapActivity.class));
+            finish();
         }
     }
 
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
             // The ApiException status code indicates the detailed failure reason. Refer to the
             // GoogleSignInStatusCodes class reference for more info
-            Log.v(TAG, "signInResult: failed code=" + e.getStatusCode());
+            Toast.makeText(this, R.string.sign_in_failed, Toast.LENGTH_SHORT).show();
             updateUI(null);
         }
     }
