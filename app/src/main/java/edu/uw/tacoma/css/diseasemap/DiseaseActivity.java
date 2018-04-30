@@ -9,11 +9,11 @@ import edu.uw.tacoma.css.diseasemap.disease.DiseaseContent;
 public class DiseaseActivity extends AppCompatActivity
         implements DiseaseListFragment.OnListFragmentInteractionListener {
 
-    private static final String CHOSEN_DISEASE = "edu.uw.tacoma.css.diseasemap.chosen_disease";
+    private static final String SELECTED_DISEASE = "edu.uw.tacoma.css.diseasemap.selected_disease";
 
     // Encapsulates the implementation details of DiseaseActivity's returned Intent
-    public static String getChosenDisease(Intent data) {
-        return (data.getStringExtra(CHOSEN_DISEASE));
+    public static String getSelectedDisease(Intent data) {
+        return (data.getStringExtra(SELECTED_DISEASE));
     }
 
     @Override
@@ -35,7 +35,7 @@ public class DiseaseActivity extends AppCompatActivity
 
         // Create a new Intent with the selected Disease's id
         Intent data = new Intent();
-        data.putExtra(CHOSEN_DISEASE, item.id);
+        data.putExtra(SELECTED_DISEASE, item.name);
 
         // Send the Intent back to MapActivity
         setResult(RESULT_OK, data);

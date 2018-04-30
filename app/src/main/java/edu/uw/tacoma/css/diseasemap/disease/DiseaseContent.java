@@ -8,54 +8,39 @@ import java.util.Map;
 /**
  * Helper class for providing sample content for user interfaces created by
  * Android template wizards.
- * <p>
- * TODO: Replace all uses of this class before publishing your app.
  */
 public class DiseaseContent {
 
-    /**
-     * An array of sample (dummy) items.
-     */
+    // ArrayList of all Diseases
     public static final List<DiseaseItem> ITEMS = new ArrayList<>();
 
-    /**
-     * A map of sample (dummy) items, by ID.
-     */
-    public static final Map<String, DiseaseItem> ITEM_MAP = new HashMap<>();
-
-    private static final int COUNT = 25;
-
+    // Add sample Diseases
     static {
-        // Add some sample items.
-        for (int i = 1; i <= COUNT; i++) {
-            addItem(createDummyItem(i));
-        }
+        String[] sampleDiseases = {"Swine", "Turtle", "Cow", "Octopus", "Zebra", "Seagull",
+                "Monkey", "Panda", "Sloth", "Cat", "Penguin", "Polar Bear", "Shark", "Alien",
+                "Regular", "Gluten", "Unknown"};
+
+        for (String s : sampleDiseases)
+            addItem(new DiseaseItem(s + " Flu"));
     }
 
     private static void addItem(DiseaseItem item) {
         ITEMS.add(item);
-        ITEM_MAP.put(item.id, item);
-    }
-
-    private static DiseaseItem createDummyItem(int position) {
-        return new DiseaseItem(String.valueOf(position), "Item " + position);
     }
 
     /**
-     * A dummy item representing a piece of content.
+     * An individual disease
      */
     public static class DiseaseItem {
-        public final String id;
-        public final String content;
+        public final String name;
 
-        public DiseaseItem(String id, String content) {
-            this.id = id;
-            this.content = content;
+        public DiseaseItem(String name) {
+            this.name = name;
         }
 
         @Override
         public String toString() {
-            return content;
+            return name;
         }
     }
 }

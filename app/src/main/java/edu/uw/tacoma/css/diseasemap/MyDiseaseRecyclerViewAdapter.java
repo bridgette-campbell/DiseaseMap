@@ -14,7 +14,6 @@ import java.util.List;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DiseaseItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
 public class MyDiseaseRecyclerViewAdapter extends RecyclerView.Adapter<MyDiseaseRecyclerViewAdapter.ViewHolder> {
 
@@ -36,7 +35,7 @@ public class MyDiseaseRecyclerViewAdapter extends RecyclerView.Adapter<MyDisease
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).id);
+        holder.mNameView.setText(mValues.get(position).name);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,13 +56,13 @@ public class MyDiseaseRecyclerViewAdapter extends RecyclerView.Adapter<MyDisease
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mIdView;
+        public final TextView mNameView;
         public DiseaseItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.item_number);
+            mNameView = view.findViewById(R.id.item_name);
         }
 
         @Override

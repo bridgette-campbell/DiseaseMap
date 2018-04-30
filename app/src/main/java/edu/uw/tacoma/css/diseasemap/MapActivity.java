@@ -18,9 +18,14 @@ import com.google.android.gms.tasks.Task;
 
 public class MapActivity extends AppCompatActivity {
 
+    // Request codes
     private static final int RC_DISEASE = 0;
 
+    // UI elements
     private Button mButtonDisease;
+
+    // User-selected data
+    private String mSelectedDisease;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,12 +41,12 @@ public class MapActivity extends AppCompatActivity {
         startActivityForResult(diseases, RC_DISEASE);
     }
 
-    // Gets the chosen Disease
+    // Gets the selected Disease
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && requestCode == RC_DISEASE && data != null) {
-            String chosenDisease = DiseaseActivity.getChosenDisease(data);
-            mButtonDisease.setText(getString(R.string.disease_selected, chosenDisease));
+            String mSelectedDisease = DiseaseActivity.getSelectedDisease(data);
+            mButtonDisease.setText(getString(R.string.disease_selected, mSelectedDisease));
         }
     }
 
