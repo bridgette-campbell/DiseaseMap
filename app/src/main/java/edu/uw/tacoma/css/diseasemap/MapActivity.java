@@ -1,11 +1,14 @@
 package edu.uw.tacoma.css.diseasemap;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -15,10 +18,36 @@ import com.google.android.gms.tasks.Task;
 
 public class MapActivity extends AppCompatActivity {
 
+    // Request codes
+    private static final int RC_DISEASE = 0;
+
+    // UI elements
+    private Button mButtonDisease;
+
+    // User-selected data
+    private String mSelectedDisease;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        mButtonDisease = findViewById(R.id.disease_button);
+    }
+
+    // "Select Disease" onClick - launches DiseaseActivity
+    public void launchDiseases(View v) {
+        Intent diseases = new Intent(this, DiseaseActivity.class);
+        startActivityForResult(diseases, RC_DISEASE);
+    }
+
+    // Gets the selected Disease
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && requestCode == RC_DISEASE && data != null) {
+            String mSelectedDisease = DiseaseActivity.getSelectedDisease(data);
+            mButtonDisease.setText(getString(R.string.disease_selected, mSelectedDisease));
+        }
     }
 
     @Override

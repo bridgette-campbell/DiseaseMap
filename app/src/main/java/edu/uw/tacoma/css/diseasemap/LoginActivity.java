@@ -16,10 +16,9 @@ import com.google.android.gms.tasks.Task;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public int RC_SIGN_IN = 1;
+    private static final int RC_SIGN_IN = 1;
 
     private GoogleSignInClient mGoogleSignInClient;
-    private String TAG = "LoginActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
