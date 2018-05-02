@@ -7,4 +7,7 @@
 
     <string name="select_disease">Select Disease</string>
     <string name="disease_selected">Disease: %1$s</string>
+
+    <string name="select_week">Select Week</string>
+    <string name="week_selected">Week %1$s</string>
 </resources>

@@ -16,16 +16,22 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import edu.uw.tacoma.css.diseasemap.disease.DiseaseActivity;
+import edu.uw.tacoma.css.diseasemap.week.WeekActivity;
+
 public class MapActivity extends AppCompatActivity {
 
     // Request codes
     private static final int RC_DISEASE = 0;
+    private static final int RC_WEEK = 1;
 
     // UI elements
     private Button mButtonDisease;
+    private Button mButtonWeek;
 
-    // User-selected data
+    // User-selected data (todo: use these to select the right data when coloring the map)
     private String mSelectedDisease;
+    private String mSelectedWeek;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,7 @@ public class MapActivity extends AppCompatActivity {
         setContentView(R.layout.activity_map);
 
         mButtonDisease = findViewById(R.id.disease_button);
+        mButtonWeek = findViewById(R.id.week_button);
     }
 
     // "Select Disease" onClick - launches DiseaseActivity
@@ -41,12 +48,28 @@ public class MapActivity extends AppCompatActivity {
         startActivityForResult(diseases, RC_DISEASE);
     }
 
+    // "Select Week" onClick - launches WeekActivity
+    public void launchWeeks(View v) {
+        Intent weeks = new Intent(this, WeekActivity.class);
+        startActivityForResult(weeks, RC_WEEK);
+    }
+
     // Gets the selected Disease
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK && requestCode == RC_DISEASE && data != null) {
-            String mSelectedDisease = DiseaseActivity.getSelectedDisease(data);
-            mButtonDisease.setText(getString(R.string.disease_selected, mSelectedDisease));
+        if (resultCode == Activity.RESULT_OK && data != null) {
+
+            // Disease
+            if (requestCode == RC_DISEASE) {
+                String mSelectedDisease = DiseaseActivity.getSelectedDisease(data);
+                mButtonDisease.setText(getString(R.string.disease_selected, mSelectedDisease));
+            }
+            // Week
+            else if (requestCode == RC_WEEK) {
+                String mSelectedWeek = WeekActivity.getSelectedWeek(data);
+                mButtonWeek.setText(getString(R.string.week_selected, mSelectedWeek));
+            }
+
         }
     }
 

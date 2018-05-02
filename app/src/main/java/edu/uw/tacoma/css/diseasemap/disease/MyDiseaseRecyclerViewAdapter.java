@@ -1,4 +1,4 @@
-package edu.uw.tacoma.css.diseasemap;
+package edu.uw.tacoma.css.diseasemap.disease;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,7 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import edu.uw.tacoma.css.diseasemap.DiseaseListFragment.OnListFragmentInteractionListener;
+import edu.uw.tacoma.css.diseasemap.R;
+import edu.uw.tacoma.css.diseasemap.disease.DiseaseListFragment.OnListFragmentInteractionListener;
 import edu.uw.tacoma.css.diseasemap.disease.DiseaseContent.DiseaseItem;
 
 import java.util.List;
@@ -28,7 +29,7 @@ public class MyDiseaseRecyclerViewAdapter extends RecyclerView.Adapter<MyDisease
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_disease, parent, false);
+                .inflate(R.layout.fragment_disease_item, parent, false);
         return new ViewHolder(view);
     }
 
@@ -57,17 +58,13 @@ public class MyDiseaseRecyclerViewAdapter extends RecyclerView.Adapter<MyDisease
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mNameView;
+
         public DiseaseItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
             mNameView = view.findViewById(R.id.item_name);
-        }
-
-        @Override
-        public String toString() {
-            return super.toString();
         }
     }
 }
