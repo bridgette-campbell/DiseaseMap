@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Individual item in the RecyclerView -->
+<!-- Individual WeekItem in the RecyclerView -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
@@ -7,7 +7,7 @@
               android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/item_name"
+        android:id="@+id/item_week"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp"

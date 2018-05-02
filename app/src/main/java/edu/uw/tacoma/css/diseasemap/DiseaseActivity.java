@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import edu.uw.tacoma.css.diseasemap.disease.DiseaseContent;
+import edu.uw.tacoma.css.diseasemap.disease.DiseaseContent.DiseaseItem;
 
 public class DiseaseActivity extends AppCompatActivity
         implements DiseaseListFragment.OnListFragmentInteractionListener {
@@ -21,7 +21,7 @@ public class DiseaseActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_disease);
 
-        // disease_fragment_container is activity_list's empty FrameLayout
+        // disease_fragment_container is activity_disease's empty FrameLayout
         if (findViewById(R.id.disease_fragment_container) != null) {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.disease_fragment_container, new DiseaseListFragment())
@@ -31,9 +31,9 @@ public class DiseaseActivity extends AppCompatActivity
 
     // Called when an item in the list is selected
     @Override
-    public void onListFragmentInteraction(DiseaseContent.DiseaseItem item) {
+    public void onListFragmentInteraction(DiseaseItem item) {
 
-        // Create a new Intent with the selected Disease's id
+        // Create a new Intent with the selected Disease's name
         Intent data = new Intent();
         data.putExtra(SELECTED_DISEASE, item.name);
 

@@ -6,21 +6,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import edu.uw.tacoma.css.diseasemap.DiseaseListFragment.OnListFragmentInteractionListener;
-import edu.uw.tacoma.css.diseasemap.disease.DiseaseContent.DiseaseItem;
-
 import java.util.List;
 
+import edu.uw.tacoma.css.diseasemap.WeekListFragment.OnListFragmentInteractionListener;
+import edu.uw.tacoma.css.diseasemap.week.WeekContent.WeekItem;
+
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DiseaseItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link WeekItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  */
-public class MyDiseaseRecyclerViewAdapter extends RecyclerView.Adapter<MyDiseaseRecyclerViewAdapter.ViewHolder> {
+public class MyTimeRecyclerViewAdapter extends RecyclerView.Adapter<MyTimeRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DiseaseItem> mValues;
+    private final List<WeekItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyDiseaseRecyclerViewAdapter(List<DiseaseItem> items, OnListFragmentInteractionListener listener) {
+    public MyTimeRecyclerViewAdapter(List<WeekItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -28,14 +28,14 @@ public class MyDiseaseRecyclerViewAdapter extends RecyclerView.Adapter<MyDisease
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_disease_item, parent, false);
+                .inflate(R.layout.fragment_week_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mNameView.setText(mValues.get(position).name);
+        holder.mWeekView.setText(mValues.get(position).week);
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,14 +56,14 @@ public class MyDiseaseRecyclerViewAdapter extends RecyclerView.Adapter<MyDisease
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mNameView;
+        public final TextView mWeekView;
 
-        public DiseaseItem mItem;
+        public WeekItem mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mNameView = view.findViewById(R.id.item_name);
+            mWeekView = view.findViewById(R.id.item_week);
         }
     }
 }

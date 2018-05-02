@@ -18,7 +18,13 @@
         </activity>
         <activity android:name=".MapActivity">
         </activity>
-        <activity android:name=".DiseaseActivity" android:label="@string/select_disease">
+        <activity
+            android:name=".DiseaseActivity"
+            android:label="@string/select_disease">
+        </activity>
+        <activity
+            android:name=".WeekActivity"
+            android:label="@string/select_week">
         </activity>
     </application>
 
