@@ -7,5 +7,5 @@
     android:name="edu.uw.tacoma.css.diseasemap.TimeFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WeekListFragment"
+    tools:context=".week.WeekListFragment"
     tools:listitem="@layout/fragment_week_item"/>

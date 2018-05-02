@@ -1,4 +1,4 @@
-package edu.uw.tacoma.css.diseasemap;
+package edu.uw.tacoma.css.diseasemap.disease;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,7 +6,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import edu.uw.tacoma.css.diseasemap.DiseaseListFragment.OnListFragmentInteractionListener;
+import edu.uw.tacoma.css.diseasemap.R;
+import edu.uw.tacoma.css.diseasemap.disease.DiseaseListFragment.OnListFragmentInteractionListener;
 import edu.uw.tacoma.css.diseasemap.disease.DiseaseContent.DiseaseItem;
 
 import java.util.List;

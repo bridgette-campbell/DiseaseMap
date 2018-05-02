@@ -1,4 +1,4 @@
-package edu.uw.tacoma.css.diseasemap;
+package edu.uw.tacoma.css.diseasemap.week;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,19 +8,20 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import edu.uw.tacoma.css.diseasemap.WeekListFragment.OnListFragmentInteractionListener;
+import edu.uw.tacoma.css.diseasemap.R;
+import edu.uw.tacoma.css.diseasemap.week.WeekListFragment.OnListFragmentInteractionListener;
 import edu.uw.tacoma.css.diseasemap.week.WeekContent.WeekItem;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link WeekItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  */
-public class MyTimeRecyclerViewAdapter extends RecyclerView.Adapter<MyTimeRecyclerViewAdapter.ViewHolder> {
+public class MyWeekRecyclerViewAdapter extends RecyclerView.Adapter<MyWeekRecyclerViewAdapter.ViewHolder> {
 
     private final List<WeekItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyTimeRecyclerViewAdapter(List<WeekItem> items, OnListFragmentInteractionListener listener) {
+    public MyWeekRecyclerViewAdapter(List<WeekItem> items, OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }

@@ -1,9 +1,10 @@
-package edu.uw.tacoma.css.diseasemap;
+package edu.uw.tacoma.css.diseasemap.week;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.week.WeekContent.WeekItem;
 
 public class WeekActivity extends AppCompatActivity
