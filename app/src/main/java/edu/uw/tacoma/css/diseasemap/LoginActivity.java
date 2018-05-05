@@ -44,11 +44,8 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                /* TEMPORARILY DISABLE GOOGLE SIGN IN*/
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
                 startActivityForResult(signInIntent, RC_SIGN_IN);
-
-                //startActivity(new Intent(getApplicationContext(), MapActivity.class));
             }
         });
     }
