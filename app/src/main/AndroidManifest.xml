@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="edu.uw.tacoma.css.diseasemap">
 
+    //Add permission to access internet for API.
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,12 +22,16 @@
         <activity android:name=".MapActivity">
         </activity>
         <activity
-            android:name=".disease.DiseaseActivity"
+            android:name=".disease.SelectDiseaseActivity"
             android:label="@string/select_disease">
         </activity>
         <activity
             android:name=".week.WeekActivity"
             android:label="@string/select_week">
+        </activity>
+        <activity
+            android:name=".disease.ViewDiseaseActivity"
+            android:label="View Disease">
         </activity>
     </application>
 

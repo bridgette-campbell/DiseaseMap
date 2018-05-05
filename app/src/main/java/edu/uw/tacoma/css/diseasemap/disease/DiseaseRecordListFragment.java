@@ -2,16 +2,25 @@ package edu.uw.tacoma.css.diseasemap.disease;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
+
 import edu.uw.tacoma.css.diseasemap.R;
-import edu.uw.tacoma.css.diseasemap.disease.DiseaseContent.DiseaseItem;
+import edu.uw.tacoma.css.diseasemap.connection.DiseaseRecord;
+import edu.uw.tacoma.css.diseasemap.connection.NNDSSConnection;
 
 /**
  * A fragment representing a list of Items.
@@ -19,25 +28,30 @@ import edu.uw.tacoma.css.diseasemap.disease.DiseaseContent.DiseaseItem;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class DiseaseListFragment extends Fragment {
+public class DiseaseRecordListFragment extends Fragment {
 
-    // TODO: Customize parameters
     private int mColumnCount = 1;
 
     private OnListFragmentInteractionListener mListener;
+
+    private ViewGroup mContainer;
+
+    private DiseaseRecord diseaseRecord;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public DiseaseListFragment() {}
+    public DiseaseRecordListFragment() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mContainer = container;
+
         View view = inflater.inflate(R.layout.fragment_disease_list, container, false);
 
-        // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
             RecyclerView recyclerView = (RecyclerView) view;
@@ -46,11 +60,11 @@ public class DiseaseListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyDiseaseRecyclerViewAdapter(DiseaseContent.ITEMS, mListener));
+
+            recyclerView.setAdapter(new DiseaseDisplayRecyclerViewAdapter(diseaseRecord, mListener));
         }
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
@@ -69,6 +83,10 @@ public class DiseaseListFragment extends Fragment {
         mListener = null;
     }
 
+    public void setDiseaseRecord(DiseaseRecord diseaseRecord) {
+        this.diseaseRecord = diseaseRecord;
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -80,6 +98,6 @@ public class DiseaseListFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(DiseaseItem item);
+        void onListFragmentInteraction(DiseaseRecord diseaseRecord);
     }
 }
