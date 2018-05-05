@@ -16,12 +16,14 @@ import java.util.List;
  * {@link RecyclerView.Adapter} that can display a {@link DiseaseItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  */
-public class MyDiseaseRecyclerViewAdapter extends RecyclerView.Adapter<MyDiseaseRecyclerViewAdapter.ViewHolder> {
+public class MyDiseaseRecyclerViewAdapter
+        extends RecyclerView.Adapter<MyDiseaseRecyclerViewAdapter.ViewHolder> {
 
     private final List<DiseaseItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyDiseaseRecyclerViewAdapter(List<DiseaseItem> items, OnListFragmentInteractionListener listener) {
+    public MyDiseaseRecyclerViewAdapter(List<DiseaseItem> items,
+                                        OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -30,6 +32,7 @@ public class MyDiseaseRecyclerViewAdapter extends RecyclerView.Adapter<MyDisease
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_disease_item, parent, false);
+
         return new ViewHolder(view);
     }
 

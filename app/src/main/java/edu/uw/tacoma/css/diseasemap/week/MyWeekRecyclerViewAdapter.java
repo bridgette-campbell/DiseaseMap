@@ -16,12 +16,14 @@ import edu.uw.tacoma.css.diseasemap.week.WeekContent.WeekItem;
  * {@link RecyclerView.Adapter} that can display a {@link WeekItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  */
-public class MyWeekRecyclerViewAdapter extends RecyclerView.Adapter<MyWeekRecyclerViewAdapter.ViewHolder> {
+public class MyWeekRecyclerViewAdapter
+        extends RecyclerView.Adapter<MyWeekRecyclerViewAdapter.ViewHolder> {
 
     private final List<WeekItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyWeekRecyclerViewAdapter(List<WeekItem> items, OnListFragmentInteractionListener listener) {
+    public MyWeekRecyclerViewAdapter(List<WeekItem> items,
+                                     OnListFragmentInteractionListener listener) {
         mValues = items;
         mListener = listener;
     }
@@ -30,6 +32,7 @@ public class MyWeekRecyclerViewAdapter extends RecyclerView.Adapter<MyWeekRecycl
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_week_item, parent, false);
+
         return new ViewHolder(view);
     }
 

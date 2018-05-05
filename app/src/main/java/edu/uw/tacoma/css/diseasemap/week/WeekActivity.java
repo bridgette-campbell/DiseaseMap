@@ -10,9 +10,19 @@ import edu.uw.tacoma.css.diseasemap.week.WeekContent.WeekItem;
 public class WeekActivity extends AppCompatActivity
         implements WeekListFragment.OnListFragmentInteractionListener {
 
+    /**
+     * Identifier for the returned String extra
+     */
     private static final String SELECTED_WEEK = "edu.uw.tacoma.css.diseasemap.selected_week";
 
     // Encapsulates the implementation details of WeekActivity's returned Intent
+
+    /**
+     * Encapsulates the implementation details of WeekActivity's returned Intent
+     *
+     * @param data The Intent returned by WeekActivity
+     * @return The String extra from the Intent
+     */
     public static String getSelectedWeek(Intent data) {
         return (data.getStringExtra(SELECTED_WEEK));
     }

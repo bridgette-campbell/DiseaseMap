@@ -4,15 +4,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Helper class for providing sample content for user interfaces created by
- * Android template wizards.
+ * Handles DiseaseItems
  */
 public class DiseaseContent {
 
-    // ArrayList of all Diseases
+    /**
+     * ArrayList of all DiseaseItems
+     */
     public static final List<DiseaseItem> ITEMS = new ArrayList<>();
 
-    // Add sample Diseases
+    // Add sample DiseaseItems
     static {
         String[] sampleDiseases = {"Swine", "Turtle", "Cow", "Octopus", "Zebra", "Seagull",
                 "Monkey", "Panda", "Sloth", "Cat", "Penguin", "Polar Bear", "Shark", "Alien",
@@ -22,16 +23,30 @@ public class DiseaseContent {
             addItem(new DiseaseItem(s + " Flu"));
     }
 
+    /**
+     * Adds a single DiseaseItem to the list of all DiseaseItems
+     *
+     * @param item The DiseaseItem to add
+     */
     private static void addItem(DiseaseItem item) {
         ITEMS.add(item);
     }
 
     /**
-     * An individual disease
+     * Represents an individual disease
      */
     public static class DiseaseItem {
+
+        /**
+         * The DiseaseItem's name
+         */
         public final String name;
 
+        /**
+         * Constructor
+         *
+         * @param name The name of the Disease
+         */
         public DiseaseItem(String name) {
             this.name = name;
         }

@@ -21,15 +21,21 @@ import edu.uw.tacoma.css.diseasemap.week.WeekActivity;
 
 public class MapActivity extends AppCompatActivity {
 
-    // Request codes
+    /**
+     * Request codes
+     */
     private static final int RC_DISEASE = 0;
     private static final int RC_WEEK = 1;
 
-    // UI elements
+    /**
+     * UI elements
+     */
     private Button mButtonDisease;
     private Button mButtonWeek;
 
-    // User-selected data (todo: use these to select the right data when coloring the map)
+    /**
+     * User-selected data. Used for displaying specified map data and backing up preferences.
+     */
     private String mSelectedDisease;
     private String mSelectedWeek;
 
@@ -42,29 +48,36 @@ public class MapActivity extends AppCompatActivity {
         mButtonWeek = findViewById(R.id.week_button);
     }
 
-    // "Select Disease" onClick - launches DiseaseActivity
+    /**
+     * onClick handler for the "Select Disease" button. Starts DiseaseActivity for a result.
+     *
+     * @param v The containing View
+     */
     public void launchDiseases(View v) {
         Intent diseases = new Intent(this, DiseaseActivity.class);
         startActivityForResult(diseases, RC_DISEASE);
     }
 
-    // "Select Week" onClick - launches WeekActivity
+    /**
+     * onClick handler for the "Select Week" button. Starts WeekActivity for a result.
+     *
+     * @param v The containing View
+     */
     public void launchWeeks(View v) {
         Intent weeks = new Intent(this, WeekActivity.class);
         startActivityForResult(weeks, RC_WEEK);
     }
 
-    // Gets the selected Disease
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && data != null) {
 
-            // Disease
+            // DiseaseActivity result
             if (requestCode == RC_DISEASE) {
                 String mSelectedDisease = DiseaseActivity.getSelectedDisease(data);
                 mButtonDisease.setText(getString(R.string.disease_selected, mSelectedDisease));
             }
-            // Week
+            // WeekActivity result
             else if (requestCode == RC_WEEK) {
                 String mSelectedWeek = WeekActivity.getSelectedWeek(data);
                 mButtonWeek.setText(getString(R.string.week_selected, mSelectedWeek));
@@ -91,6 +104,9 @@ public class MapActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Handles signing out of the Google Account and returning to LoginActivity.
+     */
     private void signOut() {
         GoogleSignInOptions gso =
                 new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

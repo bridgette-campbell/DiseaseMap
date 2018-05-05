@@ -14,21 +14,15 @@ import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.disease.DiseaseContent.DiseaseItem;
 
 /**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
+ * Represents a list of DiseaseItems
  */
 public class DiseaseListFragment extends Fragment {
-
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
 
     private OnListFragmentInteractionListener mListener;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
+     * fragment (e.g. upon screen orientation changes)
      */
     public DiseaseListFragment() {}
 
@@ -40,21 +34,20 @@ public class DiseaseListFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
+
             RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyDiseaseRecyclerViewAdapter(DiseaseContent.ITEMS, mListener));
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recyclerView.setAdapter(
+                    new MyDiseaseRecyclerViewAdapter(DiseaseContent.ITEMS, mListener));
         }
+
         return view;
     }
-
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
         } else {
@@ -66,18 +59,14 @@ public class DiseaseListFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+
         mListener = null;
     }
 
     /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
+     * This interface must be implemented by activities that contain this fragment to allow an
+     * interaction in this fragment to be communicated to the activity and potentially other
+     * fragments contained in that activity.
      */
     public interface OnListFragmentInteractionListener {
         void onListFragmentInteraction(DiseaseItem item);

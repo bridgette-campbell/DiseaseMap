@@ -10,9 +10,17 @@ import edu.uw.tacoma.css.diseasemap.disease.DiseaseContent.DiseaseItem;
 public class DiseaseActivity extends AppCompatActivity
         implements DiseaseListFragment.OnListFragmentInteractionListener {
 
+    /**
+     * Identifier for the returned String extra
+     */
     private static final String SELECTED_DISEASE = "edu.uw.tacoma.css.diseasemap.selected_disease";
 
-    // Encapsulates the implementation details of DiseaseActivity's returned Intent
+    /**
+     * Encapsulates the implementation details of DiseaseActivity's returned Intent
+     *
+     * @param data The Intent returned by DiseaseActivity
+     * @return The String extra from the Intent
+     */
     public static String getSelectedDisease(Intent data) {
         return (data.getStringExtra(SELECTED_DISEASE));
     }

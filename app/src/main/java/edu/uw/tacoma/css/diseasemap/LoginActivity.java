@@ -16,6 +16,9 @@ import com.google.android.gms.tasks.Task;
 
 public class LoginActivity extends AppCompatActivity {
 
+    /**
+     * Request code
+     */
     private static final int RC_SIGN_IN = 1;
 
     private GoogleSignInClient mGoogleSignInClient;
@@ -25,8 +28,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // Configure sign-in to request the user's ID, email address, and basic profile. ID and
-        // basic profile are included in DEFAULT_SIGN_IN
+        // Configure sign-in to request the user's ID, email address, and basic profile (included in
+        // DEFAULT_SIGN_IN)
         GoogleSignInOptions gso =
                 new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -35,17 +38,17 @@ public class LoginActivity extends AppCompatActivity {
         // Build a GoogleSignInClient with the options specified by gso
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        // Handle the button programmatically (XML onClick doesn't work)
+        // Google Sign-In button handler (XML onClick doesn't work with it)
         SignInButton btnGoogleSignIn = findViewById(R.id.google_sign_in_button);
         btnGoogleSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                /* TEMPORARILY DISABLE GOOGLE SIGN IN
+                /* TEMPORARILY DISABLE GOOGLE SIGN IN*/
                 Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-                startActivityForResult(signInIntent, RC_SIGN_IN);*/
+                startActivityForResult(signInIntent, RC_SIGN_IN);
 
-                startActivity(new Intent(getApplicationContext(), MapActivity.class));
+                //startActivity(new Intent(getApplicationContext(), MapActivity.class));
             }
         });
     }
@@ -54,21 +57,10 @@ public class LoginActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        // Check for existing Google Sign-In account. If the user is already signed in, the
-        // GoogleSignInAccount will be non-null
+        // Check for existing Google Sign-In account (if the user is already signed in, the
+        // GoogleSignInAccount will be non-null)
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         updateUI(account);
-    }
-
-    private void updateUI(GoogleSignInAccount account) {
-
-        // Non-null account means the user is signed in
-        if (account != null) {
-
-            // Launch MapActivity
-            startActivity(new Intent(this, MapActivity.class));
-            finish();
-        }
     }
 
     @Override
@@ -84,6 +76,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Handles the result of the user attempting to sign in with a Google Account.
+     *
+     * @param completedTask The GoogleSignInAccount (handled by Google's API)
+     */
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
@@ -91,10 +88,25 @@ public class LoginActivity extends AppCompatActivity {
         }
         catch (ApiException e) {
 
-            // The ApiException status code indicates the detailed failure reason. Refer to the
-            // GoogleSignInStatusCodes class reference for more info
+            // Toast to inform the user
             Toast.makeText(this, R.string.sign_in_failed, Toast.LENGTH_SHORT).show();
             updateUI(null);
+        }
+    }
+
+    /**
+     * Starts MapActivity if the user is signed in.
+     *
+     * @param account A valid account means the user is signed in; null means they are not
+     */
+    private void updateUI(GoogleSignInAccount account) {
+
+        // Non-null account means the user is signed in
+        if (account != null) {
+
+            // Launch MapActivity
+            startActivity(new Intent(this, MapActivity.class));
+            finish();
         }
     }
 }
