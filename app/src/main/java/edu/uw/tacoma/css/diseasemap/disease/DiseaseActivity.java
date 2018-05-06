@@ -7,12 +7,20 @@ import android.os.Bundle;
 import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.connection.NNDSSConnection;
 
-public class SelectDiseaseActivity extends AppCompatActivity
-        implements DiseaseTableListFragment.OnListFragmentInteractionListener {
+public class DiseaseActivity extends AppCompatActivity
+        implements DiseaseListFragment.OnListFragmentInteractionListener {
 
+    /**
+     * Identifier for the returned String extra
+     */
     private static final String SELECTED_DISEASE = "edu.uw.tacoma.css.diseasemap.selected_disease";
 
-    // Encapsulates the implementation details of SelectDiseaseActivity's returned Intent
+    /**
+     * Encapsulates the implementation details of DiseaseActivity's returned Intent
+     *
+     * @param data The Intent returned by DiseaseActivity
+     * @return The String extra from the Intent
+     */
     public static String getSelectedDisease(Intent data) {
         return (data.getStringExtra(SELECTED_DISEASE));
     }
@@ -25,7 +33,7 @@ public class SelectDiseaseActivity extends AppCompatActivity
         // disease_fragment_container is activity_disease's empty FrameLayout
         if (findViewById(R.id.disease_fragment_container) != null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.disease_fragment_container, new DiseaseTableListFragment())
+                    .add(R.id.disease_fragment_container, new DiseaseListFragment())
                     .commit();
         }
     }

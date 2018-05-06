@@ -1,4 +1,4 @@
-package edu.uw.tacoma.css.diseasemap.week;
+package edu.uw.tacoma.css.diseasemap.disease;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,37 +6,41 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
-
 import edu.uw.tacoma.css.diseasemap.R;
-import edu.uw.tacoma.css.diseasemap.week.WeekListFragment.OnListFragmentInteractionListener;
-import edu.uw.tacoma.css.diseasemap.week.WeekContent.WeekItem;
+import edu.uw.tacoma.css.diseasemap.connection.NNDSSConnection;
+import edu.uw.tacoma.css.diseasemap.disease.DiseaseListFragment.OnListFragmentInteractionListener;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link WeekItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link NNDSSConnection.DiseaseTable} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  */
-public class MyWeekRecyclerViewAdapter extends RecyclerView.Adapter<MyWeekRecyclerViewAdapter.ViewHolder> {
+//public class MyDiseaseRecyclerViewAdapter
+//        extends RecyclerView.Adapter<MyDiseaseRecyclerViewAdapter.ViewHolder> {
+public class DiseaseRecyclerViewAdapter
+        extends RecyclerView.Adapter<DiseaseRecyclerViewAdapter.ViewHolder> {
 
-    private final List<WeekItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyWeekRecyclerViewAdapter(List<WeekItem> items, OnListFragmentInteractionListener listener) {
-        mValues = items;
+    //public MyDiseaseRecyclerViewAdapter(List<DiseaseItem> items,
+    //                                    OnListFragmentInteractionListener listener) {
+    //    mValues = items;
+    public DiseaseRecyclerViewAdapter(OnListFragmentInteractionListener listener) {
         mListener = listener;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_week_item, parent, false);
+                .inflate(R.layout.fragment_disease_item, parent, false);
+
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mWeekView.setText(mValues.get(position).week);
+        holder.mItem = NNDSSConnection.DiseaseTable.values()[position];
+        //We should convert these to user friendly version.
+        holder.mNameView.setText(NNDSSConnection.DiseaseTable.values()[position].getDisplayName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,19 +56,20 @@ public class MyWeekRecyclerViewAdapter extends RecyclerView.Adapter<MyWeekRecycl
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+
+        return NNDSSConnection.DiseaseTable.values().length;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final TextView mWeekView;
+        public final TextView mNameView;
 
-        public WeekItem mItem;
+        public NNDSSConnection.DiseaseTable mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mWeekView = view.findViewById(R.id.item_week);
+            mNameView = view.findViewById(R.id.item_name);
         }
     }
 }

@@ -1,28 +1,23 @@
 package edu.uw.tacoma.css.diseasemap.disease;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.function.Supplier;
 
 import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.connection.DiseaseRecord;
-import edu.uw.tacoma.css.diseasemap.connection.NNDSSConnection;
 
-public class DiseaseDisplayRecyclerViewAdapter extends RecyclerView.Adapter<DiseaseDisplayRecyclerViewAdapter.ViewHolder> {
+public class TimeRecyclerViewAdapter extends RecyclerView.Adapter<TimeRecyclerViewAdapter.ViewHolder> {
 
-    private final DiseaseRecordListFragment.OnListFragmentInteractionListener mListener;
+    private final TimeListFragment.OnListFragmentInteractionListener mListener;
 
     private DiseaseRecord diseaseRecord;
 
-    public DiseaseDisplayRecyclerViewAdapter(DiseaseRecord diseaseRecord, DiseaseRecordListFragment.OnListFragmentInteractionListener listener) {
+    public TimeRecyclerViewAdapter(DiseaseRecord diseaseRecord, TimeListFragment.OnListFragmentInteractionListener listener) {
         mListener = listener;
         this.diseaseRecord = diseaseRecord;
     }
@@ -30,7 +25,7 @@ public class DiseaseDisplayRecyclerViewAdapter extends RecyclerView.Adapter<Dise
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.fragment_disease_record, parent, false);
+                .inflate(R.layout.fragment_week_item, parent, false);
         return new ViewHolder(view);
     }
 

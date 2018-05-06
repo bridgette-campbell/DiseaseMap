@@ -16,78 +16,75 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-
-import edu.uw.tacoma.css.diseasemap.connection.DiseaseRecord;
-import edu.uw.tacoma.css.diseasemap.connection.NNDSSConnection;
-import edu.uw.tacoma.css.diseasemap.disease.SelectDiseaseActivity;
-import edu.uw.tacoma.css.diseasemap.disease.DiseaseRecordListFragment;
-import edu.uw.tacoma.css.diseasemap.disease.ViewDiseaseActivity;
+import edu.uw.tacoma.css.diseasemap.disease.DiseaseActivity;
+import edu.uw.tacoma.css.diseasemap.disease.TimeActivity;
 import edu.uw.tacoma.css.diseasemap.week.WeekActivity;
 
-import static edu.uw.tacoma.css.diseasemap.disease.ViewDiseaseActivity.SELECTED_DISEASE;
+import static edu.uw.tacoma.css.diseasemap.disease.TimeActivity.SELECTED_DISEASE;
 
-public class MapActivity extends AppCompatActivity implements DiseaseRecordListFragment.OnListFragmentInteractionListener {
+public class MapActivity extends AppCompatActivity {
 
-    // Request codes
+    /**
+     * Request codes
+     */
     private static final int RC_DISEASE = 0;
     private static final int RC_WEEK = 1;
 
-    // UI elements
+    /**
+     * UI elements
+     */
     private Button mButtonDisease;
     private Button mButtonWeek;
-    private int mColumnCount = 1;
 
-    // User-selected data (todo: use these to select the right data when coloring the map)
+    /**
+     * User-selected data. Used for displaying specified map data and backing up preferences.
+     */
     private String mSelectedDisease;
     private String mSelectedWeek;
-
-    private DiseaseRecordListFragment recordListFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
-        if (findViewById(R.id.diseaserecord_container) != null) {
-            recordListFragment = new DiseaseRecordListFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.diseaserecord_container, recordListFragment)
-                    .commit();
-        }
-
         mButtonDisease = findViewById(R.id.disease_button);
         mButtonWeek = findViewById(R.id.week_button);
     }
 
-    // "Select DiseaseRecordFragment" onClick - launches SelectDiseaseActivity
+    /**
+     * onClick handler for the "Select Disease" button. Starts DiseaseActivity for a result.
+     *
+     * @param v The containing View
+     */
     public void launchDiseases(View v) {
-        Intent diseases = new Intent(this, SelectDiseaseActivity.class);
+        Intent diseases = new Intent(this, DiseaseActivity.class);
         startActivityForResult(diseases, RC_DISEASE);
     }
 
-    // "Select Week" onClick - launches WeekActivity
+    /**
+     * onClick handler for the "Select Week" button. Starts WeekActivity for a result.
+     *
+     * @param v The containing View
+     */
     public void launchWeeks(View v) {
         Intent weeks = new Intent(this, WeekActivity.class);
         startActivityForResult(weeks, RC_WEEK);
     }
 
-    // Gets the selected DiseaseRecordFragment
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && data != null) {
 
+
             // DiseaseRecordFragment
             if (requestCode == RC_DISEASE) {
-                String mSelectedDisease = SelectDiseaseActivity.getSelectedDisease(data);
+                String mSelectedDisease = DiseaseActivity.getSelectedDisease(data);
 
-                Intent diseases = new Intent(this, ViewDiseaseActivity.class);
+                Intent diseases = new Intent(this, TimeActivity.class);
                 diseases.putExtra(SELECTED_DISEASE, mSelectedDisease);
                 startActivityForResult(diseases, RC_DISEASE);
-
             }
-            // Week
+            // WeekActivity result
             else if (requestCode == RC_WEEK) {
                 String mSelectedWeek = WeekActivity.getSelectedWeek(data);
                 mButtonWeek.setText(getString(R.string.week_selected, mSelectedWeek));
@@ -114,6 +111,9 @@ public class MapActivity extends AppCompatActivity implements DiseaseRecordListF
         }
     }
 
+    /**
+     * Handles signing out of the Google Account and returning to LoginActivity.
+     */
     private void signOut() {
         GoogleSignInOptions gso =
                 new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -131,9 +131,5 @@ public class MapActivity extends AppCompatActivity implements DiseaseRecordListF
 
         startActivity(new Intent(this, LoginActivity.class));
         finish();
-    }
-
-    @Override
-    public void onListFragmentInteraction(DiseaseRecord diseaseRecord) {
     }
 }
