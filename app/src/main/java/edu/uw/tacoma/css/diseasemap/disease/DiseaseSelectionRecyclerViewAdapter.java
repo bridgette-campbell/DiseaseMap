@@ -7,24 +7,24 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import edu.uw.tacoma.css.diseasemap.R;
-import edu.uw.tacoma.css.diseasemap.disease.DiseaseListFragment.OnListFragmentInteractionListener;
-import edu.uw.tacoma.css.diseasemap.disease.DiseaseContent.DiseaseItem;
-
-import java.util.List;
+import edu.uw.tacoma.css.diseasemap.connection.NNDSSConnection;
+import edu.uw.tacoma.css.diseasemap.disease.DiseaseTableListFragment.OnListFragmentInteractionListener;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link DiseaseItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a {@link NNDSSConnection.DiseaseTable} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  */
-public class MyDiseaseRecyclerViewAdapter
-        extends RecyclerView.Adapter<MyDiseaseRecyclerViewAdapter.ViewHolder> {
+//public class MyDiseaseRecyclerViewAdapter
+//        extends RecyclerView.Adapter<MyDiseaseRecyclerViewAdapter.ViewHolder> {
+public class DiseaseSelectionRecyclerViewAdapter
+        extends RecyclerView.Adapter<DiseaseSelectionRecyclerViewAdapter.ViewHolder> {
 
-    private final List<DiseaseItem> mValues;
     private final OnListFragmentInteractionListener mListener;
 
-    public MyDiseaseRecyclerViewAdapter(List<DiseaseItem> items,
-                                        OnListFragmentInteractionListener listener) {
-        mValues = items;
+    //public MyDiseaseRecyclerViewAdapter(List<DiseaseItem> items,
+    //                                    OnListFragmentInteractionListener listener) {
+    //    mValues = items;
+    public DiseaseSelectionRecyclerViewAdapter(OnListFragmentInteractionListener listener) {
         mListener = listener;
     }
 
@@ -38,8 +38,9 @@ public class MyDiseaseRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        holder.mNameView.setText(mValues.get(position).name);
+        holder.mItem = NNDSSConnection.DiseaseTable.values()[position];
+        //We should convert these to user friendly version.
+        holder.mNameView.setText(NNDSSConnection.DiseaseTable.values()[position].getDisplayName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,14 +56,15 @@ public class MyDiseaseRecyclerViewAdapter
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+
+        return NNDSSConnection.DiseaseTable.values().length;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mNameView;
 
-        public DiseaseItem mItem;
+        public NNDSSConnection.DiseaseTable mItem;
 
         public ViewHolder(View view) {
             super(view);

@@ -7,5 +7,5 @@
     android:name="edu.uw.tacoma.css.diseasemap.DiseaseFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".disease.DiseaseListFragment"
+    tools:context=".disease.DiseaseTableListFragment"
     tools:listitem="@layout/fragment_disease_item" />

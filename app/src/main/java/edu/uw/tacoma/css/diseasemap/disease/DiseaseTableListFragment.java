@@ -10,13 +10,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.function.Supplier;
+
 import edu.uw.tacoma.css.diseasemap.R;
-import edu.uw.tacoma.css.diseasemap.disease.DiseaseContent.DiseaseItem;
+import edu.uw.tacoma.css.diseasemap.connection.DiseaseRecord;
+import edu.uw.tacoma.css.diseasemap.connection.NNDSSConnection;
 
 /**
  * Represents a list of DiseaseItems
  */
-public class DiseaseListFragment extends Fragment {
+public class DiseaseTableListFragment extends Fragment {
 
     private OnListFragmentInteractionListener mListener;
 
@@ -24,11 +27,12 @@ public class DiseaseListFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes)
      */
-    public DiseaseListFragment() {}
+    public DiseaseTableListFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         View view = inflater.inflate(R.layout.fragment_disease_list, container, false);
 
         // Set the adapter
@@ -37,8 +41,9 @@ public class DiseaseListFragment extends Fragment {
 
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(
-                    new MyDiseaseRecyclerViewAdapter(DiseaseContent.ITEMS, mListener));
+            //recyclerView.setAdapter(
+            //        new MyDiseaseRecyclerViewAdapter(DiseaseContent.ITEMS, mListener));
+            recyclerView.setAdapter(new DiseaseSelectionRecyclerViewAdapter(mListener));
         }
 
         return view;
@@ -69,6 +74,6 @@ public class DiseaseListFragment extends Fragment {
      * fragments contained in that activity.
      */
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(DiseaseItem item);
+        void onListFragmentInteraction(NNDSSConnection.DiseaseTable item);
     }
 }
