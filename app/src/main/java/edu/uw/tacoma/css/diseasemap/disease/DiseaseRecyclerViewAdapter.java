@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.connection.NNDSSConnection;
-import edu.uw.tacoma.css.diseasemap.disease.DiseaseTableListFragment.OnListFragmentInteractionListener;
+import edu.uw.tacoma.css.diseasemap.disease.DiseaseListFragment.OnListFragmentInteractionListener;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link NNDSSConnection.DiseaseTable} and makes a call to the
@@ -16,15 +16,15 @@ import edu.uw.tacoma.css.diseasemap.disease.DiseaseTableListFragment.OnListFragm
  */
 //public class MyDiseaseRecyclerViewAdapter
 //        extends RecyclerView.Adapter<MyDiseaseRecyclerViewAdapter.ViewHolder> {
-public class DiseaseSelectionRecyclerViewAdapter
-        extends RecyclerView.Adapter<DiseaseSelectionRecyclerViewAdapter.ViewHolder> {
+public class DiseaseRecyclerViewAdapter
+        extends RecyclerView.Adapter<DiseaseRecyclerViewAdapter.ViewHolder> {
 
     private final OnListFragmentInteractionListener mListener;
 
     //public MyDiseaseRecyclerViewAdapter(List<DiseaseItem> items,
     //                                    OnListFragmentInteractionListener listener) {
     //    mValues = items;
-    public DiseaseSelectionRecyclerViewAdapter(OnListFragmentInteractionListener listener) {
+    public DiseaseRecyclerViewAdapter(OnListFragmentInteractionListener listener) {
         mListener = listener;
     }
 

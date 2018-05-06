@@ -2,25 +2,16 @@ package edu.uw.tacoma.css.diseasemap.disease;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
 import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.connection.DiseaseRecord;
-import edu.uw.tacoma.css.diseasemap.connection.NNDSSConnection;
 
 /**
  * A fragment representing a list of Items.
@@ -28,7 +19,7 @@ import edu.uw.tacoma.css.diseasemap.connection.NNDSSConnection;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class DiseaseRecordListFragment extends Fragment {
+public class TimeListFragment extends Fragment {
 
     private int mColumnCount = 1;
 
@@ -42,7 +33,7 @@ public class DiseaseRecordListFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
      */
-    public DiseaseRecordListFragment() {
+    public TimeListFragment() {
     }
 
     @Override
@@ -61,7 +52,7 @@ public class DiseaseRecordListFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
 
-            recyclerView.setAdapter(new DiseaseDisplayRecyclerViewAdapter(diseaseRecord, mListener));
+            recyclerView.setAdapter(new TimeRecyclerViewAdapter(diseaseRecord, mListener));
         }
         return view;
     }

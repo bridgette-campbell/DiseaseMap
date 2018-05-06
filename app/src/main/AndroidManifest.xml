@@ -22,7 +22,7 @@
         <activity android:name=".MapActivity">
         </activity>
         <activity
-            android:name=".disease.SelectDiseaseActivity"
+            android:name=".disease.DiseaseActivity"
             android:label="@string/select_disease">
         </activity>
         <activity
@@ -30,7 +30,7 @@
             android:label="@string/select_week">
         </activity>
         <activity
-            android:name=".disease.ViewDiseaseActivity"
+            android:name=".disease.TimeActivity"
             android:label="View Disease">
         </activity>
     </application>

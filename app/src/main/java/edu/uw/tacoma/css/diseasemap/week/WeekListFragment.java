@@ -3,7 +3,6 @@ package edu.uw.tacoma.css.diseasemap.week;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -38,7 +37,7 @@ public class WeekListFragment extends Fragment {
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(
-                    new MyWeekRecyclerViewAdapter(WeekContent.ITEMS, mListener));
+                    new WeekRecyclerViewAdapter(WeekContent.ITEMS, mListener));
         }
 
         return view;

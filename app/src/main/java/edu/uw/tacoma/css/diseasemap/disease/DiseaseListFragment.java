@@ -3,23 +3,19 @@ package edu.uw.tacoma.css.diseasemap.disease;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.function.Supplier;
-
 import edu.uw.tacoma.css.diseasemap.R;
-import edu.uw.tacoma.css.diseasemap.connection.DiseaseRecord;
 import edu.uw.tacoma.css.diseasemap.connection.NNDSSConnection;
 
 /**
  * Represents a list of DiseaseItems
  */
-public class DiseaseTableListFragment extends Fragment {
+public class DiseaseListFragment extends Fragment {
 
     private OnListFragmentInteractionListener mListener;
 
@@ -27,7 +23,7 @@ public class DiseaseTableListFragment extends Fragment {
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes)
      */
-    public DiseaseTableListFragment() {}
+    public DiseaseListFragment() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,7 +39,7 @@ public class DiseaseTableListFragment extends Fragment {
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             //recyclerView.setAdapter(
             //        new MyDiseaseRecyclerViewAdapter(DiseaseContent.ITEMS, mListener));
-            recyclerView.setAdapter(new DiseaseSelectionRecyclerViewAdapter(mListener));
+            recyclerView.setAdapter(new DiseaseRecyclerViewAdapter(mListener));
         }
 
         return view;

@@ -16,19 +16,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import java.io.IOException;
-import java.util.concurrent.ExecutionException;
-
-import edu.uw.tacoma.css.diseasemap.connection.DiseaseRecord;
-import edu.uw.tacoma.css.diseasemap.connection.NNDSSConnection;
-import edu.uw.tacoma.css.diseasemap.disease.SelectDiseaseActivity;
-import edu.uw.tacoma.css.diseasemap.disease.DiseaseRecordListFragment;
-import edu.uw.tacoma.css.diseasemap.disease.ViewDiseaseActivity;
+import edu.uw.tacoma.css.diseasemap.disease.DiseaseActivity;
+import edu.uw.tacoma.css.diseasemap.disease.TimeActivity;
 import edu.uw.tacoma.css.diseasemap.week.WeekActivity;
 
-import static edu.uw.tacoma.css.diseasemap.disease.ViewDiseaseActivity.SELECTED_DISEASE;
+import static edu.uw.tacoma.css.diseasemap.disease.TimeActivity.SELECTED_DISEASE;
 
-public class MapActivity extends AppCompatActivity implements DiseaseRecordListFragment.OnListFragmentInteractionListener {
+public class MapActivity extends AppCompatActivity {
 
     /**
      * Request codes
@@ -41,7 +35,6 @@ public class MapActivity extends AppCompatActivity implements DiseaseRecordListF
      */
     private Button mButtonDisease;
     private Button mButtonWeek;
-    private int mColumnCount = 1;
 
     /**
      * User-selected data. Used for displaying specified map data and backing up preferences.
@@ -49,19 +42,10 @@ public class MapActivity extends AppCompatActivity implements DiseaseRecordListF
     private String mSelectedDisease;
     private String mSelectedWeek;
 
-    private DiseaseRecordListFragment recordListFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
-
-        if (findViewById(R.id.diseaserecord_container) != null) {
-            recordListFragment = new DiseaseRecordListFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.diseaserecord_container, recordListFragment)
-                    .commit();
-        }
 
         mButtonDisease = findViewById(R.id.disease_button);
         mButtonWeek = findViewById(R.id.week_button);
@@ -73,7 +57,7 @@ public class MapActivity extends AppCompatActivity implements DiseaseRecordListF
      * @param v The containing View
      */
     public void launchDiseases(View v) {
-        Intent diseases = new Intent(this, SelectDiseaseActivity.class);
+        Intent diseases = new Intent(this, DiseaseActivity.class);
         startActivityForResult(diseases, RC_DISEASE);
     }
 
@@ -94,12 +78,11 @@ public class MapActivity extends AppCompatActivity implements DiseaseRecordListF
 
             // DiseaseRecordFragment
             if (requestCode == RC_DISEASE) {
-                String mSelectedDisease = SelectDiseaseActivity.getSelectedDisease(data);
+                String mSelectedDisease = DiseaseActivity.getSelectedDisease(data);
 
-                Intent diseases = new Intent(this, ViewDiseaseActivity.class);
+                Intent diseases = new Intent(this, TimeActivity.class);
                 diseases.putExtra(SELECTED_DISEASE, mSelectedDisease);
                 startActivityForResult(diseases, RC_DISEASE);
-
             }
             // WeekActivity result
             else if (requestCode == RC_WEEK) {
@@ -148,9 +131,5 @@ public class MapActivity extends AppCompatActivity implements DiseaseRecordListF
 
         startActivity(new Intent(this, LoginActivity.class));
         finish();
-    }
-
-    @Override
-    public void onListFragmentInteraction(DiseaseRecord diseaseRecord) {
     }
 }
