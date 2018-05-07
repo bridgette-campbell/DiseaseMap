@@ -4,26 +4,27 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
-import java.util.List;
+import java.util.Map;
 
 import edu.uw.tacoma.css.diseasemap.R;
+import edu.uw.tacoma.css.diseasemap.connection.DiseaseRecord;
 import edu.uw.tacoma.css.diseasemap.week.WeekListFragment.OnListFragmentInteractionListener;
-import edu.uw.tacoma.css.diseasemap.week.WeekContent.WeekItem;
 
 /**
- * {@link RecyclerView.Adapter} that can display a {@link WeekItem} and makes a call to the
+ * {@link RecyclerView.Adapter} that can display a week number and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  */
 public class WeekRecyclerViewAdapter
         extends RecyclerView.Adapter<WeekRecyclerViewAdapter.ViewHolder> {
 
-    private final List<WeekItem> mValues;
+    private DiseaseRecord mDiseaseRecord;
     private final OnListFragmentInteractionListener mListener;
 
-    public WeekRecyclerViewAdapter(List<WeekItem> items,
+    public WeekRecyclerViewAdapter(DiseaseRecord diseaseRecord,
                                    OnListFragmentInteractionListener listener) {
-        mValues = items;
+        mDiseaseRecord = diseaseRecord;
         mListener = listener;
     }
 
@@ -37,16 +38,17 @@ public class WeekRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        holder.mItem = mValues.get(position);
-        //holder.mWeekView.setText(mValues.get(position).week);
+        holder.mItem = mDiseaseRecord.getInfoForWeek(position);
+        holder.mWeek.setText("Week " + (position + 1));
 
+        final int pos = position + 1;
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the
                     // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.onListFragmentInteraction(pos);
                 }
             }
         });
@@ -54,19 +56,22 @@ public class WeekRecyclerViewAdapter
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        if (mDiseaseRecord == null){
+            return 0;
+        }
+        return mDiseaseRecord.getWeeks();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        //public final TextView mWeekView;
+        public final TextView mWeek;
 
-        public WeekItem mItem;
+        public Map<String, DiseaseRecord.WeekInfo> mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            //mWeekView = view.findViewById(R.id.item_week);
+            mWeek = view.findViewById(R.id.week);
         }
     }
 }

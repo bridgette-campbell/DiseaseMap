@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -16,11 +17,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import edu.uw.tacoma.css.diseasemap.disease.DiseaseActivity;
-import edu.uw.tacoma.css.diseasemap.disease.TimeActivity;
-import edu.uw.tacoma.css.diseasemap.week.WeekActivity;
+import java.util.Map;
 
-import static edu.uw.tacoma.css.diseasemap.disease.TimeActivity.SELECTED_DISEASE;
+import edu.uw.tacoma.css.diseasemap.connection.DiseaseRecord;
+import edu.uw.tacoma.css.diseasemap.connection.NNDSSConnection;
+import edu.uw.tacoma.css.diseasemap.disease.DiseaseActivity;
+import edu.uw.tacoma.css.diseasemap.week.WeekActivity;
 
 public class MapActivity extends AppCompatActivity {
 
@@ -40,7 +42,7 @@ public class MapActivity extends AppCompatActivity {
      * User-selected data. Used for displaying specified map data and backing up preferences.
      */
     private String mSelectedDisease;
-    private String mSelectedWeek;
+    private Integer mSelectedWeek;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,18 +80,57 @@ public class MapActivity extends AppCompatActivity {
 
             // DiseaseRecordFragment
             if (requestCode == RC_DISEASE) {
-                String mSelectedDisease = DiseaseActivity.getSelectedDisease(data);
+                mSelectedDisease = DiseaseActivity.getSelectedDisease(data);
 
-                Intent diseases = new Intent(this, TimeActivity.class);
-                diseases.putExtra(SELECTED_DISEASE, mSelectedDisease);
-                startActivityForResult(diseases, RC_DISEASE);
+                mButtonDisease.setText(getString(R.string.disease_selected, mSelectedDisease));
             }
+
             // WeekActivity result
             else if (requestCode == RC_WEEK) {
-                String mSelectedWeek = WeekActivity.getSelectedWeek(data);
-                mButtonWeek.setText(getString(R.string.week_selected, mSelectedWeek));
+                mSelectedWeek = WeekActivity.getSelectedWeek(data);
+
+                String selectedWeek = String.valueOf(mSelectedWeek);
+                mButtonWeek.setText(getString(R.string.week_selected, selectedWeek));
             }
 
+            updateMap();
+        }
+    }
+
+    /**
+     * Updates the map based on the user-selected disease and week.
+     * STILL IN PROGRESS - While testing, this simply updates a TextView.
+     */
+    private void updateMap() {
+        if (mSelectedDisease != null && mSelectedWeek != null) {
+            TextView mapView = findViewById(R.id.map_textview);
+
+            // Data is stored in an additional map of locations. This adds up the infections of all
+            // locations.
+            int infected = 0;
+
+            DiseaseRecord dr;
+            try {
+                dr = new NNDSSConnection().getDiseaseFromTable(
+                        NNDSSConnection.DiseaseTable.getOfName(mSelectedDisease));
+
+                Map<String, DiseaseRecord.WeekInfo> map = dr.getInfoForWeek(mSelectedWeek);
+                if (map != null) {
+                    for (String s : map.keySet()) {
+                        infected += map.get(s).getInfected();
+                    }
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            String output = "Selected disease: " + mSelectedDisease + "\n";
+            output += "Selected week number: " + mSelectedWeek + "\n";
+            output += "Total number infected: ";
+            output += (infected > 0) ? infected : "Data not yet published by CDC";
+
+            mapView.setText(output);
         }
     }
 

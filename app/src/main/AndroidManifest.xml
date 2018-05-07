@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="edu.uw.tacoma.css.diseasemap">
 
-    //Add permission to access internet for API.
+    <!-- Permission to access internet for CDC API -->
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -28,10 +28,6 @@
         <activity
             android:name=".week.WeekActivity"
             android:label="@string/select_week">
-        </activity>
-        <activity
-            android:name=".disease.TimeActivity"
-            android:label="View Disease">
         </activity>
     </application>
 

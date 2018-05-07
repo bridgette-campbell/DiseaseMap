@@ -10,7 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.uw.tacoma.css.diseasemap.R;
-import edu.uw.tacoma.css.diseasemap.week.WeekContent.WeekItem;
+import edu.uw.tacoma.css.diseasemap.connection.DiseaseRecord;
+import edu.uw.tacoma.css.diseasemap.connection.NNDSSConnection;
 
 /**
  * Represents a list of WeekItems
@@ -34,10 +35,18 @@ public class WeekListFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
 
-            RecyclerView recyclerView = (RecyclerView) view;
-            recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(
-                    new WeekRecyclerViewAdapter(WeekContent.ITEMS, mListener));
+            DiseaseRecord dr;
+            try {
+                dr = new NNDSSConnection().getDiseaseFromTable(NNDSSConnection.DiseaseTable.getOfName("varicella_chickenpox"));
+
+                RecyclerView recyclerView = (RecyclerView) view;
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                recyclerView.setAdapter(
+                        new WeekRecyclerViewAdapter(dr, mListener));
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         return view;
@@ -68,6 +77,6 @@ public class WeekListFragment extends Fragment {
      * fragments contained in that activity.
      */
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(WeekItem item);
+        void onListFragmentInteraction(int weekNum);
     }
 }
