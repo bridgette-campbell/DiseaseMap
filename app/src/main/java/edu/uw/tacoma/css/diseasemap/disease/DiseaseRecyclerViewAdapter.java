@@ -69,7 +69,7 @@ public class DiseaseRecyclerViewAdapter
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mNameView = view.findViewById(R.id.item_name);
+            mNameView = view.findViewById(R.id.disease_name);
         }
     }
 }

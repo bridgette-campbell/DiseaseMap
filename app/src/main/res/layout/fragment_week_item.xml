@@ -14,13 +14,4 @@
         android:textAlignment="center"
         android:textAppearance="?attr/textAppearanceListItem" />
 
-    <TextView
-        android:id="@+id/infected"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp"
-        android:textAlignment="viewStart"
-        android:textAppearance="?attr/textAppearanceListItem"
-        android:gravity="start" />
-
 </LinearLayout>
