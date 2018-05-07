@@ -80,9 +80,14 @@ public class MapActivity extends AppCompatActivity {
 
             // DiseaseRecordFragment
             if (requestCode == RC_DISEASE) {
-                mSelectedDisease = DiseaseActivity.getSelectedDisease(data);
+                try {
+                    NNDSSConnection.DiseaseTable table = NNDSSConnection.DiseaseTable.getOfName(DiseaseActivity.getSelectedDisease(data));
+                    mSelectedDisease = table.getDisplayName();
+                    mButtonDisease.setText(getString(R.string.disease_selected, table.getDisplayName()));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
 
-                mButtonDisease.setText(getString(R.string.disease_selected, mSelectedDisease));
             }
 
             // WeekActivity result
