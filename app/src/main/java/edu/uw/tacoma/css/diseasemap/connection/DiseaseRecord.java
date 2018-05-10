@@ -1,6 +1,5 @@
 package edu.uw.tacoma.css.diseasemap.connection;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +9,7 @@ import java.util.Map;
  */
 public final class DiseaseRecord {
 
-    Map<Integer, Map<String, WeekInfo>> weekInfo = new HashMap<>();
+    private Map<Integer, Map<String, WeekInfo>> weekInfo = new HashMap<>();
     private final String name;
 
     public DiseaseRecord(String name, List<WeekInfo> weekInfo) {

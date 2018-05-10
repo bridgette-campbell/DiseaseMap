@@ -3,6 +3,7 @@ package edu.uw.tacoma.css.diseasemap;
 import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -35,6 +36,7 @@ public class MapActivity extends AppCompatActivity {
     /**
      * UI elements
      */
+    private TextView mMapView;
     private Button mButtonDisease;
     private Button mButtonWeek;
 
@@ -49,6 +51,7 @@ public class MapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        mMapView = findViewById(R.id.map_textview);
         mButtonDisease = findViewById(R.id.disease_button);
         mButtonWeek = findViewById(R.id.week_button);
     }
@@ -80,9 +83,14 @@ public class MapActivity extends AppCompatActivity {
 
             // DiseaseRecordFragment
             if (requestCode == RC_DISEASE) {
-                mSelectedDisease = DiseaseActivity.getSelectedDisease(data);
+                try {
+                    NNDSSConnection.DiseaseTable table = NNDSSConnection.DiseaseTable.getOfName(DiseaseActivity.getSelectedDisease(data));
+                    mSelectedDisease = table.getDisplayName();
+                    mButtonDisease.setText(getString(R.string.disease_selected, table.getDisplayName()));
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
 
-                mButtonDisease.setText(getString(R.string.disease_selected, mSelectedDisease));
             }
 
             // WeekActivity result
@@ -103,8 +111,6 @@ public class MapActivity extends AppCompatActivity {
      */
     private void updateMap() {
         if (mSelectedDisease != null && mSelectedWeek != null) {
-            TextView mapView = findViewById(R.id.map_textview);
-
             // Data is stored in an additional map of locations. This adds up the infections of all
             // locations.
             int infected = 0;
@@ -130,7 +136,7 @@ public class MapActivity extends AppCompatActivity {
             output += "Total number infected: ";
             output += (infected > 0) ? infected : "Data not yet published by CDC";
 
-            mapView.setText(output);
+            mMapView.setText(output);
         }
     }
 
@@ -143,6 +149,13 @@ public class MapActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
+            // Share
+            case R.id.share:
+                share();
+                return true;
+
+            // Sign Out
             case R.id.sign_out:
                 signOut();
                 return true;
@@ -150,6 +163,31 @@ public class MapActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    /**
+     * Shares the displayed information using an implicit Intent.
+     */
+    private void share() {
+
+        // Set up the necessary Strings
+        String type = "text/plain";
+        String subject = getString(R.string.app_name);
+        String text = mMapView.getText().toString();
+        String chooserText = getString(R.string.send_report_via);
+
+        // Build the Intent
+        Intent i = ShareCompat.IntentBuilder.from(this)
+                .setType(type)
+                .setSubject(subject)
+                .setText(text)
+                .getIntent();
+
+        // Force the chooser to be shown each time
+        i = Intent.createChooser(i, chooserText);
+
+        // Start the Intent
+        startActivity(i);
     }
 
     /**

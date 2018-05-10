@@ -2,8 +2,11 @@
     <string name="app_name">Disease Map</string>
     <string name="logo">Logo</string>
     <string name="sign_in_failed">Google Sign-In Failed</string>
-    <string name="sign_out">Sign Out</string>
     <string name="signed_out">Signed Out</string>
+
+    <string name="share">Share</string>
+    <string name="send_report_via">Send CDC data via</string>
+    <string name="sign_out">Sign Out</string>
 
     <string name="select_disease">Select Disease</string>
     <string name="disease_selected">Disease: %1$s</string>
