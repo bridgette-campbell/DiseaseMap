@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import edu.uw.tacoma.css.diseasemap.R;
-import edu.uw.tacoma.css.diseasemap.connection.NNDSSConnection;
+import edu.uw.tacoma.css.diseasemap.database_connection.NNDSSConnection;
 
 public class DiseaseActivity extends AppCompatActivity
         implements DiseaseListFragment.OnListFragmentInteractionListener {

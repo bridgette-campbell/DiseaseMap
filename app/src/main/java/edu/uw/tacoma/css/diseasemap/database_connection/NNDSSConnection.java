@@ -1,4 +1,4 @@
-package edu.uw.tacoma.css.diseasemap.connection;
+package edu.uw.tacoma.css.diseasemap.database_connection;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -15,6 +15,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
+
+import edu.uw.tacoma.css.diseasemap.disease.DiseaseRecord;
 
 /**
  * This object creates a connection to the NNDSS database. It can be used to query the NNDSS
@@ -118,7 +120,7 @@ public final class NNDSSConnection extends AsyncTask<NNDSSConnection.DiseaseTabl
 
     /**
      * This queries the database and pulls the information that is relevant to the desired
-     * {@link DiseaseRecord}, it then constructs a list of {@link edu.uw.tacoma.css.diseasemap.connection.DiseaseRecord.WeekInfo}
+     * {@link DiseaseRecord}, it then constructs a list of {@link DiseaseRecord.WeekInfo}
      * and constructs a {@link DiseaseRecord} with them.
      *
      * @param diseaseTables
