@@ -17,8 +17,8 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 /**
- * This object creates a connection to the NNDSS database. It can be used to query the specified
- * database.
+ * This object creates a connection to the NNDSS database. It can be used to query the NNDSS
+ * database for a specified disease.
  * <p>
  * Here is a list of the tables, in a readable format.
  *
@@ -36,6 +36,10 @@ public final class NNDSSConnection extends AsyncTask<NNDSSConnection.DiseaseTabl
     public static final String _CURRENT_WEEK_FLAG = "_current_week_flag";
     public static final String REPORTING_AREA = "reporting_area";
 
+    /**
+     * These are complex enums that contain information about disease tables.
+     * Its just an enum with fields.
+     */
     public enum DiseaseTable {
         Haemophilus_Influenza("cafy-kah2", "haemophilus_influenzae_invasive_all_ages_all_serotypes", "Haemophilus Influenza"),
         Tetanus("n3ub-5wxs", "tetanus", "Tetanus"),
@@ -59,7 +63,9 @@ public final class NNDSSConnection extends AsyncTask<NNDSSConnection.DiseaseTabl
             return this.diseaseName;
         }
 
-        public String getDisplayName(){ return this.displayName;}
+        public String getDisplayName() {
+            return this.displayName;
+        }
 
         public static DiseaseTable getOfName(String tableName) throws IllegalAccessException {
             for (DiseaseTable dt : DiseaseTable.values()) {
@@ -77,12 +83,28 @@ public final class NNDSSConnection extends AsyncTask<NNDSSConnection.DiseaseTabl
     private static String APP_TOKEN = "$$app_token=csJoX8FOoaC0U29v2HtsUk4nb";
     private static String JSON_SUFFIX = ".json?";
 
+    /**
+     * This will return a {@link DiseaseRecord} constructed for the specified {@link DiseaseTable}.
+     *
+     * @param diseaseTable
+     * @return
+     * @throws IOException
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public DiseaseRecord getDiseaseFromTable(DiseaseTable diseaseTable) throws IOException, ExecutionException, InterruptedException {
         List<DiseaseRecord> dList = this.execute(diseaseTable).get();
         assert dList.size() == 1;
         return dList.get(0);
     }
 
+    /**
+     * This creates a {@link URL} used to query the specified table.
+     *
+     * @param diseaseTable
+     * @return
+     * @throws MalformedURLException
+     */
     private URL createConnectionURL(DiseaseTable diseaseTable) throws MalformedURLException {
         StringBuilder sb = new StringBuilder();
 
@@ -94,6 +116,14 @@ public final class NNDSSConnection extends AsyncTask<NNDSSConnection.DiseaseTabl
         return new URL(sb.toString());
     }
 
+    /**
+     * This queries the database and pulls the information that is relevant to the desired
+     * {@link DiseaseRecord}, it then constructs a list of {@link edu.uw.tacoma.css.diseasemap.connection.DiseaseRecord.WeekInfo}
+     * and constructs a {@link DiseaseRecord} with them.
+     *
+     * @param diseaseTables
+     * @return
+     */
     @Override
     protected List<DiseaseRecord> doInBackground(DiseaseTable... diseaseTables) {
         List<DiseaseRecord> dList = new ArrayList<>();
