@@ -14,7 +14,9 @@ import edu.uw.tacoma.css.diseasemap.disease.DiseaseRecord;
 import edu.uw.tacoma.css.diseasemap.database_connection.NNDSSConnection;
 
 /**
- * Represents a list of WeekItems
+ * Represents a list of {@link edu.uw.tacoma.css.diseasemap.disease.DiseaseRecord.WeekInfo}s
+ *
+ * @author Bridgette Campbell, Daniel McBride, Matt Qunell
  */
 public class WeekListFragment extends Fragment {
 

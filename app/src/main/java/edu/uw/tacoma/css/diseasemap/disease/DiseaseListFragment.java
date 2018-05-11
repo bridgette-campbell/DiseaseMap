@@ -13,7 +13,9 @@ import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.database_connection.NNDSSConnection;
 
 /**
- * Represents a list of DiseaseItems
+ * Represents a list of {@link DiseaseRecord}s
+ *
+ * @author Bridgette Campbell, Daniel McBride, Matt Qunell
  */
 public class DiseaseListFragment extends Fragment {
 

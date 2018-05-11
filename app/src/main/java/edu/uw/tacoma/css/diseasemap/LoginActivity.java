@@ -14,6 +14,11 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+/**
+ * The {@link AppCompatActivity} that handles logging into our app to use it.
+ *
+ * @author Bridgette Campbell, Daniel McBride, Matt Qunell
+ */
 public class LoginActivity extends AppCompatActivity {
 
     /**

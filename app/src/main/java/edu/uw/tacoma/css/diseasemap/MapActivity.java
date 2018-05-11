@@ -25,6 +25,12 @@ import edu.uw.tacoma.css.diseasemap.database_connection.NNDSSConnection;
 import edu.uw.tacoma.css.diseasemap.disease.DiseaseActivity;
 import edu.uw.tacoma.css.diseasemap.week.WeekActivity;
 
+/**
+ * The {@link AppCompatActivity} that handles all of the logic for displaying the disease
+ * information with the location and other relevant information.
+ *
+ * @author Bridgette Campbell, Daniel McBride, Matt Qunell
+ */
 public class MapActivity extends AppCompatActivity {
 
     /**

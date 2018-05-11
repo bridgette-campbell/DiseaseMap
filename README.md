@@ -6,3 +6,5 @@ Features implemented: download disease data from Centers for Disease Control's N
 User stories implemented: As a user, I can specify a time period and disease so that I have access to more specific and/or relevant information. As a user, I can sign in via Google so that I don’t need to make a new account.
 
 Bugs/issues: We had some issues getting the Google sign-in to work in the beginning. 
+
+Notes: We will implement more diseases in the future. We currently have three: Haemophilus Influenza, Tetanus, and Chicken Pox

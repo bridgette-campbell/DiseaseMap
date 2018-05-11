@@ -6,6 +6,11 @@ import android.os.Bundle;
 
 import edu.uw.tacoma.css.diseasemap.R;
 
+/**
+ * The {@link AppCompatActivity} to launch a {@link WeekListFragment}.
+ *
+ * @author Bridgette Campbell, Daniel McBride, Matt Qunell
+ */
 public class WeekActivity extends AppCompatActivity
         implements WeekListFragment.OnListFragmentInteractionListener {
 

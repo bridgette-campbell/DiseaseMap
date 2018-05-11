@@ -28,6 +28,8 @@ import edu.uw.tacoma.css.diseasemap.disease.DiseaseRecord;
  * <p>
  * Actual API datasets can be found:
  * @see <a href="https://data.cdc.gov/browse?category=NNDSS&sortBy=last_modified">https://data.cdc.gov/browse?category=NNDSS&sortBy=last_modified</a>
+ *
+ * @author Bridgette Campbell, Daniel McBride, Matt Qunell
  */
 public final class NNDSSConnection extends AsyncTask<NNDSSConnection.DiseaseTable, Void, List<DiseaseRecord>> {
 
@@ -88,8 +90,8 @@ public final class NNDSSConnection extends AsyncTask<NNDSSConnection.DiseaseTabl
     /**
      * This will return a {@link DiseaseRecord} constructed for the specified {@link DiseaseTable}.
      *
-     * @param diseaseTable
-     * @return
+     * @param diseaseTable the {@link DiseaseTable} to query
+     * @return the {@link DiseaseRecord}
      * @throws IOException
      * @throws ExecutionException
      * @throws InterruptedException
@@ -103,8 +105,8 @@ public final class NNDSSConnection extends AsyncTask<NNDSSConnection.DiseaseTabl
     /**
      * This creates a {@link URL} used to query the specified table.
      *
-     * @param diseaseTable
-     * @return
+     * @param diseaseTable the {@link DiseaseTable} to query
+     * @return the {@link URL} connection to the table
      * @throws MalformedURLException
      */
     private URL createConnectionURL(DiseaseTable diseaseTable) throws MalformedURLException {
@@ -123,8 +125,8 @@ public final class NNDSSConnection extends AsyncTask<NNDSSConnection.DiseaseTabl
      * {@link DiseaseRecord}, it then constructs a list of {@link DiseaseRecord.WeekInfo}
      * and constructs a {@link DiseaseRecord} with them.
      *
-     * @param diseaseTables
-     * @return
+     * @param diseaseTables the {@link DiseaseTable}(s) to query
+     * @return a {@link List<DiseaseRecord>} of disease records
      */
     @Override
     protected List<DiseaseRecord> doInBackground(DiseaseTable... diseaseTables) {

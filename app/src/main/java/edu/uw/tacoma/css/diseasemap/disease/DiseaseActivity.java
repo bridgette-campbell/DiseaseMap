@@ -7,6 +7,11 @@ import android.os.Bundle;
 import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.database_connection.NNDSSConnection;
 
+/**
+ * The {@link AppCompatActivity} to launch a {@link DiseaseListFragment}
+ *
+ * @author Bridgette Campbell, Daniel McBride, Matt Qunell
+ */
 public class DiseaseActivity extends AppCompatActivity
         implements DiseaseListFragment.OnListFragmentInteractionListener {
 

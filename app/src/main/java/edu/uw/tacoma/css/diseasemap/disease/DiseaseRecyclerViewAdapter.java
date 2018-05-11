@@ -13,9 +13,9 @@ import edu.uw.tacoma.css.diseasemap.disease.DiseaseListFragment.OnListFragmentIn
 /**
  * {@link RecyclerView.Adapter} that can display a {@link NNDSSConnection.DiseaseTable} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
+ *
+ * @author Bridgette Campbell, Daniel McBride, Matt Qunell
  */
-//public class MyDiseaseRecyclerViewAdapter
-//        extends RecyclerView.Adapter<MyDiseaseRecyclerViewAdapter.ViewHolder> {
 public class DiseaseRecyclerViewAdapter
         extends RecyclerView.Adapter<DiseaseRecyclerViewAdapter.ViewHolder> {
 
@@ -56,16 +56,24 @@ public class DiseaseRecyclerViewAdapter
 
     @Override
     public int getItemCount() {
-
         return NNDSSConnection.DiseaseTable.values().length;
     }
 
+    /**
+     * The {@link android.support.v7.widget.RecyclerView.ViewHolder} used in this Adapter.
+     *
+     * @author Bridgette Campbell, Daniel McBride, Matt Qunell
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mNameView;
-
         public NNDSSConnection.DiseaseTable mItem;
 
+        /**
+         * Constructor
+         *
+         * @param view the {@link View}
+         */
         public ViewHolder(View view) {
             super(view);
             mView = view;

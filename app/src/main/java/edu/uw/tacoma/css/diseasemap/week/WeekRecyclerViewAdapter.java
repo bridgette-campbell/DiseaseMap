@@ -15,6 +15,8 @@ import edu.uw.tacoma.css.diseasemap.week.WeekListFragment.OnListFragmentInteract
 /**
  * {@link RecyclerView.Adapter} that can display a week number and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
+ *
+ * @author Bridgette Campbell, Daniel McBride, Matt Qunell
  */
 public class WeekRecyclerViewAdapter
         extends RecyclerView.Adapter<WeekRecyclerViewAdapter.ViewHolder> {
@@ -22,6 +24,12 @@ public class WeekRecyclerViewAdapter
     private DiseaseRecord mDiseaseRecord;
     private final OnListFragmentInteractionListener mListener;
 
+    /**
+     * Constructor
+     *
+     * @param diseaseRecord the {@link DiseaseRecord}
+     * @param listener the {@link OnListFragmentInteractionListener}
+     */
     public WeekRecyclerViewAdapter(DiseaseRecord diseaseRecord,
                                    OnListFragmentInteractionListener listener) {
         mDiseaseRecord = diseaseRecord;
@@ -62,12 +70,21 @@ public class WeekRecyclerViewAdapter
         return mDiseaseRecord.getWeeks();
     }
 
+    /**
+     * The {@link android.support.v7.widget.RecyclerView.ViewHolder} used in this Adapter.
+     *
+     * @author Bridgette Campbell, Daniel McBride, Matt Qunell
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mWeek;
-
         public Map<String, DiseaseRecord.WeekInfo> mItem;
 
+        /**
+         * Constructor
+         *
+         * @param view the {@link View}
+         */
         public ViewHolder(View view) {
             super(view);
             mView = view;
