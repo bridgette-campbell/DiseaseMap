@@ -20,8 +20,8 @@ import com.google.android.gms.tasks.Task;
 
 import java.util.Map;
 
-import edu.uw.tacoma.css.diseasemap.connection.DiseaseRecord;
-import edu.uw.tacoma.css.diseasemap.connection.NNDSSConnection;
+import edu.uw.tacoma.css.diseasemap.disease.DiseaseRecord;
+import edu.uw.tacoma.css.diseasemap.database_connection.NNDSSConnection;
 import edu.uw.tacoma.css.diseasemap.disease.DiseaseActivity;
 import edu.uw.tacoma.css.diseasemap.week.WeekActivity;
 

@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import edu.uw.tacoma.css.diseasemap.R;
-import edu.uw.tacoma.css.diseasemap.connection.NNDSSConnection;
+import edu.uw.tacoma.css.diseasemap.database_connection.NNDSSConnection;
 import edu.uw.tacoma.css.diseasemap.disease.DiseaseListFragment.OnListFragmentInteractionListener;
 
 /**
