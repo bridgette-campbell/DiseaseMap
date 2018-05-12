@@ -14,5 +14,10 @@
     <string name="select_week">Select Week</string>
     <string name="week_selected">Week %1$s</string>
 
-    <string name="demo_credentials">DEMO:\nEmail=diseasemapapp@gmail.com\nPass=TCSS450apps</string>
+    <string name="create_account">Create Account</string>
+    <string name="log_in">Log In</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="cancel">Cancel</string>
+    <string name="demo_credentials">DEMO:\nEmail=diseasemap@gmail.com\nPass=disease</string>
 </resources>

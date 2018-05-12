@@ -218,20 +218,6 @@ public class MapActivity extends AppCompatActivity {
      * Handles signing out of the Google Account and returning to LoginActivity.
      */
     private void signOut() {
-        GoogleSignInOptions gso =
-                new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                        .requestEmail()
-                        .build();
-
-        GoogleSignIn.getClient(this, gso).signOut()
-                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(getApplicationContext(),
-                                R.string.signed_out, Toast.LENGTH_SHORT).show();
-                    }
-                });
-
         startActivity(new Intent(this, LoginActivity.class));
         finish();
     }
