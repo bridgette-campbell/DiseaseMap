@@ -21,9 +21,6 @@ public class DiseaseRecyclerViewAdapter
 
     private final OnListFragmentInteractionListener mListener;
 
-    //public MyDiseaseRecyclerViewAdapter(List<DiseaseItem> items,
-    //                                    OnListFragmentInteractionListener listener) {
-    //    mValues = items;
     public DiseaseRecyclerViewAdapter(OnListFragmentInteractionListener listener) {
         mListener = listener;
     }
@@ -39,15 +36,14 @@ public class DiseaseRecyclerViewAdapter
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = NNDSSConnection.DiseaseTable.values()[position];
-        //We should convert these to user friendly version.
         holder.mNameView.setText(NNDSSConnection.DiseaseTable.values()[position].getDisplayName());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
+                    // Notify the active callbacks interface (the activity, if the fragment is
+                    // attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(holder.mItem);
                 }
             }

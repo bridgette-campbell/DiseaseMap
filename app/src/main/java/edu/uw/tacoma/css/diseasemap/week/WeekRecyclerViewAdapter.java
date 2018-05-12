@@ -54,8 +54,8 @@ public class WeekRecyclerViewAdapter
             @Override
             public void onClick(View v) {
                 if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
+                    // Notify the active callbacks interface (the activity, if the fragment is
+                    // attached to one) that an item has been selected.
                     mListener.onListFragmentInteraction(pos);
                 }
             }
@@ -67,6 +67,7 @@ public class WeekRecyclerViewAdapter
         if (mDiseaseRecord == null){
             return 0;
         }
+
         return mDiseaseRecord.getWeeks();
     }
 

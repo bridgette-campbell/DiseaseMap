@@ -39,7 +39,8 @@ public class WeekListFragment extends Fragment {
 
             DiseaseRecord dr;
             try {
-                dr = new NNDSSConnection().getDiseaseFromTable(NNDSSConnection.DiseaseTable.getOfName("varicella_chickenpox"));
+                dr = new NNDSSConnection().getDiseaseFromTable(
+                        NNDSSConnection.DiseaseTable.getOfName("varicella_chickenpox"));
 
                 RecyclerView recyclerView = (RecyclerView) view;
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -69,7 +70,6 @@ public class WeekListFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-
         mListener = null;
     }
 

@@ -13,4 +13,6 @@
 
     <string name="select_week">Select Week</string>
     <string name="week_selected">Week %1$s</string>
+
+    <string name="demo_credentials">DEMO:\nEmail=diseasemapapp@gmail.com\nPass=TCSS450apps</string>
 </resources>

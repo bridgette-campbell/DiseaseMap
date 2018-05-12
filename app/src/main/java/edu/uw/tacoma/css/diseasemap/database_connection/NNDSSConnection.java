@@ -31,72 +31,35 @@ import edu.uw.tacoma.css.diseasemap.disease.DiseaseRecord;
  *
  * @author Bridgette Campbell, Daniel McBride, Matt Qunell
  */
-public final class NNDSSConnection extends AsyncTask<NNDSSConnection.DiseaseTable, Void, List<DiseaseRecord>> {
-
-    /*API CONSTANTS*/
-    public static final String MMWR_YEAR = "mmwr_year";
-    public static final String MMWR_WEEK = "mmwr_week";
-    public static final String _CURRENT_WEEK = "_current_week";
-    public static final String _CURRENT_WEEK_FLAG = "_current_week_flag";
-    public static final String REPORTING_AREA = "reporting_area";
+public final class NNDSSConnection
+        extends AsyncTask<NNDSSConnection.DiseaseTable, Void, List<DiseaseRecord>> {
 
     /**
-     * These are complex enums that contain information about disease tables.
-     * Its just an enum with fields.
+     * API constants
      */
-    public enum DiseaseTable {
-        Haemophilus_Influenza("cafy-kah2", "haemophilus_influenzae_invasive_all_ages_all_serotypes", "Haemophilus Influenza"),
-        Tetanus("n3ub-5wxs", "tetanus", "Tetanus"),
-        Chicken_Pox("n3ub-5wxs", "varicella_chickenpox", "Chicken Pox");
-
-        private final String tableName;
-        private final String diseaseName;
-        private final String displayName;
-
-        DiseaseTable(String tableName, String diseaseName, String displayName) {
-            this.tableName = tableName;
-            this.diseaseName = diseaseName;
-            this.displayName = displayName;
-        }
-
-        public String getTableName() {
-            return this.tableName;
-        }
-
-        public String getDiseaseName() {
-            return this.diseaseName;
-        }
-
-        public String getDisplayName() {
-            return this.displayName;
-        }
-
-        public static DiseaseTable getOfName(String tableName) throws IllegalAccessException {
-            for (DiseaseTable dt : DiseaseTable.values()) {
-                if (dt.getDiseaseName().equals(tableName)) {
-                    return dt;
-                } else {
-                    Log.e("Weird", "\"" + dt.getDiseaseName() + "\" does not equal \"" + tableName + "\"");
-                }
-            }
-            throw new IllegalAccessException("No DiseaseTable with the name: \"" + tableName + "\"");
-        }
-    }
-
     private static String CDC_DATABASE_ADDRESS = "https://data.cdc.gov/resource/";
     private static String APP_TOKEN = "$$app_token=csJoX8FOoaC0U29v2HtsUk4nb";
     private static String JSON_SUFFIX = ".json?";
+
+    private static final String MMWR_YEAR = "mmwr_year";
+    private static final String MMWR_WEEK = "mmwr_week";
+    private static final String _CURRENT_WEEK = "_current_week";
+    private static final String _CURRENT_WEEK_FLAG = "_current_week_flag";
+    private static final String REPORTING_AREA = "reporting_area";
+
+    private static final String TAG = "NNDSSConnection";
 
     /**
      * This will return a {@link DiseaseRecord} constructed for the specified {@link DiseaseTable}.
      *
      * @param diseaseTable the {@link DiseaseTable} to query
      * @return the {@link DiseaseRecord}
-     * @throws IOException
      * @throws ExecutionException
      * @throws InterruptedException
      */
-    public DiseaseRecord getDiseaseFromTable(DiseaseTable diseaseTable) throws IOException, ExecutionException, InterruptedException {
+    public DiseaseRecord getDiseaseFromTable(DiseaseTable diseaseTable)
+            throws ExecutionException, InterruptedException {
+
         List<DiseaseRecord> dList = this.execute(diseaseTable).get();
         assert dList.size() == 1;
         return dList.get(0);
@@ -130,11 +93,12 @@ public final class NNDSSConnection extends AsyncTask<NNDSSConnection.DiseaseTabl
      */
     @Override
     protected List<DiseaseRecord> doInBackground(DiseaseTable... diseaseTables) {
+
         List<DiseaseRecord> dList = new ArrayList<>();
         try {
             for (DiseaseTable dt : diseaseTables) {
 
-                Log.i("Info", "Reading from: " + dt.getTableName());
+                Log.i(TAG, "Reading from: " + dt.getTableName());
                 HttpURLConnection conn = (HttpURLConnection) createConnectionURL(dt)
                         .openConnection();
                 conn.setRequestMethod("GET");
@@ -166,13 +130,15 @@ public final class NNDSSConnection extends AsyncTask<NNDSSConnection.DiseaseTabl
                     if (jsonArray.getJSONObject(i).has(dt.diseaseName + _CURRENT_WEEK_FLAG)) {
                         infected = 0;
                     } else {
-                        infected = jsonArray.getJSONObject(i).getInt(dt.diseaseName + _CURRENT_WEEK);
+                        infected = jsonArray.getJSONObject(i).getInt(dt.diseaseName
+                                + _CURRENT_WEEK);
                     }
                     String reportingArea = jsonArray.getJSONObject(i).getString(REPORTING_AREA);
 
-                    Log.i("WeekInfo", "Parsed week: " + week + " reporting location: " + reportingArea);
+                    Log.i(TAG, "Parsed week: " + week + " reporting location: " + reportingArea);
 
-                    weekInfoList.add(new DiseaseRecord.WeekInfo(year, week, infected, reportingArea));
+                    weekInfoList.add(
+                            new DiseaseRecord.WeekInfo(year, week, infected, reportingArea));
                 }
 
                 dList.add(new DiseaseRecord(dt.getDiseaseName(), weekInfoList));
@@ -186,4 +152,52 @@ public final class NNDSSConnection extends AsyncTask<NNDSSConnection.DiseaseTabl
         return dList;
     }
 
+
+    /**
+     * These are complex enums that contain information about disease tables.
+     * Its just an enum with fields.
+     */
+    public enum DiseaseTable {
+        Haemophilus_Influenza("cafy-kah2", "haemophilus_influenzae_invasive_all_ages_all_serotypes",
+                "Haemophilus Influenza"),
+        Tetanus("n3ub-5wxs", "tetanus", "Tetanus"),
+        Chicken_Pox("n3ub-5wxs", "varicella_chickenpox", "Chicken Pox");
+
+        private static final String TAG = "DiseaseTable";
+
+        private final String tableName;
+        private final String diseaseName;
+        private final String displayName;
+
+        DiseaseTable(String tableName, String diseaseName, String displayName) {
+            this.tableName = tableName;
+            this.diseaseName = diseaseName;
+            this.displayName = displayName;
+        }
+
+        public String getTableName() {
+            return this.tableName;
+        }
+
+        public String getDiseaseName() {
+            return this.diseaseName;
+        }
+
+        public String getDisplayName() {
+            return this.displayName;
+        }
+
+        public static DiseaseTable getOfName(String tableName) throws IllegalAccessException {
+            for (DiseaseTable dt : DiseaseTable.values()) {
+                if (dt.getDiseaseName().equals(tableName)) {
+                    return dt;
+                } else {
+                    Log.e(TAG, "\"" + dt.getDiseaseName() + "\" does not equal \""
+                            + tableName + "\"");
+                }
+            }
+            throw new IllegalAccessException("No DiseaseTable with the name: \""
+                    + tableName + "\"");
+        }
+    }
 }

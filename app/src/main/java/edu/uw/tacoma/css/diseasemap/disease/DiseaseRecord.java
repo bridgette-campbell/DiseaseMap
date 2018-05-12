@@ -18,7 +18,7 @@ public final class DiseaseRecord {
      */
     private Map<Integer, Map<String, WeekInfo>> weekInfo = new HashMap<>();
 
-    //Name of the disease.
+    // Name of the disease
     private final String name;
 
     /**
@@ -54,12 +54,6 @@ public final class DiseaseRecord {
     public Map<String, WeekInfo> getInfoForWeek(Integer week) {
         return this.weekInfo.get(week);
     }
-
-    /**
-     *
-     * We should put a method that returns the reporting locations.
-     *
-     */
 
     /**
      * Returns the number of weeks covered by this record.

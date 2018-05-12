@@ -82,18 +82,30 @@ public class MapActivity extends AppCompatActivity {
         startActivityForResult(weeks, RC_WEEK);
     }
 
+    /**
+     * Handles information coming from other Activities/Fragments using their encapsulated methods,
+     * updates the previously-selected button's text, and calls updateMap().
+     *
+     * @param requestCode   The code that specifies where the data is coming from
+     * @param resultCode    Shows whether the result was OK, CANCELLED, etc
+     * @param data          The returned Intent that carries data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && data != null) {
 
-
             // DiseaseRecordFragment
             if (requestCode == RC_DISEASE) {
                 try {
-                    NNDSSConnection.DiseaseTable table = NNDSSConnection.DiseaseTable.getOfName(DiseaseActivity.getSelectedDisease(data));
+                    NNDSSConnection.DiseaseTable table =
+                            NNDSSConnection.DiseaseTable.getOfName(
+                                    DiseaseActivity.getSelectedDisease(data));
+
                     mSelectedDisease = table.getDisplayName();
-                    mButtonDisease.setText(getString(R.string.disease_selected, table.getDisplayName()));
-                } catch (IllegalAccessException e) {
+                    mButtonDisease.setText(getString(R.string.disease_selected,
+                            table.getDisplayName()));
+                }
+                catch (IllegalAccessException e) {
                     e.printStackTrace();
                 }
 

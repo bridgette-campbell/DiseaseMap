@@ -28,9 +28,7 @@ public class DiseaseListFragment extends Fragment {
     public DiseaseListFragment() {}
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInState) {
         View view = inflater.inflate(R.layout.fragment_disease_list, container, false);
 
         // Set the adapter
@@ -39,8 +37,6 @@ public class DiseaseListFragment extends Fragment {
 
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            //recyclerView.setAdapter(
-            //        new MyDiseaseRecyclerViewAdapter(DiseaseContent.ITEMS, mListener));
             recyclerView.setAdapter(new DiseaseRecyclerViewAdapter(mListener));
         }
 
@@ -62,7 +58,6 @@ public class DiseaseListFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
-
         mListener = null;
     }
 
