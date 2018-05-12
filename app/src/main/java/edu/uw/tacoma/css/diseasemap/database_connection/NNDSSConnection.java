@@ -16,8 +16,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import edu.uw.tacoma.css.diseasemap.disease.DiseaseRecord;
-
 /**
  * This object creates a connection to the NNDSS database. It can be used to query the NNDSS
  * database for a specified disease.
@@ -191,9 +189,6 @@ public final class NNDSSConnection
             for (DiseaseTable dt : DiseaseTable.values()) {
                 if (dt.getDiseaseName().equals(tableName)) {
                     return dt;
-                } else {
-                    Log.e(TAG, "\"" + dt.getDiseaseName() + "\" does not equal \""
-                            + tableName + "\"");
                 }
             }
             throw new IllegalAccessException("No DiseaseTable with the name: \""

@@ -1,4 +1,4 @@
-package edu.uw.tacoma.css.diseasemap.disease;
+package edu.uw.tacoma.css.diseasemap.database_connection;
 
 import java.util.HashMap;
 import java.util.List;

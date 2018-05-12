@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.uw.tacoma.css.diseasemap.R;
+import edu.uw.tacoma.css.diseasemap.database_connection.DiseaseRecord;
 import edu.uw.tacoma.css.diseasemap.database_connection.NNDSSConnection;
 
 /**

@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +21,7 @@ import com.google.android.gms.tasks.Task;
 
 import java.util.Map;
 
-import edu.uw.tacoma.css.diseasemap.disease.DiseaseRecord;
+import edu.uw.tacoma.css.diseasemap.database_connection.DiseaseRecord;
 import edu.uw.tacoma.css.diseasemap.database_connection.NNDSSConnection;
 import edu.uw.tacoma.css.diseasemap.disease.DiseaseActivity;
 import edu.uw.tacoma.css.diseasemap.week.WeekActivity;
@@ -50,6 +51,7 @@ public class MapActivity extends AppCompatActivity {
      * User-selected data. Used for displaying specified map data and backing up preferences.
      */
     private String mSelectedDisease;
+    private String mSelectedDiseaseDisplayName;
     private Integer mSelectedWeek;
 
     @Override
@@ -101,7 +103,8 @@ public class MapActivity extends AppCompatActivity {
                             NNDSSConnection.DiseaseTable.getOfName(
                                     DiseaseActivity.getSelectedDisease(data));
 
-                    mSelectedDisease = table.getDisplayName();
+                    mSelectedDisease = table.getDiseaseName();
+                    mSelectedDiseaseDisplayName = table.getDisplayName();
                     mButtonDisease.setText(getString(R.string.disease_selected,
                             table.getDisplayName()));
                 }
@@ -135,12 +138,15 @@ public class MapActivity extends AppCompatActivity {
 
             DiseaseRecord dr;
             try {
+
+                Log.v("Map check", "selected disease: " + mSelectedDisease);
                 dr = new NNDSSConnection().getDiseaseFromTable(
                         NNDSSConnection.DiseaseTable.getOfName(mSelectedDisease));
 
                 Map<String, DiseaseRecord.WeekInfo> map = dr.getInfoForWeek(mSelectedWeek);
                 if (map != null) {
                     for (String s : map.keySet()) {
+                        Log.i("Blah","String s: " + s);
                         infected += map.get(s).getInfected();
                     }
                 }
@@ -149,7 +155,7 @@ public class MapActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            String output = "Selected disease: " + mSelectedDisease + "\n";
+            String output = "Selected disease: " + mSelectedDiseaseDisplayName + "\n";
             output += "Selected week number: " + mSelectedWeek + "\n";
             output += "Total number infected: ";
             output += (infected > 0) ? infected : "Data not yet published by CDC";

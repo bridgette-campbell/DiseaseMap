@@ -9,7 +9,7 @@ import android.widget.TextView;
 import java.util.Map;
 
 import edu.uw.tacoma.css.diseasemap.R;
-import edu.uw.tacoma.css.diseasemap.disease.DiseaseRecord;
+import edu.uw.tacoma.css.diseasemap.database_connection.DiseaseRecord;
 import edu.uw.tacoma.css.diseasemap.week.WeekListFragment.OnListFragmentInteractionListener;
 
 /**
