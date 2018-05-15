@@ -1,8 +1,9 @@
 package edu.uw.tacoma.css.diseasemap;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import android.content.SharedPreferences;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,12 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 
 import java.util.Map;
 
@@ -215,10 +210,14 @@ public class MapActivity extends AppCompatActivity {
     }
 
     /**
-     * Handles signing out of the Google Account and returning to LoginActivity.
+     * Handles signing out of the Google Account and returning to MainActivity.
      */
     private void signOut() {
-        startActivity(new Intent(this, LoginActivity.class));
+        // Set the user as not signed in
+        SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
+        editor.putInt(MainActivity.SIGNED_IN, 0);
+        editor.apply();
+        startActivity(new Intent(this, MainActivity.class));
         finish();
     }
 }
