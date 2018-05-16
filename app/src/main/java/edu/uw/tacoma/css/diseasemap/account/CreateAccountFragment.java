@@ -1,4 +1,4 @@
-package edu.uw.tacoma.css.diseasemap;
+package edu.uw.tacoma.css.diseasemap.account;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -15,19 +15,22 @@ import android.widget.Toast;
 
 import java.net.URLEncoder;
 
+import edu.uw.tacoma.css.diseasemap.R;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LogInFragment extends DialogFragment {
+public class CreateAccountFragment extends DialogFragment {
 
-    public static final String VERIFY_ACCOUNT_URL =
-            "http://diseasemapapp.000webhostapp.com/login.php?";
+    public static final String CREATE_ACCOUNT_URL =
+            "http://diseasemapapp.000webhostapp.com/addUser.php?";
 
-    private VerifyAccountListener mListener;
+    private CreateAccountListener mListener;
     private EditText mEmailEditText;
     private EditText mPasswordEditText;
 
-    public LogInFragment() {
+
+    public CreateAccountFragment() {
         // Required empty public constructor
     }
 
@@ -38,18 +41,19 @@ public class LogInFragment extends DialogFragment {
         // Get the layout inflater
         LayoutInflater inflater = getActivity().getLayoutInflater();
 
-        View view = inflater.inflate(R.layout.fragment_log_in, null);
-        mEmailEditText = view.findViewById(R.id.log_in_email);
-        mPasswordEditText = view.findViewById(R.id.log_in_password);
+        View view = inflater.inflate(R.layout.fragment_create_account, null);
+        mEmailEditText = view.findViewById(R.id.create_account_email);
+        mPasswordEditText = view.findViewById(R.id.create_account_password);
 
         builder.setView(view)
-                .setPositiveButton(R.string.log_in, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.create_account, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int id) {
 
-                        // Attempt to verify the account and sign in the user
-                        String url = buildLogInURL();
-                        mListener.verifyAccount(url);
+                        // Attempt to create the account and sign in the user
+                        String url = buildUserURL();
+                        mListener.addAccount(url);
+
                     }
                 })
 
@@ -67,20 +71,20 @@ public class LogInFragment extends DialogFragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (context instanceof CreateAccountFragment.CreateAccountListener) {
-            mListener = (VerifyAccountListener) context;
+        if (context instanceof CreateAccountListener) {
+            mListener = (CreateAccountListener) context;
         }
         else {
             throw new RuntimeException(context.toString() + " must implement CreateAccountListener");
         }
     }
 
-    public interface VerifyAccountListener {
-        void verifyAccount(String url);
+    public interface CreateAccountListener {
+        void addAccount(String url);
     }
 
-    private String buildLogInURL() {
-        StringBuilder sb = new StringBuilder(VERIFY_ACCOUNT_URL);
+    private String buildUserURL() {
+        StringBuilder sb = new StringBuilder(CREATE_ACCOUNT_URL);
 
         try {
             String email = mEmailEditText.getText().toString();
@@ -96,7 +100,7 @@ public class LogInFragment extends DialogFragment {
                     Toast.LENGTH_LONG).show();
         }
 
-        Log.v("MapActivity", sb.toString());
+        Log.v("CreateAccountFragment", sb.toString());
         return sb.toString();
     }
 }

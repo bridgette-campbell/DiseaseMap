@@ -20,30 +20,29 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import edu.uw.tacoma.css.diseasemap.account.CreateAccountFragment;
+import edu.uw.tacoma.css.diseasemap.account.SignInFragment;
+
 /**
- * The {@link AppCompatActivity} that handles logging into our app to use it.
+ * The {@link AppCompatActivity} that handles signing into our app to use it.
  *
  * @author Bridgette Campbell, Daniel McBride, Matt Qunell
  */
-public class LoginActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements CreateAccountFragment.CreateAccountListener,
-        LogInFragment.VerifyAccountListener {
+        SignInFragment.VerifyAccountListener {
 
     /**
      * SharedPreferences key for determining if the user is signed in
      */
-    private static final String SIGNED_IN = "signed_in";
+    public static final String SIGNED_IN = "signed_in";
 
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
-
-        // Set the user as not signed in
-        SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
-        editor.putInt(SIGNED_IN, 0);
-        editor.apply();
+        setContentView(R.layout.activity_main);
     }
 
     @Override
@@ -51,7 +50,7 @@ public class LoginActivity extends AppCompatActivity
         super.onStart();
 
         // Launch MapActivity if the user is already signed in
-        if (getPreferences(Context.MODE_PRIVATE).getInt(SIGNED_IN, -1) == 1) {
+        if (getSharedPreferences(SIGNED_IN, Context.MODE_PRIVATE).getBoolean(SIGNED_IN, false)) {
             startActivity(new Intent(this, MapActivity.class));
             finish();
         }
@@ -68,40 +67,26 @@ public class LoginActivity extends AppCompatActivity
     }
 
     /**
-     * Button onClick handler for "Log In"
+     * Button onClick handler for "Sign In"
      *
      * @param v The parent View
      */
-    public void launchLogIn(View v) {
-        DialogFragment fragment = new LogInFragment();
-        fragment.show(getSupportFragmentManager(), "Log In");
+    public void launchSignIn(View v) {
+        DialogFragment fragment = new SignInFragment();
+        fragment.show(getSupportFragmentManager(), "Sign In");
     }
 
     /**
-     * Logs the user in
+     * Signs the user in and starts MapActivity
      */
-    public void logIn() {
-        int signedIn = getPreferences(Context.MODE_PRIVATE).getInt(SIGNED_IN, -1);
+    public void signIn() {
+        getSharedPreferences(SIGNED_IN, Context.MODE_PRIVATE)
+                .edit()
+                .putBoolean(SIGNED_IN, true)
+                .apply();
 
-        // If the user was not signed in, sign them in and start MapActivity
-        if (signedIn == 0) {
-            SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
-            editor.putInt(SIGNED_IN, 1);
-            editor.apply();
-
-            startActivity(new Intent(this, MapActivity.class));
-            finish();
-        }
-
-        // If the user was signed in, sign them out
-        else if (signedIn == 1) {
-            SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
-            editor.putInt(SIGNED_IN, 0);
-            editor.apply();
-        }
-        else {
-            Log.v("LoginActivity", "logIn -1");
-        }
+        startActivity(new Intent(this, MapActivity.class));
+        finish();
     }
 
     @Override
@@ -120,6 +105,8 @@ public class LoginActivity extends AppCompatActivity
         getSupportFragmentManager().popBackStackImmediate();
     }
 
+
+    // todo: Simplify Toasts in following the inner classes
 
     /**
      * Inner class that handles adding accounts to the website's database
@@ -166,12 +153,11 @@ public class LoginActivity extends AppCompatActivity
                 String status = (String) jsonObject.get("result");
 
                 if (status.equals("success")) {
-                    Log.v("MapActivity", "here");
                     Toast.makeText(getApplicationContext(), "Account successfully added!"
                             , Toast.LENGTH_LONG)
                             .show();
 
-                    logIn();
+                    signIn();
                 }
                 else {
                     Toast.makeText(getApplicationContext(), "Failed to add: "
@@ -183,7 +169,7 @@ public class LoginActivity extends AppCompatActivity
             catch (JSONException e) {
                 Toast.makeText(getApplicationContext(), "Something wrong with the data: " +
                         e.getMessage(), Toast.LENGTH_LONG).show();
-                Log.v("MapActivity", e.getMessage());
+                Log.d(TAG, e.getMessage());
             }
         }
     }
@@ -228,22 +214,19 @@ public class LoginActivity extends AppCompatActivity
 
         @Override
         protected void onPostExecute(String result) {
-            Log.v("MapActivity", "onPostExecute (verify)");
-
             // Something wrong with the network or the URL.
             try {
                 JSONObject jsonObject = new JSONObject(result);
                 String status = (String) jsonObject.get("result");
 
                 if (status.equals("success")) {
-                    Toast.makeText(getApplicationContext(), "User successfully logged in!"
-                            , Toast.LENGTH_LONG)
+                    Toast.makeText(getApplicationContext(), R.string.signed_in, Toast.LENGTH_LONG)
                             .show();
 
-                    logIn();
+                    signIn();
                 }
                 else {
-                    Toast.makeText(getApplicationContext(), "Failed to log in: "
+                    Toast.makeText(getApplicationContext(), "Failed to signed in: "
                                     + jsonObject.get("error")
                             , Toast.LENGTH_LONG)
                             .show();
@@ -252,7 +235,8 @@ public class LoginActivity extends AppCompatActivity
             catch (JSONException e) {
                 Toast.makeText(getApplicationContext(), "Something wrong with the data: " +
                         e.getMessage(), Toast.LENGTH_LONG).show();
-                Log.v("MapActivity", e.getMessage());
+
+                Log.d(TAG, e.getMessage());
             }
         }
     }

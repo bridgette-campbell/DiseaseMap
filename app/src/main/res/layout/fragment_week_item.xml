@@ -10,8 +10,14 @@
         android:id="@+id/week"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp"
+        android:paddingTop="16dp"
         android:textAlignment="center"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/infected"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center" />
 
 </LinearLayout>

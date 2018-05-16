@@ -4,22 +4,26 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="vertical"
-              tools:context=".LogInFragment">
+              tools:context=".account.SignInFragment">
 
     <EditText
-        android:id="@+id/log_in_email"
+        android:id="@+id/sign_in_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_margin="12dp"
         android:ems="10"
         android:hint="@string/email"
         android:inputType="textEmailAddress" />
 
     <EditText
-        android:id="@+id/log_in_password"
+        android:id="@+id/sign_in_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginStart="12dp"
         android:ems="10"
         android:hint="@string/password"
         android:inputType="textPassword" />

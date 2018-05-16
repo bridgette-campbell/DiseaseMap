@@ -12,6 +12,6 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:textAlignment="center"
-        android:textAppearance="?attr/textAppearanceListItem" />
+        android:textSize="18sp" />
 
 </LinearLayout>
