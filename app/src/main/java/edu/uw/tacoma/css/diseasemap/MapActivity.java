@@ -134,7 +134,15 @@ public class MapActivity extends AppCompatActivity {
 
             // Share
             case R.id.share:
-                share();
+
+                // Make a Toast if a disease and week haven't been selected
+                if ("".equals(mMapView.getText().toString())) {
+                    Toast.makeText(this, "Select a disease and week before sharing",
+                            Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    share();
+                }
                 return true;
 
             // Sign Out
