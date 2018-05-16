@@ -1,9 +1,10 @@
 package edu.uw.tacoma.css.diseasemap.week;
 
-import android.content.Intent;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import edu.uw.tacoma.css.diseasemap.MapActivity;
 import edu.uw.tacoma.css.diseasemap.R;
 
 /**
@@ -13,21 +14,6 @@ import edu.uw.tacoma.css.diseasemap.R;
  */
 public class WeekActivity extends AppCompatActivity
         implements WeekListFragment.OnListFragmentInteractionListener {
-
-    /**
-     * Identifier for the returned String extra
-     */
-    private static final String SELECTED_WEEK = "edu.uw.tacoma.css.diseasemap.selected_week";
-
-    /**
-     * Encapsulates the implementation details of WeekActivity's returned Intent
-     *
-     * @param data The Intent returned by WeekActivity
-     * @return The String extra from the Intent
-     */
-    public static int getSelectedWeek(Intent data) {
-        return (data.getIntExtra(SELECTED_WEEK, -1));
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +31,14 @@ public class WeekActivity extends AppCompatActivity
     // Called when an item in the list is selected
     @Override
     public void onListFragmentInteraction(int weekNum) {
+        String key = MapActivity.SELECTED_WEEK;
 
-        // Create a new Intent with the selected Week's week
-        Intent data = new Intent();
-        data.putExtra(SELECTED_WEEK, weekNum);
+        getSharedPreferences(key, Context.MODE_PRIVATE)
+                .edit()
+                .putInt(key, weekNum)
+                .apply();
 
-        // Send the Intent back to MapActivity
-        setResult(RESULT_OK, data);
+        //startActivity(new Intent(this, WeekActivity.class));
         finish();
     }
 }

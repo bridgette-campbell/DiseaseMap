@@ -220,8 +220,7 @@ public class MainActivity extends AppCompatActivity
                 String status = (String) jsonObject.get("result");
 
                 if (status.equals("success")) {
-                    Toast.makeText(getApplicationContext(), "User successfully signed in!"
-                            , Toast.LENGTH_LONG)
+                    Toast.makeText(getApplicationContext(), R.string.signed_in, Toast.LENGTH_LONG)
                             .show();
 
                     signIn();

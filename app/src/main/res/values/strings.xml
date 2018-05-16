@@ -1,7 +1,12 @@
 <resources>
     <string name="app_name">Disease Map</string>
     <string name="logo">Logo</string>
-    <string name="sign_in_failed">Google Sign-In Failed</string>
+    <string name="create_account">Create Account</string>
+    <string name="sign_in">Sign In</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="cancel">Cancel</string>
+    <string name="signed_in">Signed In</string>
     <string name="signed_out">Signed Out</string>
 
     <string name="share">Share</string>
@@ -9,14 +14,5 @@
     <string name="sign_out">Sign Out</string>
 
     <string name="select_disease">Select Disease</string>
-    <string name="disease_selected">Disease: %1$s</string>
-
     <string name="select_week">Select Week</string>
-    <string name="week_selected">Week %1$s</string>
-
-    <string name="create_account">Create Account</string>
-    <string name="sign_in">Sign In</string>
-    <string name="email">Email</string>
-    <string name="password">Password</string>
-    <string name="cancel">Cancel</string>
 </resources>

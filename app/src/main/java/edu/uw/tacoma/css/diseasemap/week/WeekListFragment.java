@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import edu.uw.tacoma.css.diseasemap.MapActivity;
 import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.database_connection.DiseaseRecord;
 import edu.uw.tacoma.css.diseasemap.database_connection.NNDSSConnection;
@@ -39,8 +40,12 @@ public class WeekListFragment extends Fragment {
 
             DiseaseRecord dr;
             try {
+                String key = MapActivity.SELECTED_DISEASE;
+                String diseaseName = getActivity().getSharedPreferences(key, Context.MODE_PRIVATE)
+                        .getString(key, "none");
+
                 dr = new NNDSSConnection().getDiseaseFromTable(
-                        NNDSSConnection.DiseaseTable.getOfName("varicella_chickenpox"));
+                        NNDSSConnection.DiseaseTable.getOfName(diseaseName));
 
                 RecyclerView recyclerView = (RecyclerView) view;
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));

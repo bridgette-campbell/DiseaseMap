@@ -96,7 +96,7 @@ public final class NNDSSConnection
         try {
             for (DiseaseTable dt : diseaseTables) {
 
-                Log.i(TAG, "Reading from: " + dt.getTableName());
+                //Log.i(TAG, "Reading from: " + dt.getTableName());
                 HttpURLConnection conn = (HttpURLConnection) createConnectionURL(dt)
                         .openConnection();
                 conn.setRequestMethod("GET");
@@ -133,7 +133,7 @@ public final class NNDSSConnection
                     }
                     String reportingArea = jsonArray.getJSONObject(i).getString(REPORTING_AREA);
 
-                    Log.i(TAG, "Parsed week: " + week + " reporting location: " + reportingArea);
+                    //Log.i(TAG, "Parsed week: " + week + " reporting location: " + reportingArea);
 
                     weekInfoList.add(
                             new DiseaseRecord.WeekInfo(year, week, infected, reportingArea));
