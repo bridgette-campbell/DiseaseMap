@@ -49,6 +49,18 @@ public class WeekRecyclerViewAdapter
         holder.mItem = mDiseaseRecord.getInfoForWeek(position);
         holder.mWeek.setText("Week " + (position + 1));
 
+        int infected = 0;
+        Map<String, DiseaseRecord.WeekInfo> map = mDiseaseRecord.getInfoForWeek(position + 1);
+        if (map != null) {
+            for (String s : map.keySet()) {
+                infected += map.get(s).getInfected();
+            }
+        }
+
+        holder.mInfected.setText(infected > 0
+                ? "Infected: " + String.valueOf(infected)
+                : "CDC data not yet published");
+
         final int pos = position + 1;
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +91,7 @@ public class WeekRecyclerViewAdapter
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
         public final TextView mWeek;
+        public final TextView mInfected;
         public Map<String, DiseaseRecord.WeekInfo> mItem;
 
         /**
@@ -90,6 +103,7 @@ public class WeekRecyclerViewAdapter
             super(view);
             mView = view;
             mWeek = view.findViewById(R.id.week);
+            mInfected = view.findViewById(R.id.infected);
         }
     }
 }
