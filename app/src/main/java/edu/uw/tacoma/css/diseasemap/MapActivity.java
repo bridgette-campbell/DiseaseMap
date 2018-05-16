@@ -214,9 +214,11 @@ public class MapActivity extends AppCompatActivity {
      */
     private void signOut() {
         // Set the user as not signed in
-        SharedPreferences.Editor editor = getPreferences(Context.MODE_PRIVATE).edit();
-        editor.putInt(MainActivity.SIGNED_IN, 0);
-        editor.apply();
+        getSharedPreferences(MainActivity.SIGNED_IN, Context.MODE_PRIVATE)
+                .edit()
+                .putBoolean(MainActivity.SIGNED_IN, false)
+                .apply();
+
         startActivity(new Intent(this, MainActivity.class));
         finish();
     }
