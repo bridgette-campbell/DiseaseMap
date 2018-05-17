@@ -32,7 +32,7 @@ import java.util.concurrent.ExecutionException;
 public final class NNDSSConnection
         extends AsyncTask<NNDSSConnection.DiseaseTable, Void, List<DiseaseRecord>> {
 
-    /**
+    /*
      * API constants
      */
     private static String CDC_DATABASE_ADDRESS = "https://data.cdc.gov/resource/";

@@ -24,11 +24,9 @@ public class DiseaseActivity extends AppCompatActivity
         setContentView(R.layout.activity_disease);
 
         // disease_fragment_container is activity_disease's empty FrameLayout
-        if (findViewById(R.id.disease_fragment_container) != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.disease_fragment_container, new DiseaseListFragment())
-                    .commit();
-        }
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.disease_fragment_container, new DiseaseListFragment())
+                .commit();
     }
 
     // Called when an item in the list is selected

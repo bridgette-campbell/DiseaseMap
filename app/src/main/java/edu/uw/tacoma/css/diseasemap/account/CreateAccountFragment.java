@@ -22,6 +22,9 @@ import edu.uw.tacoma.css.diseasemap.R;
  */
 public class CreateAccountFragment extends DialogFragment {
 
+    /**
+     * The URL for adding a user to the web server
+     */
     public static final String CREATE_ACCOUNT_URL =
             "http://diseasemapapp.000webhostapp.com/addUser.php?";
 
@@ -29,10 +32,10 @@ public class CreateAccountFragment extends DialogFragment {
     private EditText mEmailEditText;
     private EditText mPasswordEditText;
 
-
-    public CreateAccountFragment() {
-        // Required empty public constructor
-    }
+    /**
+     * Mandatory empty constructor
+     */
+    public CreateAccountFragment() {}
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -51,9 +54,8 @@ public class CreateAccountFragment extends DialogFragment {
                     public void onClick(DialogInterface dialogInterface, int id) {
 
                         // Attempt to create the account and sign in the user
-                        String url = buildUserURL();
+                        String url = buildCreateAccountURL();
                         mListener.addAccount(url);
-
                     }
                 })
 
@@ -83,7 +85,10 @@ public class CreateAccountFragment extends DialogFragment {
         void addAccount(String url);
     }
 
-    private String buildUserURL() {
+    /*
+     * Builds the URL for creating accounts
+     */
+    private String buildCreateAccountURL() {
         StringBuilder sb = new StringBuilder(CREATE_ACCOUNT_URL);
 
         try {

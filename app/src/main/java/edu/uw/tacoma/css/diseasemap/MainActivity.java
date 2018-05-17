@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity
      */
     public static final String SIGNED_IN = "signed_in";
 
+    // Debugging tag
     private static final String TAG = "MainActivity";
 
     @Override
@@ -106,9 +107,9 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    // todo: Simplify Toasts in following the inner classes
+    // todo: Simplify Toasts in the following the inner classes
 
-    /**
+    /*
      * Inner class that handles adding accounts to the website's database
      */
     private class AddAccountTask extends AsyncTask<String, Void, String> {
@@ -175,7 +176,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    /**
+    /*
      * Inner class that handles account verification
      */
     private class VerifyAccountTask extends AsyncTask<String, Void, String> {
