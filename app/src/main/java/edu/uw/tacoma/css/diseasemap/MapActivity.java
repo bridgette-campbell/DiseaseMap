@@ -32,16 +32,14 @@ public class MapActivity extends AppCompatActivity {
     public static final String SELECTED_DISEASE = "selected_disease";
     public static final String SELECTED_WEEK = "selected_week";
 
-    /**
+    /*
      * User-selected data
      */
     private String mSelectedDisease;
     private String mSelectedDiseaseDisplayName;
     private int mSelectedWeek;
 
-    /**
-     * UI elements
-     */
+    // The temporary TextView
     private TextView mMapView;
 
     @Override
@@ -90,7 +88,7 @@ public class MapActivity extends AppCompatActivity {
         }
     }
 
-    /**
+    /*
      * Updates the map based on the user-selected disease and week.
      * STILL IN PROGRESS - While testing, this simply updates a TextView.
      */
@@ -157,7 +155,7 @@ public class MapActivity extends AppCompatActivity {
         }
     }
 
-    /**
+    /*
      * Shares the displayed information using an implicit Intent.
      */
     private void share() {
@@ -182,7 +180,7 @@ public class MapActivity extends AppCompatActivity {
         startActivity(i);
     }
 
-    /**
+    /*
      * Handles signing out of the Google Account and returning to MainActivity.
      */
     private void signOut() {
