@@ -6,7 +6,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +32,9 @@ public class MapActivity extends AppCompatActivity {
     public static final String SELECTED_DISEASE = "selected_disease";
     public static final String SELECTED_WEEK = "selected_week";
 
+    /**
+     * User-selected data
+     */
     private String mSelectedDisease;
     private String mSelectedDiseaseDisplayName;
     private int mSelectedWeek;
@@ -41,7 +43,6 @@ public class MapActivity extends AppCompatActivity {
      * UI elements
      */
     private TextView mMapView;
-    private FloatingActionButton mDiseaseFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class MapActivity extends AppCompatActivity {
 
         mMapView = findViewById(R.id.map_textview);
 
-        mDiseaseFab = findViewById(R.id.disease_fab);
+        FloatingActionButton mDiseaseFab = findViewById(R.id.disease_fab);
         mDiseaseFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,17 +60,21 @@ public class MapActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Updates the UI when the Activity is resumed
+     */
     @Override
     public void onResume() {
         super.onResume();
 
-        // Update the UI
+        // Get the user-selected data
         mSelectedDisease = getSharedPreferences(SELECTED_DISEASE, Context.MODE_PRIVATE)
                 .getString(SELECTED_DISEASE, "none");
 
         mSelectedWeek = getSharedPreferences(SELECTED_WEEK, Context.MODE_PRIVATE)
                 .getInt(SELECTED_WEEK, -1);
 
+        // If a disease and week were both selected, update the map
         if (!mSelectedDisease.equals("none") && mSelectedWeek >= 0) {
             try {
                 NNDSSConnection.DiseaseTable table =
@@ -96,15 +101,12 @@ public class MapActivity extends AppCompatActivity {
 
         DiseaseRecord dr;
         try {
-
-            Log.v("Map check", "selected disease: " + mSelectedDisease);
             dr = new NNDSSConnection().getDiseaseFromTable(
                     NNDSSConnection.DiseaseTable.getOfName(mSelectedDisease));
 
             Map<String, DiseaseRecord.WeekInfo> map = dr.getInfoForWeek(mSelectedWeek);
             if (map != null) {
                 for (String s : map.keySet()) {
-                    Log.i("Blah","String s: " + s);
                     infected += map.get(s).getInfected();
                 }
             }
@@ -113,13 +115,13 @@ public class MapActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        // Build the text for mMapView
         String output = "Selected disease: " + mSelectedDiseaseDisplayName + "\n";
         output += "Selected week number: " + mSelectedWeek + "\n";
         output += "Total number infected: ";
         output += (infected > 0) ? infected : "Data not yet published by CDC";
 
         mMapView.setText(output);
-
     }
 
     @Override

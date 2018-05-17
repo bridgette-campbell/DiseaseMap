@@ -106,7 +106,7 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-    // todo: Simplify Toasts in following the inner classes
+    // todo: Simplify Toasts in the following the inner classes
 
     /**
      * Inner class that handles adding accounts to the website's database

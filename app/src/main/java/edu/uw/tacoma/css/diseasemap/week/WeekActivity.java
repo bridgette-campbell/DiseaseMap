@@ -21,11 +21,9 @@ public class WeekActivity extends AppCompatActivity
         setContentView(R.layout.activity_week);
 
         // week_fragment_container is activity_week's empty FrameLayout
-        if (findViewById(R.id.week_fragment_container) != null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.week_fragment_container, new WeekListFragment())
-                    .commit();
-        }
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.week_fragment_container, new WeekListFragment())
+                .commit();
     }
 
     // Called when an item in the list is selected
@@ -38,7 +36,6 @@ public class WeekActivity extends AppCompatActivity
                 .putInt(key, weekNum)
                 .apply();
 
-        //startActivity(new Intent(this, WeekActivity.class));
         finish();
     }
 }

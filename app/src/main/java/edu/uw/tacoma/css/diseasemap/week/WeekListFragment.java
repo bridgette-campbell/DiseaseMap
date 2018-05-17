@@ -24,8 +24,7 @@ public class WeekListFragment extends Fragment {
     private OnListFragmentInteractionListener mListener;
 
     /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes)
+     * Mandatory empty constructor
      */
     public WeekListFragment() {}
 
