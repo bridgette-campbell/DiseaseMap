@@ -73,8 +73,9 @@ public class MainActivity extends AppCompatActivity
      * @param v The parent View
      */
     public void launchSignIn(View v) {
-        DialogFragment fragment = new SignInFragment();
-        fragment.show(getSupportFragmentManager(), "Sign In");
+        //DialogFragment fragment = new SignInFragment();
+        //fragment.show(getSupportFragmentManager(), "Sign In");
+        signIn();
     }
 
     /**
