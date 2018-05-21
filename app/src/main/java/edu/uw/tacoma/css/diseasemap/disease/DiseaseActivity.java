@@ -21,11 +21,11 @@ public class DiseaseActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_disease);
+        setContentView(R.layout.container);
 
         // disease_fragment_container is activity_disease's empty FrameLayout
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.disease_fragment_container, new DiseaseListFragment())
+                .add(R.id.fragment_container, new DiseaseListFragment())
                 .commit();
     }
 

@@ -18,11 +18,11 @@ public class WeekActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_week);
+        setContentView(R.layout.container);
 
-        // week_fragment_container is activity_week's empty FrameLayout
+        // week_fragment_container is container's empty FrameLayout
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.week_fragment_container, new WeekListFragment())
+                .add(R.id.fragment_container, new WeekListFragment())
                 .commit();
     }
 
