@@ -25,8 +25,7 @@ import edu.uw.tacoma.css.diseasemap.disease.DiseaseActivity;
  *
  * @author Bridgette Campbell, Daniel McBride, Matt Qunell
  */
-public class MapActivity extends AppCompatActivity
-        implements MapListFragment.OnListFragmentInteractionListener {
+public class MapActivity extends AppCompatActivity {
 
     /**
      * SharedPreferences keys for the user-selected Disease and Week
@@ -40,6 +39,7 @@ public class MapActivity extends AppCompatActivity
     private String mSelectedDisease;
     private String mSelectedDiseaseDisplayName;
     private int mSelectedWeek;
+    private String mSelectedSummary;
 
     // The floating action button
     FloatingActionButton mDiseaseFab;
@@ -91,17 +91,18 @@ public class MapActivity extends AppCompatActivity
                 e.printStackTrace();
             }
 
-            updateMap();
+            // Temporary Toast until the list is functional
+            updateSelectedSummary();
+            Toast.makeText(this, mSelectedSummary, Toast.LENGTH_LONG).show();
+            //updateMap();
         }
     }
 
     /*
-     * Updates the map based on the user-selected disease and week.
-     * STILL IN PROGRESS - While testing, this simply updates a TextView.
+     * Summarize the selected information
      */
-    private void updateMap() {
-        // Data is stored in an additional map of locations. This adds up the infections of all
-        // locations.
+    private void updateSelectedSummary() {
+        // Add up the infections of all locations
         int infected = 0;
 
         DiseaseRecord dr;
@@ -120,14 +121,11 @@ public class MapActivity extends AppCompatActivity
             e.printStackTrace();
         }
 
-        // Build the text for mMapView
-        String output = "Selected disease: " + mSelectedDiseaseDisplayName + "\n";
-        output += "Selected week number: " + mSelectedWeek + "\n";
-        output += "Total number infected: ";
-        output += (infected > 0) ? infected : "Data not yet published by CDC";
-
-        //mMapView.setText(output); todo
-        Toast.makeText(this, output, Toast.LENGTH_LONG).show();
+        // Build the summary String
+        mSelectedSummary = "Selected disease: " + mSelectedDiseaseDisplayName + "\n";
+        mSelectedSummary += "Selected week number: " + mSelectedWeek + "\n";
+        mSelectedSummary += "Total number infected: ";
+        mSelectedSummary += (infected > 0) ? infected : "Data not yet published by CDC";
     }
 
     @Override
@@ -144,14 +142,14 @@ public class MapActivity extends AppCompatActivity
             case R.id.share:
 
                 // Make a Toast if a disease and week haven't been selected
-                /*if ("".equals(mMapView.getText().toString())) {
+                String summary = mSelectedSummary;
+                if ("".equals(summary)) {
                     Toast.makeText(this, "Select a disease and week before sharing",
                             Toast.LENGTH_SHORT).show();
                 }
                 else {
                     share();
-                }*/ //todo
-                share();
+                }
                 return true;
 
             // Sign Out
@@ -172,8 +170,7 @@ public class MapActivity extends AppCompatActivity
         // Set up the necessary Strings
         String type = "text/plain";
         String subject = getString(R.string.app_name);
-        //String text = mMapView.getText().toString(); todo
-        String text = "placeholder";
+        String text = mSelectedSummary;
         String chooserText = getString(R.string.send_report_via);
 
         // Build the Intent
@@ -203,10 +200,5 @@ public class MapActivity extends AppCompatActivity
         Toast.makeText(this, R.string.signed_out, Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, MainActivity.class));
         finish();
-    }
-
-    @Override
-    public void onListFragmentInteraction() {
-
     }
 }

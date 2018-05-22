@@ -12,14 +12,11 @@ import android.view.ViewGroup;
 import edu.uw.tacoma.css.diseasemap.R;
 
 /**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
+ * Represents a list of MapItems
+ *
+ * @author Bridgette Campbell, Daniel McBride, Matt Qunell
  */
 public class MapListFragment extends Fragment {
-
-    private OnListFragmentInteractionListener mListener;
 
     /**
      * Mandatory empty constructor
@@ -36,36 +33,9 @@ public class MapListFragment extends Fragment {
 
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new MapRecyclerViewAdapter(mListener));
+            recyclerView.setAdapter(new MapRecyclerViewAdapter());
         }
 
         return view;
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this fragment to allow an
-     * interaction in this fragment to be communicated to the activity and potentially other
-     * fragments contained in that activity.
-     */
-    public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction();
     }
 }
