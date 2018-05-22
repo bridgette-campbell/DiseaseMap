@@ -1,4 +1,4 @@
-package edu.uw.tacoma.css.diseasemap;
+package edu.uw.tacoma.css.diseasemap.map;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,11 +9,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Map;
 
+import edu.uw.tacoma.css.diseasemap.R;
+import edu.uw.tacoma.css.diseasemap.account.MainActivity;
 import edu.uw.tacoma.css.diseasemap.database_connection.DiseaseRecord;
 import edu.uw.tacoma.css.diseasemap.database_connection.NNDSSConnection;
 import edu.uw.tacoma.css.diseasemap.disease.DiseaseActivity;
@@ -38,24 +39,27 @@ public class MapActivity extends AppCompatActivity {
     private String mSelectedDisease;
     private String mSelectedDiseaseDisplayName;
     private int mSelectedWeek;
+    private String mSelectedSummary;
 
-    // The temporary TextView
-    private TextView mMapView;
+    // The floating action button
+    FloatingActionButton mDiseaseFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.container);
 
-        mMapView = findViewById(R.id.map_textview);
-
-        FloatingActionButton mDiseaseFab = findViewById(R.id.disease_fab);
+        mDiseaseFab = findViewById(R.id.disease_fab);
         mDiseaseFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MapActivity.this, DiseaseActivity.class));
             }
         });
+
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, new MapListFragment())
+                .commit();
     }
 
     /**
@@ -64,6 +68,9 @@ public class MapActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+
+        // Show the floating action button
+        mDiseaseFab.show();
 
         // Get the user-selected data
         mSelectedDisease = getSharedPreferences(SELECTED_DISEASE, Context.MODE_PRIVATE)
@@ -84,17 +91,18 @@ public class MapActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            updateMap();
+            // Temporary Toast until the list is functional
+            updateSelectedSummary();
+            Toast.makeText(this, mSelectedSummary, Toast.LENGTH_LONG).show();
+            //updateMap();
         }
     }
 
     /*
-     * Updates the map based on the user-selected disease and week.
-     * STILL IN PROGRESS - While testing, this simply updates a TextView.
+     * Summarize the selected information
      */
-    private void updateMap() {
-        // Data is stored in an additional map of locations. This adds up the infections of all
-        // locations.
+    private void updateSelectedSummary() {
+        // Add up the infections of all locations
         int infected = 0;
 
         DiseaseRecord dr;
@@ -113,13 +121,11 @@ public class MapActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // Build the text for mMapView
-        String output = "Selected disease: " + mSelectedDiseaseDisplayName + "\n";
-        output += "Selected week number: " + mSelectedWeek + "\n";
-        output += "Total number infected: ";
-        output += (infected > 0) ? infected : "Data not yet published by CDC";
-
-        mMapView.setText(output);
+        // Build the summary String
+        mSelectedSummary = "Selected disease: " + mSelectedDiseaseDisplayName + "\n";
+        mSelectedSummary += "Selected week number: " + mSelectedWeek + "\n";
+        mSelectedSummary += "Total number infected: ";
+        mSelectedSummary += (infected > 0) ? infected : "Data not yet published by CDC";
     }
 
     @Override
@@ -136,7 +142,8 @@ public class MapActivity extends AppCompatActivity {
             case R.id.share:
 
                 // Make a Toast if a disease and week haven't been selected
-                if ("".equals(mMapView.getText().toString())) {
+                String summary = mSelectedSummary;
+                if ("".equals(summary)) {
                     Toast.makeText(this, "Select a disease and week before sharing",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -163,7 +170,7 @@ public class MapActivity extends AppCompatActivity {
         // Set up the necessary Strings
         String type = "text/plain";
         String subject = getString(R.string.app_name);
-        String text = mMapView.getText().toString();
+        String text = mSelectedSummary;
         String chooserText = getString(R.string.send_report_via);
 
         // Build the Intent

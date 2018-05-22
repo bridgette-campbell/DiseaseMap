@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.uw.tacoma.css.diseasemap.MapActivity;
+import edu.uw.tacoma.css.diseasemap.map.MapActivity;
 import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.database_connection.DiseaseRecord;
 import edu.uw.tacoma.css.diseasemap.database_connection.NNDSSConnection;
@@ -31,7 +31,7 @@ public class WeekListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_week_list, container, false);
+        View view = inflater.inflate(R.layout.recycler_view, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {

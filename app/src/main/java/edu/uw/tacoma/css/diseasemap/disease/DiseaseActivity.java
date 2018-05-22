@@ -2,10 +2,11 @@ package edu.uw.tacoma.css.diseasemap.disease;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import edu.uw.tacoma.css.diseasemap.MapActivity;
+import edu.uw.tacoma.css.diseasemap.map.MapActivity;
 import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.database_connection.NNDSSConnection;
 import edu.uw.tacoma.css.diseasemap.week.WeekActivity;
@@ -21,11 +22,14 @@ public class DiseaseActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_disease);
+        setContentView(R.layout.container);
 
-        // disease_fragment_container is activity_disease's empty FrameLayout
+        // Hide the floating action button
+        FloatingActionButton diseaseFab = findViewById(R.id.disease_fab);
+        diseaseFab.hide();
+
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.disease_fragment_container, new DiseaseListFragment())
+                .add(R.id.fragment_container, new DiseaseListFragment())
                 .commit();
     }
 
