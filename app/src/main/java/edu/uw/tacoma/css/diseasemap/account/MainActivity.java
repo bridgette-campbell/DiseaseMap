@@ -1,8 +1,7 @@
-package edu.uw.tacoma.css.diseasemap;
+package edu.uw.tacoma.css.diseasemap.account;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
@@ -20,8 +19,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import edu.uw.tacoma.css.diseasemap.account.CreateAccountFragment;
-import edu.uw.tacoma.css.diseasemap.account.SignInFragment;
+import edu.uw.tacoma.css.diseasemap.map.MapActivity;
+import edu.uw.tacoma.css.diseasemap.R;
 
 /**
  * The {@link AppCompatActivity} that handles signing into our app to use it.
@@ -73,9 +72,8 @@ public class MainActivity extends AppCompatActivity
      * @param v The parent View
      */
     public void launchSignIn(View v) {
-        //DialogFragment fragment = new SignInFragment();
-        //fragment.show(getSupportFragmentManager(), "Sign In");
-        signIn();
+        DialogFragment fragment = new SignInFragment();
+        fragment.show(getSupportFragmentManager(), "Sign In");
     }
 
     /**

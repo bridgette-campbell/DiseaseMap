@@ -1,4 +1,4 @@
-package edu.uw.tacoma.css.diseasemap;
+package edu.uw.tacoma.css.diseasemap.map;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,11 +9,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Map;
 
+import edu.uw.tacoma.css.diseasemap.R;
+import edu.uw.tacoma.css.diseasemap.account.MainActivity;
 import edu.uw.tacoma.css.diseasemap.database_connection.DiseaseRecord;
 import edu.uw.tacoma.css.diseasemap.database_connection.NNDSSConnection;
 import edu.uw.tacoma.css.diseasemap.disease.DiseaseActivity;
@@ -24,7 +25,8 @@ import edu.uw.tacoma.css.diseasemap.disease.DiseaseActivity;
  *
  * @author Bridgette Campbell, Daniel McBride, Matt Qunell
  */
-public class MapActivity extends AppCompatActivity {
+public class MapActivity extends AppCompatActivity
+        implements MapListFragment.OnListFragmentInteractionListener {
 
     /**
      * SharedPreferences keys for the user-selected Disease and Week
@@ -39,23 +41,25 @@ public class MapActivity extends AppCompatActivity {
     private String mSelectedDiseaseDisplayName;
     private int mSelectedWeek;
 
-    // The temporary TextView
-    private TextView mMapView;
+    // The floating action button
+    FloatingActionButton mDiseaseFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_map);
+        setContentView(R.layout.container);
 
-        mMapView = findViewById(R.id.map_textview);
-
-        FloatingActionButton mDiseaseFab = findViewById(R.id.disease_fab);
+        mDiseaseFab = findViewById(R.id.disease_fab);
         mDiseaseFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MapActivity.this, DiseaseActivity.class));
             }
         });
+
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, new MapListFragment())
+                .commit();
     }
 
     /**
@@ -64,6 +68,9 @@ public class MapActivity extends AppCompatActivity {
     @Override
     public void onResume() {
         super.onResume();
+
+        // Show the floating action button
+        mDiseaseFab.show();
 
         // Get the user-selected data
         mSelectedDisease = getSharedPreferences(SELECTED_DISEASE, Context.MODE_PRIVATE)
@@ -119,7 +126,8 @@ public class MapActivity extends AppCompatActivity {
         output += "Total number infected: ";
         output += (infected > 0) ? infected : "Data not yet published by CDC";
 
-        mMapView.setText(output);
+        //mMapView.setText(output); todo
+        Toast.makeText(this, output, Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -136,13 +144,14 @@ public class MapActivity extends AppCompatActivity {
             case R.id.share:
 
                 // Make a Toast if a disease and week haven't been selected
-                if ("".equals(mMapView.getText().toString())) {
+                /*if ("".equals(mMapView.getText().toString())) {
                     Toast.makeText(this, "Select a disease and week before sharing",
                             Toast.LENGTH_SHORT).show();
                 }
                 else {
                     share();
-                }
+                }*/ //todo
+                share();
                 return true;
 
             // Sign Out
@@ -163,7 +172,8 @@ public class MapActivity extends AppCompatActivity {
         // Set up the necessary Strings
         String type = "text/plain";
         String subject = getString(R.string.app_name);
-        String text = mMapView.getText().toString();
+        //String text = mMapView.getText().toString(); todo
+        String text = "placeholder";
         String chooserText = getString(R.string.send_report_via);
 
         // Build the Intent
@@ -193,5 +203,10 @@ public class MapActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.signed_out, Toast.LENGTH_SHORT).show();
         startActivity(new Intent(this, MainActivity.class));
         finish();
+    }
+
+    @Override
+    public void onListFragmentInteraction() {
+
     }
 }

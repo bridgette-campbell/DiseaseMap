@@ -1,4 +1,4 @@
-package edu.uw.tacoma.css.diseasemap.week;
+package edu.uw.tacoma.css.diseasemap.map;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -9,60 +9,43 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import edu.uw.tacoma.css.diseasemap.map.MapActivity;
 import edu.uw.tacoma.css.diseasemap.R;
-import edu.uw.tacoma.css.diseasemap.database_connection.DiseaseRecord;
-import edu.uw.tacoma.css.diseasemap.database_connection.NNDSSConnection;
 
 /**
- * Represents a list of {@link DiseaseRecord.WeekInfo}s
- *
- * @author Bridgette Campbell, Daniel McBride, Matt Qunell
+ * A fragment representing a list of Items.
+ * <p/>
+ * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
+ * interface.
  */
-public class WeekListFragment extends Fragment {
+public class MapListFragment extends Fragment {
 
     private OnListFragmentInteractionListener mListener;
 
     /**
      * Mandatory empty constructor
      */
-    public WeekListFragment() {}
+    public MapListFragment() {}
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInState) {
         View view = inflater.inflate(R.layout.recycler_view, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
 
-            DiseaseRecord dr;
-            try {
-                String key = MapActivity.SELECTED_DISEASE;
-                String diseaseName = getActivity().getSharedPreferences(key, Context.MODE_PRIVATE)
-                        .getString(key, "none");
-
-                dr = new NNDSSConnection().getDiseaseFromTable(
-                        NNDSSConnection.DiseaseTable.getOfName(diseaseName));
-
-                RecyclerView recyclerView = (RecyclerView) view;
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-                recyclerView.setAdapter(
-                        new WeekRecyclerViewAdapter(dr, mListener));
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
+            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView.setLayoutManager(new LinearLayoutManager(context));
+            recyclerView.setAdapter(new MapRecyclerViewAdapter(mListener));
         }
 
         return view;
     }
 
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;
         } else {
@@ -83,6 +66,6 @@ public class WeekListFragment extends Fragment {
      * fragments contained in that activity.
      */
     public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(int weekNum);
+        void onListFragmentInteraction();
     }
 }
