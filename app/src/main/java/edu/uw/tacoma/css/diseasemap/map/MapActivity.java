@@ -91,10 +91,11 @@ public class MapActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            // Temporary Toast until the list is functional
+            // Set the subtitle
+            getSupportActionBar().setSubtitle(mSelectedDiseaseDisplayName
+                    + " - Week " + mSelectedWeek);
+
             updateSelectedSummary();
-            Toast.makeText(this, mSelectedSummary, Toast.LENGTH_LONG).show();
-            //updateMap();
         }
     }
 

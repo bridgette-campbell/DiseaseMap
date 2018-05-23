@@ -18,7 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/biohazard_logo" />
+        app:srcCompat="@drawable/icon2" />
 
     <Button
         android:id="@+id/buttonCreateAccount"

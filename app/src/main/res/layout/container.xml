@@ -13,12 +13,9 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:clickable="true"
-        android:cropToPadding="false"
         android:focusable="true"
-        android:padding="0dp"
         android:scaleType="center"
-        app:backgroundTint="@android:color/transparent"
-        app:borderWidth="0dp"
-        app:srcCompat="@drawable/icon_circle_border_56" />
+        app:backgroundTint="@color/yellow"
+        app:srcCompat="@drawable/biohazard_56x56" />
 
 </FrameLayout>
