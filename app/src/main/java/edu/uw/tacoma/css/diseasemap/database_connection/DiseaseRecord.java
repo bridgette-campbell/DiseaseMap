@@ -1,5 +1,6 @@
 package edu.uw.tacoma.css.diseasemap.database_connection;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,7 @@ import java.util.Map;
  *
  * @author Bridgette Campbell, Daniel McBride, Matt Qunell
  */
-public final class DiseaseRecord {
+public final class DiseaseRecord implements Serializable {
 
     /*
      * This is a Map<Integer, Map<String, WeekInfo>>, where the outer map's key is the mapping of

@@ -19,7 +19,7 @@
         app:srcCompat="@android:drawable/btn_star"/>
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/locationTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -32,7 +32,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/seasonTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -40,10 +40,10 @@
         android:layout_marginTop="8dp"
         android:text="Number of infections this season:"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/textView"/>
+        app:layout_constraintTop_toBottomOf="@+id/locationTextView"/>
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/weekTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
@@ -51,6 +51,6 @@
         android:layout_marginTop="8dp"
         android:text="Number of infections this week:"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"/>
+        app:layout_constraintTop_toBottomOf="@+id/seasonTextView"/>
 
 </android.support.constraint.ConstraintLayout>

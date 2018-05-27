@@ -57,8 +57,14 @@ public class MapActivity extends AppCompatActivity {
             }
         });
 
+        MapListFragment mapFrag =  new MapListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("disease", mSelectedDisease);
+        bundle.putInt("week", mSelectedWeek);
+        mapFrag.setArguments(bundle);
+
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, new MapListFragment())
+                .add(R.id.fragment_container, mapFrag)
                 .commit();
     }
 

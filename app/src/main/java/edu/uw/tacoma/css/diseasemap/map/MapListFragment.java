@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import edu.uw.tacoma.css.diseasemap.R;
+import edu.uw.tacoma.css.diseasemap.database_connection.DiseaseRecord;
+import edu.uw.tacoma.css.diseasemap.week.WeekListFragment;
 
 /**
  * Represents a list of MapItems
@@ -31,9 +33,12 @@ public class MapListFragment extends Fragment {
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
 
+            DiseaseRecord record = (DiseaseRecord) getArguments().getSerializable("disease");
+            int week = getArguments().getInt("week");
+
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            recyclerView.setAdapter(new MapRecyclerViewAdapter());
+            recyclerView.setAdapter(new MapRecyclerViewAdapter(record, week));
         }
 
         return view;
