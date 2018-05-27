@@ -31,6 +31,7 @@ public class CreateAccountFragment extends DialogFragment {
     private CreateAccountListener mListener;
     private EditText mEmailEditText;
     private EditText mPasswordEditText;
+    private EditText mVerifyPasswordEditText;
 
     /**
      * Mandatory empty constructor
@@ -47,15 +48,25 @@ public class CreateAccountFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_create_account, null);
         mEmailEditText = view.findViewById(R.id.create_account_email);
         mPasswordEditText = view.findViewById(R.id.create_account_password);
+        mVerifyPasswordEditText = view.findViewById(R.id.verify_password);
 
         builder.setView(view)
                 .setPositiveButton(R.string.create_account, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int id) {
 
-                        // Attempt to create the account and sign in the user
-                        String url = buildCreateAccountURL();
-                        mListener.addAccount(url);
+                        // If the passwords match
+                        if (mPasswordEditText.getText().toString().equals(
+                                mVerifyPasswordEditText.getText().toString())) {
+
+                            // Attempt to create the account and sign in the user
+                            String url = buildCreateAccountURL();
+                            mListener.addAccount(url);
+                        }
+                        else {
+                            Toast.makeText(getContext(), "Passwords do not match",
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
                 })
 
