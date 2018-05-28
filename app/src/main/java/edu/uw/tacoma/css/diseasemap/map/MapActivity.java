@@ -2,6 +2,7 @@ package edu.uw.tacoma.css.diseasemap.map;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -173,6 +174,11 @@ public class MapActivity extends AppCompatActivity {
                 }
                 return true;
 
+            //Choose colors
+            case R.id.choose_colors:
+                chooseColors();
+                return true;
+
             // Sign Out
             case R.id.sign_out:
                 signOut();
@@ -206,6 +212,10 @@ public class MapActivity extends AppCompatActivity {
 
         // Start the Intent
         startActivity(i);
+    }
+
+    private void chooseColors() {
+        startActivity(new Intent(this, ColorsActivity.class));
     }
 
     /*

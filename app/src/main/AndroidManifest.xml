@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="edu.uw.tacoma.css.diseasemap">
+    package="edu.uw.tacoma.css.diseasemap">
 
     <!-- Permission to access internet for CDC API -->
     <uses-permission android:name="android.permission.INTERNET" />
@@ -14,21 +14,19 @@
         android:theme="@style/AppTheme">
         <activity android:name=".account.MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".map.MapActivity">
-        </activity>
+        <activity android:name=".map.MapActivity"></activity>
         <activity
             android:name=".disease.DiseaseActivity"
-            android:label="@string/select_disease">
-        </activity>
+            android:label="@string/select_disease"></activity>
         <activity
             android:name=".week.WeekActivity"
-            android:label="@string/select_week">
-        </activity>
+            android:label="@string/select_week"></activity>
+        <activity android:name=".map.ColorsActivity"></activity>
     </application>
 
 </manifest>
