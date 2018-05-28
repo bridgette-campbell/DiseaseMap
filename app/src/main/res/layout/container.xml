@@ -16,6 +16,6 @@
         android:focusable="true"
         android:scaleType="center"
         app:backgroundTint="@android:color/holo_red_dark"
-        app:srcCompat="@drawable/biohazard_56x56" />
+        app:srcCompat="@drawable/biohazard" />
 
 </FrameLayout>
