@@ -43,6 +43,8 @@ public final class NNDSSConnection
     private static final String MMWR_WEEK = "mmwr_week";
     private static final String _CURRENT_WEEK = "_current_week";
     private static final String _CURRENT_WEEK_FLAG = "_current_week_flag";
+    private static final String _CUM_ = "_cum_";
+    private static final String _FLAG = "_flag";
     private static final String REPORTING_AREA = "reporting_area";
 
     private static final String TAG = "NNDSSConnection";
@@ -131,12 +133,26 @@ public final class NNDSSConnection
                         infected = jsonArray.getJSONObject(i).getInt(dt.diseaseName
                                 + _CURRENT_WEEK);
                     }
+
+                    String yearlyCumulativeFlag = dt.diseaseName + _CUM_ + year.toString() + _FLAG;
+                    String yearlyCumulative = dt.diseaseName + _CUM_ + year.toString();
+
+                    Integer cumInfected;
+
+                    if (jsonArray.getJSONObject(i).has(yearlyCumulativeFlag)) {
+                        cumInfected = 0;
+                    } else {
+                        cumInfected = jsonArray.getJSONObject(i).getInt(yearlyCumulative);
+                    }
+
+
+
                     String reportingArea = jsonArray.getJSONObject(i).getString(REPORTING_AREA);
 
                     //Log.i(TAG, "Parsed week: " + week + " reporting location: " + reportingArea);
 
                     weekInfoList.add(
-                            new DiseaseRecord.WeekInfo(year, week, infected, reportingArea));
+                            new DiseaseRecord.WeekInfo(year, week, infected, cumInfected,reportingArea));
                 }
 
                 dList.add(new DiseaseRecord(dt.getDiseaseName(), weekInfoList));
@@ -156,10 +172,17 @@ public final class NNDSSConnection
      * Its just an enum with fields.
      */
     public enum DiseaseTable {
-        Haemophilus_Influenza("cafy-kah2", "haemophilus_influenzae_invasive_all_ages_all_serotypes",
-                "Haemophilus Influenza"),
-        Tetanus("n3ub-5wxs", "tetanus", "Tetanus"),
-        Chicken_Pox("n3ub-5wxs", "varicella_chickenpox", "Chicken Pox");
+        Babesiosis("nkqh-e867", "babesiosis", "Babesiosis"),
+        Campylobacteriosis("nkqh-e867", "campylobacteriosis", "Campylobacteriosis"),
+        Chlamydia_Trachomatis("dsz3-9wvn", "chlamydia_trachomatis_infection", "Chlamydia Trachomatis"),
+        Coccidioidomycosis("dsz3-9wvn", "Coccidioidomycosis", "Coccidioidomycosis"),
+        Meningococcal_Disease("w3an-exa3", "meningococcal_disease_all_serogroups", "Meningococcal Disease"),
+        Mumps("w3an-exa3", "mumps", "Mumps"),
+        Pertussis("w3an-exa3", "pertussis", "Pertussis"),
+        Rabies("j75t-qfp3", "rabies_animal", "Rabies"),
+        Rubella_Congenital_Syndrome("j75t-qfp3", "rubella_congenital_syndrome", "Rubella Syndrome"),
+        Varicella("v9up-rs3x", "varicella", "Varicella"),
+        Salmonellosis("rhry-k9aj", "salmonellosis_excluding_paratyphoid_fever_andtyphoid_fever", "Salmonellosis");
 
         private static final String TAG = "DiseaseTable";
 

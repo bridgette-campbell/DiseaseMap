@@ -1,5 +1,9 @@
 package edu.uw.tacoma.css.diseasemap.map;
 
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.Drawable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,12 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
 import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.database_connection.DiseaseRecord;
-import edu.uw.tacoma.css.diseasemap.week.WeekListFragment;
 
 /**
  * {@link RecyclerView.Adapter} that can display MapItems
@@ -40,8 +44,21 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Map<String, DiseaseRecord.WeekInfo> map = mDiseaseRecord.getInfoForWeek(mWeek);
         List<String> keyList = new ArrayList<String>(map.keySet());
+        Collections.sort(keyList);
 
-        holder.locationTextView.setText(keyList.get(position));
+
+        DiseaseRecord.WeekInfo week = map.get(keyList.get(position));
+
+        holder.locationTextView.setText(week.getReportingArea());
+        holder.weekTextView.setText("Infections this week: " + week.getInfected());
+        holder.seasonTextView.setText("Cumulative infections: " + week.getCumulativeInfected());
+
+        Drawable circle = ContextCompat.getDrawable(holder.mImageView.getContext(), R.drawable.circle);
+
+        circle.setColorFilter(new
+                PorterDuffColorFilter(0xffff00, PorterDuff.Mode.MULTIPLY));
+
+        holder.mImageView.setImageDrawable(circle);
 
 
     }
@@ -49,7 +66,7 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
     @Override
     public int getItemCount() {
         if(mDiseaseRecord != null) {
-            return mDiseaseRecord.getWeeks();
+            return mDiseaseRecord.getInfoForWeek(mWeek).keySet().size();
         } else {
             return 0;
         }

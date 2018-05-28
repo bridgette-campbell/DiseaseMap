@@ -6,6 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Map;
 
 import edu.uw.tacoma.css.diseasemap.R;
@@ -46,11 +49,14 @@ public class WeekRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        List<Integer> keyList = new ArrayList<Integer>(mDiseaseRecord.getWeeks());
+        Collections.sort(keyList);
+
         holder.mItem = mDiseaseRecord.getInfoForWeek(position);
-        holder.mWeek.setText("Week " + (position + 1));
+        holder.mWeek.setText("Week " + keyList.get(position));
 
         int infected = 0;
-        Map<String, DiseaseRecord.WeekInfo> map = mDiseaseRecord.getInfoForWeek(position + 1);
+        Map<String, DiseaseRecord.WeekInfo> map = mDiseaseRecord.getInfoForWeek(keyList.get(position));
         if (map != null) {
             for (String s : map.keySet()) {
                 infected += map.get(s).getInfected();
@@ -61,7 +67,7 @@ public class WeekRecyclerViewAdapter
                 ? "Infected: " + String.valueOf(infected)
                 : "CDC data not yet published");
 
-        final int pos = position + 1;
+        final int pos = keyList.get(position);
         holder.mView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,7 +86,7 @@ public class WeekRecyclerViewAdapter
             return 0;
         }
 
-        return mDiseaseRecord.getWeeks();
+        return mDiseaseRecord.getWeeks().size();
     }
 
     /**

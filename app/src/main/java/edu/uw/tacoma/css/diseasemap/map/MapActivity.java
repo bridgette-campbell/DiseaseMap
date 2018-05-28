@@ -44,8 +44,11 @@ public class MapActivity extends AppCompatActivity {
     // The floating action button
     FloatingActionButton mDiseaseFab;
 
+    MapListFragment mMapFrag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.container);
 
@@ -57,14 +60,14 @@ public class MapActivity extends AppCompatActivity {
             }
         });
 
-        MapListFragment mapFrag =  new MapListFragment();
+        mMapFrag =  new MapListFragment();
         Bundle bundle = new Bundle();
-        bundle.putSerializable("disease", mSelectedDisease);
+        bundle.putString("disease", mSelectedDisease);
         bundle.putInt("week", mSelectedWeek);
-        mapFrag.setArguments(bundle);
+        mMapFrag.setArguments(bundle);
 
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, mapFrag)
+                .add(R.id.fragment_container, mMapFrag)
                 .commit();
     }
 
@@ -123,10 +126,21 @@ public class MapActivity extends AppCompatActivity {
                     infected += map.get(s).getInfected();
                 }
             }
+
+            mMapFrag =  new MapListFragment();
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("disease", dr);
+            bundle.putInt("week", mSelectedWeek);
+            mMapFrag.setArguments(bundle);
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, mMapFrag)
+                    .commit();
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+
 
         // Build the summary String
         mSelectedSummary = "Selected disease: " + mSelectedDiseaseDisplayName + "\n";

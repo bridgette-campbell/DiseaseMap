@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * This is a general representation of a disease record, as we intend to use for to display in our visual.
@@ -61,8 +62,8 @@ public final class DiseaseRecord implements Serializable {
      *
      * @return the {@link Integer} number of weeks
      */
-    public Integer getWeeks() {
-        return this.weekInfo.size();
+    public Set<Integer> getWeeks() {
+        return this.weekInfo.keySet();
     }
 
     /**
@@ -70,10 +71,11 @@ public final class DiseaseRecord implements Serializable {
      *
      * @author Bridgette Campbell, Daniel McBride, Matt Qunell
      */
-    public static class WeekInfo {
+    public static class WeekInfo implements Serializable{
         private final Integer year;
         private final Integer week;
         private final Integer infected;
+        private final Integer cumulativeInfected;
         private final String reportingArea;
 
         /**
@@ -84,10 +86,11 @@ public final class DiseaseRecord implements Serializable {
          * @param infected the number of reported infected
          * @param reportingArea the location that the report is coming from
          */
-        public WeekInfo(Integer year, Integer week, Integer infected, String reportingArea) {
+        public WeekInfo(Integer year, Integer week, Integer infected, Integer cumulativeInfected, String reportingArea) {
             this.year = year;
             this.week = week;
             this.infected = infected;
+            this.cumulativeInfected = cumulativeInfected;
             this.reportingArea = reportingArea;
         }
 
@@ -101,6 +104,10 @@ public final class DiseaseRecord implements Serializable {
 
         public Integer getInfected() {
             return infected;
+        }
+
+        public Integer getCumulativeInfected(){
+            return this.cumulativeInfected;
         }
     }
 
