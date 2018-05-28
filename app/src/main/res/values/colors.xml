@@ -4,5 +4,16 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="yellow">#FFFF00</color>
+    <color name="yellow_green">#adff2f</color>
+    <color name="yellow">#ffff00</color>
+    <color name="orange_yellow">#ffa500</color>
+    <color name="orange">#ee7600</color>
+    <color name="red_orange">#ee4000</color>
+    <color name="red">#ff0000</color>
+    <color name="violet_red">#c71585</color>
+    <color name="violet">#7a378b</color>
+    <color name="blue_violet">#483d8b</color>
+    <color name="blue">#0000ff</color>
+    <color name="blue_green">#00868b</color>
+    <color name="green">#00cd00</color>
 </resources>

@@ -9,8 +9,21 @@
         app:showAsAction="ifRoom" />
 
     <item
+        android:id="@+id/choose_colors"
+        android:title="@string/choose_colors"
+        android:orderInCategory="10"
+        app:showAsAction="never" />
+
+    <item
         android:id="@+id/sign_out"
         android:title="@string/sign_out"
+        android:orderInCategory="40"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/about"
+        android:title="@string/about"
+        android:orderInCategory="100"
         app:showAsAction="never" />
 
 </menu>
