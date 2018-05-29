@@ -141,6 +141,8 @@ public class ColorsActivity extends AppCompatActivity {//implements AdapterView.
                         .apply();
 
                 Log.i(TAG, "Warm color ("+ mWarmColor +") selection saved");
+
+                finish();
             }
         });
 
