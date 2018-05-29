@@ -1,7 +1,6 @@
 package edu.uw.tacoma.css.diseasemap.database_connection;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -47,8 +46,6 @@ public final class NNDSSConnection
     private static final String _FLAG = "_flag";
     private static final String REPORTING_AREA = "reporting_area";
 
-    private static final String TAG = "NNDSSConnection";
-
     /**
      * This will return a {@link DiseaseRecord} constructed for the specified {@link DiseaseTable}.
      *
@@ -73,14 +70,12 @@ public final class NNDSSConnection
      * @throws MalformedURLException
      */
     private URL createConnectionURL(DiseaseTable diseaseTable) throws MalformedURLException {
-        StringBuilder sb = new StringBuilder();
+        String url = CDC_DATABASE_ADDRESS +
+                diseaseTable.getTableName() +
+                JSON_SUFFIX +
+                APP_TOKEN;
 
-        sb.append(CDC_DATABASE_ADDRESS);
-        sb.append(diseaseTable.getTableName());
-        sb.append(JSON_SUFFIX);
-        sb.append(APP_TOKEN);
-
-        return new URL(sb.toString());
+        return new URL(url);
     }
 
     /**
@@ -155,7 +150,7 @@ public final class NNDSSConnection
                             new DiseaseRecord.WeekInfo(year, week, infected, cumInfected,reportingArea));
                 }
 
-                dList.add(new DiseaseRecord(dt.getDiseaseName(), weekInfoList));
+                dList.add(new DiseaseRecord(weekInfoList));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -169,7 +164,7 @@ public final class NNDSSConnection
 
     /**
      * These are complex enums that contain information about disease tables.
-     * Its just an enum with fields.
+     * It's just an enum with fields.
      */
     public enum DiseaseTable {
         Babesiosis("nkqh-e867", "babesiosis", "Babesiosis"),
@@ -183,8 +178,6 @@ public final class NNDSSConnection
         Rubella_Congenital_Syndrome("j75t-qfp3", "rubella_congenital_syndrome", "Rubella Syndrome"),
         Varicella("v9up-rs3x", "varicella", "Varicella"),
         Salmonellosis("rhry-k9aj", "salmonellosis_excluding_paratyphoid_fever_andtyphoid_fever", "Salmonellosis");
-
-        private static final String TAG = "DiseaseTable";
 
         private final String tableName;
         private final String diseaseName;

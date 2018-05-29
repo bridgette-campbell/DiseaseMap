@@ -28,7 +28,7 @@ public class ColorsActivity extends AppCompatActivity {//implements AdapterView.
     public static final String SELECTED_COOL_COLOR = "selected_cool_color";
     public static final String SELECTED_WARM_COLOR = "selected_warm_color";
 
-    /**
+    /*
      * User-selected colors
      */
     private String mCoolColor;
@@ -41,26 +41,32 @@ public class ColorsActivity extends AppCompatActivity {//implements AdapterView.
 
         final List<String> coolList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.cool_colors_array)));
 
-        final Spinner coolSpinner = (Spinner) findViewById(R.id.cool_spinner);
+        final Spinner coolSpinner = findViewById(R.id.cool_spinner);
         ArrayAdapter<CharSequence> coolAdapter = new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, coolList) {
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
 
                 int color = Color.WHITE;
-                //This is very gross. I am sorry.
-                if (position == 0) {
-                    color = getResources().getColor(R.color.green);
-                } else if (position == 1) {
-                    color = getResources().getColor(R.color.blue_green);
-                } else if (position == 2) {
-                    color = getResources().getColor(R.color.blue);
-                } else if (position == 3) {
-                    color = getResources().getColor(R.color.blue_violet);
-                } else if (position == 4) {
-                    color = getResources().getColor(R.color.violet);
-                } else if (position == 5) {
-                    color = getResources().getColor(R.color.violet_red);
+                switch (position) {
+                    case 0:
+                        color = getResources().getColor(R.color.green);
+                        break;
+                    case 1:
+                        color = getResources().getColor(R.color.blue_green);
+                        break;
+                    case 2:
+                        color = getResources().getColor(R.color.blue);
+                        break;
+                    case 3:
+                        color = getResources().getColor(R.color.blue_violet);
+                        break;
+                    case 4:
+                        color = getResources().getColor(R.color.violet);
+                        break;
+                    case 5:
+                        color = getResources().getColor(R.color.violet_red);
+                        break;
                 }
                 tv.setBackgroundColor(color);
                 return view;
@@ -82,7 +88,7 @@ public class ColorsActivity extends AppCompatActivity {//implements AdapterView.
 
         final List<String> warmList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.warm_colors_array)));
 
-        final Spinner warmSpinner = (Spinner) findViewById(R.id.warm_spinner);
+        final Spinner warmSpinner = findViewById(R.id.warm_spinner);
         ArrayAdapter<CharSequence> warmAdapter = new ArrayAdapter(this.getBaseContext(), android.R.layout.simple_dropdown_item_1line, warmList) {
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
@@ -90,19 +96,25 @@ public class ColorsActivity extends AppCompatActivity {//implements AdapterView.
 
                 int color = Color.WHITE;
                 for (String name : warmList) {
-                    //This is very gross. I am sorry.
-                    if (position == 5) {
-                        color = getResources().getColor(R.color.yellow_green);
-                    } else if (position == 4) {
-                        color = getResources().getColor(R.color.yellow);
-                    } else if (position == 3) {
-                        color = getResources().getColor(R.color.orange_yellow);
-                    } else if (position == 2) {
-                        color = getResources().getColor(R.color.orange);
-                    } else if (position == 1) {
-                        color = getResources().getColor(R.color.red_orange);
-                    } else if (position == 0) {
-                        color = getResources().getColor(R.color.red);
+                    switch (position) {
+                        case 5:
+                            color = getResources().getColor(R.color.yellow_green);
+                            break;
+                        case 4:
+                            color = getResources().getColor(R.color.yellow);
+                            break;
+                        case 3:
+                            color = getResources().getColor(R.color.orange_yellow);
+                            break;
+                        case 2:
+                            color = getResources().getColor(R.color.orange);
+                            break;
+                        case 1:
+                            color = getResources().getColor(R.color.red_orange);
+                            break;
+                        case 0:
+                            color = getResources().getColor(R.color.red);
+                            break;
                     }
                 }
                 tv.setBackgroundColor(color);
@@ -124,7 +136,7 @@ public class ColorsActivity extends AppCompatActivity {//implements AdapterView.
         });
         warmSpinner.setSelection(warmAdapter.getPosition(warmList.get(0)));
 
-        Button confirm = (Button) findViewById(R.id.btn_colors_selected);
+        Button confirm = findViewById(R.id.btn_colors_selected);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,15 +156,5 @@ public class ColorsActivity extends AppCompatActivity {//implements AdapterView.
             }
         });
 
-    }
-
-    public void onItemSelected(AdapterView<?> parent, View view,
-                               int pos, long id) {
-        // An item was selected. You can retrieve the selected item using
-        //parent.getItemAtPosition(pos);\
-    }
-
-    public void onNothingSelected(AdapterView<?> parent) {
-        // Another interface callback
     }
 }

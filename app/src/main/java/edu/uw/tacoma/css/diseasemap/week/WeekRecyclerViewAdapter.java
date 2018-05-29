@@ -49,7 +49,7 @@ public class WeekRecyclerViewAdapter
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        List<Integer> keyList = new ArrayList<Integer>(mDiseaseRecord.getWeeks());
+        List<Integer> keyList = new ArrayList<>(mDiseaseRecord.getWeeks());
         Collections.sort(keyList);
 
         holder.mItem = mDiseaseRecord.getInfoForWeek(position);

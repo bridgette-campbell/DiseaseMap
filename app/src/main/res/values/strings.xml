@@ -13,11 +13,12 @@
     <string name="share">Share</string>
     <string name="send_report_via">Send CDC data via</string>
     <string name="sign_out">Sign Out</string>
+    <string name="state_desc">Representation of how comparatively diseased the state is</string>
 
     <string name="select_disease">Select Disease</string>
     <string name="select_week">Select Week</string>
     <string name="about">About</string>
-    <string name="choose_colors">Choose colors</string>
+    <string name="choose_colors">Choose Colors</string>
     <string name="colors_selected">Okay</string>
     <string name="txt_cool">Select a color to indicate the least infected</string>
     <string name="txt_warm">Select a color to indicate the most infected</string>

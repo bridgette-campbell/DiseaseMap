@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.database_connection.DiseaseRecord;
-import edu.uw.tacoma.css.diseasemap.week.WeekListFragment;
 
 /**
  * Represents a list of MapItems

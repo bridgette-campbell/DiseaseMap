@@ -19,14 +19,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".map.MapActivity"></activity>
+        <activity android:name=".map.MapActivity" />
         <activity
             android:name=".disease.DiseaseActivity"
-            android:label="@string/select_disease"></activity>
+            android:label="@string/select_disease"/>
         <activity
             android:name=".week.WeekActivity"
-            android:label="@string/select_week"></activity>
-        <activity android:name=".map.ColorsActivity"></activity>
+            android:label="@string/select_week" />
+        <activity android:name=".map.ColorsActivity" />
     </application>
 
 </manifest>

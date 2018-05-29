@@ -43,7 +43,7 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Map<String, DiseaseRecord.WeekInfo> map = mDiseaseRecord.getInfoForWeek(mWeek);
-        List<String> keyList = new ArrayList<String>(map.keySet());
+        List<String> keyList = new ArrayList<>(map.keySet());
         Collections.sort(keyList);
 
 
@@ -73,7 +73,6 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
         public final ImageView mImageView;
         public final TextView locationTextView;
         public final TextView seasonTextView;
@@ -81,7 +80,6 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
             mImageView = view.findViewById(R.id.imageView);
             locationTextView = view.findViewById(R.id.locationTextView);
             seasonTextView = view.findViewById(R.id.seasonTextView);

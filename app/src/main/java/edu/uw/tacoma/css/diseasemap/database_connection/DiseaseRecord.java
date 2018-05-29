@@ -20,18 +20,12 @@ public final class DiseaseRecord implements Serializable {
      */
     private Map<Integer, Map<String, WeekInfo>> weekInfo = new HashMap<>();
 
-    // Name of the disease
-    private final String name;
-
     /**
      * This takes the list of WeekInfo and map it into a format that can be more readily used.
      *
-     * @param name     the disease name
      * @param weekInfo the week-by-week data of the disease
      */
-    public DiseaseRecord(String name, List<WeekInfo> weekInfo) {
-
-        this.name = name;
+    public DiseaseRecord(List<WeekInfo> weekInfo) {
 
         for (WeekInfo wi : weekInfo) {
 
@@ -41,10 +35,6 @@ public final class DiseaseRecord implements Serializable {
 
             this.weekInfo.get(wi.getWeek()).put(wi.getReportingArea(), wi);
         }
-    }
-
-    public String getName() {
-        return name;
     }
 
     /**
@@ -71,7 +61,7 @@ public final class DiseaseRecord implements Serializable {
      *
      * @author Bridgette Campbell, Daniel McBride, Matt Qunell
      */
-    public static class WeekInfo implements Serializable{
+    public static class WeekInfo implements Serializable {
         private final Integer year;
         private final Integer week;
         private final Integer infected;
