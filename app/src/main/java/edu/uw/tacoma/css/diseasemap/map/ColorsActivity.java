@@ -37,22 +37,22 @@ public class ColorsActivity extends AppCompatActivity {
     private String mWarmColor;
 
 
-    private Map<String, Integer> coolMap = new HashMap<String, Integer>();
-    private Map<String, Integer> warmMap = new HashMap<String, Integer>();
+    private Map<String, Integer> mCoolMap = new HashMap<String, Integer>();
+    private Map<String, Integer> mWarmMap = new HashMap<String, Integer>();
     {
-        coolMap.put("Green", 0x00cd00);
-        coolMap.put("Blue-Green", 0x00868b);
-        coolMap.put("Blue", 0x0000ff);
-        coolMap.put("Blue-Violet", 0x483d8b);
-        coolMap.put("Violet", 0x7a378b);
-        coolMap.put("Violet-Red", 0xc71585);
+        mCoolMap.put("Green", 0x00cd00);
+        mCoolMap.put("Blue-Green", 0x00868b);
+        mCoolMap.put("Blue", 0x0000ff);
+        mCoolMap.put("Blue-Violet", 0x483d8b);
+        mCoolMap.put("Violet", 0x7a378b);
+        mCoolMap.put("Violet-Red", 0xc71585);
 
-        warmMap.put("Yellow-Green", 0xadff2f);
-        warmMap.put("Yellow", 0xffff00);
-        warmMap.put("Orange-Yellow", 0xffa500);
-        warmMap.put("Orange", 0xee7600);
-        warmMap.put("Red-Orange", 0xee4000);
-        warmMap.put("Red", 0xff0000);
+        mWarmMap.put("Yellow-Green", 0xadff2f);
+        mWarmMap.put("Yellow", 0xffff00);
+        mWarmMap.put("Orange-Yellow", 0xffa500);
+        mWarmMap.put("Orange", 0xee7600);
+        mWarmMap.put("Red-Orange", 0xee4000);
+        mWarmMap.put("Red", 0xff0000);
     }
 
     @Override
@@ -148,14 +148,14 @@ public class ColorsActivity extends AppCompatActivity {
             public void onClick(View view) {
                 getSharedPreferences(ColorsActivity.SELECTED_COOL_COLOR, Context.MODE_PRIVATE)
                         .edit()
-                        .putInt(ColorsActivity.SELECTED_COOL_COLOR, coolMap.get(mCoolColor))
+                        .putInt(ColorsActivity.SELECTED_COOL_COLOR, mCoolMap.get(mCoolColor))
                         .apply();
 
                 Log.i(TAG, "Cool color (" + mCoolColor + ") selection saved");
 
                 getSharedPreferences(ColorsActivity.SELECTED_WARM_COLOR, Context.MODE_PRIVATE)
                         .edit()
-                        .putInt(ColorsActivity.SELECTED_WARM_COLOR, warmMap.get(mWarmColor))
+                        .putInt(ColorsActivity.SELECTED_WARM_COLOR, mWarmMap.get(mWarmColor))
                         .apply();
 
                 Log.i(TAG, "Warm color (" + mWarmColor + ") selection saved");
