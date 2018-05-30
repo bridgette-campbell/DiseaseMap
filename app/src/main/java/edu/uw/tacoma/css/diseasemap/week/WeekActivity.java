@@ -14,7 +14,7 @@ import edu.uw.tacoma.css.diseasemap.R;
  * @author Bridgette Campbell, Daniel McBride, Matt Qunell
  */
 public class WeekActivity extends AppCompatActivity
-        implements WeekListFragment.OnListFragmentInteractionListener {
+        implements WeekListFragment.WeekListListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class WeekActivity extends AppCompatActivity
 
     // Called when an item in the list is selected
     @Override
-    public void onListFragmentInteraction(int weekNum) {
+    public void selectWeek(int weekNum) {
         String key = MapActivity.SELECTED_WEEK;
 
         getSharedPreferences(key, Context.MODE_PRIVATE)

@@ -44,9 +44,9 @@ public class MapActivity extends AppCompatActivity {
     private int mNumberInfected;
 
     // The floating action button
-    FloatingActionButton mDiseaseFab;
+    private FloatingActionButton mDiseaseFab;
 
-    MapListFragment mMapFrag;
+    private MapListFragment mMapFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

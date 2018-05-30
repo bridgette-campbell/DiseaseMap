@@ -21,7 +21,7 @@ import edu.uw.tacoma.css.diseasemap.database_connection.NNDSSConnection;
  */
 public class WeekListFragment extends Fragment {
 
-    private OnListFragmentInteractionListener mListener;
+    private WeekListListener mListener;
 
     /**
      * Mandatory empty constructor
@@ -63,11 +63,11 @@ public class WeekListFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof WeekListListener) {
+            mListener = (WeekListListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+                    + " must implement DiseaseListListener");
         }
     }
 
@@ -82,7 +82,7 @@ public class WeekListFragment extends Fragment {
      * interaction in this fragment to be communicated to the activity and potentially other
      * fragments contained in that activity.
      */
-    public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(int weekNum);
+    public interface WeekListListener {
+        void selectWeek(int weekNum);
     }
 }

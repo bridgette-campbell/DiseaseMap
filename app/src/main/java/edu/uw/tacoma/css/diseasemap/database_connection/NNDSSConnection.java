@@ -46,6 +46,20 @@ public final class NNDSSConnection
     private static final String _FLAG = "_flag";
     private static final String REPORTING_AREA = "reporting_area";
 
+    private static final List<String> EXLUDE_AREAS = new ArrayList<String>(){{
+        add("UNITED STATES");
+        add("S. ATLANTIC");
+        add("PACIFIC");
+        add("E.N. CENTRAL");
+        add("W.S. CENTRAL");
+        add("MOUNTAIN");
+        add("MID. ATLANTIC");
+        add("NEW ENGLAND");
+        add("W.N. CENTRAL");
+        add("E.S. CENTRAL");
+        add("C.N.M.I.");
+    }};
+
     /**
      * This will return a {@link DiseaseRecord} constructed for the specified {@link DiseaseTable}.
      *
@@ -92,6 +106,7 @@ public final class NNDSSConnection
         List<DiseaseRecord> dList = new ArrayList<>();
         try {
             for (DiseaseTable dt : diseaseTables) {
+
 
                 //Log.i(TAG, "Reading from: " + dt.getTableName());
                 HttpURLConnection conn = (HttpURLConnection) createConnectionURL(dt)
@@ -144,10 +159,14 @@ public final class NNDSSConnection
 
                     String reportingArea = jsonArray.getJSONObject(i).getString(REPORTING_AREA);
 
+                    if(EXLUDE_AREAS.contains(reportingArea)){
+                        continue;
+                    }
+
                     //Log.i(TAG, "Parsed week: " + week + " reporting location: " + reportingArea);
 
                     weekInfoList.add(
-                            new DiseaseRecord.WeekInfo(year, week, infected, cumInfected,reportingArea));
+                            new DiseaseRecord.WeekInfo(year, week, infected, cumInfected, reportingArea));
                 }
 
                 dList.add(new DiseaseRecord(weekInfoList));

@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ColorsActivity extends AppCompatActivity {
     private static final String TAG = "ColorsActivity";
@@ -32,6 +34,24 @@ public class ColorsActivity extends AppCompatActivity {
     private String mCoolColor;
     private String mWarmColor;
 
+    private Map<String, Integer> mCoolMap = new HashMap<>();
+    private Map<String, Integer> mWarmMap = new HashMap<>();
+    {
+        mCoolMap.put("Green", 0x00cd00);
+        mCoolMap.put("Blue-Green", 0x00868b);
+        mCoolMap.put("Blue", 0x0000ff);
+        mCoolMap.put("Blue-Violet", 0x483d8b);
+        mCoolMap.put("Violet", 0x7a378b);
+        mCoolMap.put("Violet-Red", 0xc71585);
+
+        mWarmMap.put("Yellow-Green", 0xadff2f);
+        mWarmMap.put("Yellow", 0xffff00);
+        mWarmMap.put("Orange-Yellow", 0xffa500);
+        mWarmMap.put("Orange", 0xee7600);
+        mWarmMap.put("Red-Orange", 0xee4000);
+        mWarmMap.put("Red", 0xff0000);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +59,7 @@ public class ColorsActivity extends AppCompatActivity {
 
         final List<String> coolList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.cool_colors_array)));
 
+        // Cool Spinner
         final Spinner coolSpinner = findViewById(R.id.cool_spinner);
         ArrayAdapter<CharSequence> coolAdapter = new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, coolList) {
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
@@ -84,9 +105,9 @@ public class ColorsActivity extends AppCompatActivity {
         });
         coolSpinner.setSelection(coolAdapter.getPosition(coolList.get(0)));
 
-        final List<String> warmList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.warm_colors_array)));
-
+        // Warm Spinner
         final Spinner warmSpinner = findViewById(R.id.warm_spinner);
+        final List<String> warmList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.warm_colors_array)));
         ArrayAdapter<CharSequence> warmAdapter = new ArrayAdapter(this.getBaseContext(), android.R.layout.simple_dropdown_item_1line, warmList) {
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
@@ -138,19 +159,22 @@ public class ColorsActivity extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSharedPreferences(ColorsActivity.SELECTED_COOL_COLOR, Context.MODE_PRIVATE)
+
+                getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE)
                         .edit()
-                        .putString(ColorsActivity.SELECTED_COOL_COLOR, mCoolColor)
+                        .putInt(ColorsActivity.SELECTED_COOL_COLOR, mCoolMap.get(mCoolColor))
                         .apply();
 
-                Log.i(TAG, "Cool color ("+ mCoolColor +") selection saved");
+                Log.i(TAG, "Cool color (" + mCoolColor + ") selection saved");
 
-                getSharedPreferences(ColorsActivity.SELECTED_WARM_COLOR, Context.MODE_PRIVATE)
+                getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE)
                         .edit()
-                        .putString(ColorsActivity.SELECTED_WARM_COLOR, mWarmColor)
+                        .putInt(ColorsActivity.SELECTED_WARM_COLOR, mWarmMap.get(mWarmColor))
                         .apply();
 
-                Log.i(TAG, "Warm color ("+ mWarmColor +") selection saved");
+                Log.i(TAG, "Warm color (" + mWarmColor + ") selection saved");
+
+                finish();
             }
         });
 

@@ -19,6 +19,8 @@ public final class DiseaseRecord implements Serializable {
      * the String is the name of the reporting location.
      */
     private Map<Integer, Map<String, WeekInfo>> weekInfo = new HashMap<>();
+    private Map<Integer, WeekInfo> weekMax = new HashMap<>();
+    private Map<Integer, WeekInfo> weekMin = new HashMap<>();
 
     /**
      * This takes the list of WeekInfo and map it into a format that can be more readily used.
@@ -29,8 +31,17 @@ public final class DiseaseRecord implements Serializable {
 
         for (WeekInfo wi : weekInfo) {
 
-            if (this.weekInfo.get(wi.getWeek()) == null) {
-                this.weekInfo.put(wi.getWeek(), new HashMap<String, WeekInfo>());
+            Integer week = wi.getWeek();
+
+            if (this.weekInfo.get(week) == null) {
+                this.weekInfo.put(week, new HashMap<String, WeekInfo>());
+            }
+
+            if(weekMax.get(week) == null || weekMax.get(week).getCumulativeInfected() < wi.getCumulativeInfected()){
+                weekMax.put(week, wi);
+            }
+            if(weekMin.get(week) == null || wi.getCumulativeInfected() < weekMin.get(week).getCumulativeInfected()){
+                weekMin.put(week, wi);
             }
 
             this.weekInfo.get(wi.getWeek()).put(wi.getReportingArea(), wi);
@@ -56,6 +67,14 @@ public final class DiseaseRecord implements Serializable {
         return this.weekInfo.keySet();
     }
 
+    public WeekInfo getMaxForWeek(Integer week){
+        return this.weekMax.get(week);
+    }
+
+    public WeekInfo getMinForWeek(Integer week){
+        return this.weekMin.get(week);
+    }
+
     /**
      * This is a manifestation of a single week's recording for a single location.
      *
@@ -71,9 +90,9 @@ public final class DiseaseRecord implements Serializable {
         /**
          * Constructor
          *
-         * @param year the year that the week corresponds to (2018, 2017, etc.)
-         * @param week the week of the year (Week 1, Week 5, etc.)
-         * @param infected the number of reported infected
+         * @param year          the year that the week corresponds to (2018, 2017, etc.)
+         * @param week          the week of the year (Week 1, Week 5, etc.)
+         * @param infected      the number of reported infected
          * @param reportingArea the location that the report is coming from
          */
         public WeekInfo(Integer year, Integer week, Integer infected, Integer cumulativeInfected, String reportingArea) {
@@ -84,6 +103,7 @@ public final class DiseaseRecord implements Serializable {
             this.reportingArea = reportingArea;
         }
 
+
         public String getReportingArea() {
             return reportingArea;
         }
@@ -92,11 +112,15 @@ public final class DiseaseRecord implements Serializable {
             return this.week;
         }
 
+        public Integer getYear() {
+            return this.year;
+        }
+
         public Integer getInfected() {
             return infected;
         }
 
-        public Integer getCumulativeInfected(){
+        public Integer getCumulativeInfected() {
             return this.cumulativeInfected;
         }
     }

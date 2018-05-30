@@ -17,7 +17,7 @@ import edu.uw.tacoma.css.diseasemap.week.WeekActivity;
  * @author Bridgette Campbell, Daniel McBride, Matt Qunell
  */
 public class DiseaseActivity extends AppCompatActivity
-        implements DiseaseListFragment.OnListFragmentInteractionListener {
+        implements DiseaseListFragment.DiseaseListListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class DiseaseActivity extends AppCompatActivity
 
     // Called when an item in the list is selected
     @Override
-    public void onListFragmentInteraction(NNDSSConnection.DiseaseTable item) {
+    public void selectDisease(NNDSSConnection.DiseaseTable item) {
         String key = MapActivity.SELECTED_DISEASE;
 
         getSharedPreferences(key, Context.MODE_PRIVATE)

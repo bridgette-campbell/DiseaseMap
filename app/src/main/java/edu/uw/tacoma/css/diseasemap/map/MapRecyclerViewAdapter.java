@@ -1,8 +1,16 @@
 package edu.uw.tacoma.css.diseasemap.map;
 
+import android.animation.ArgbEvaluator;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.preference.PreferenceManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -53,14 +61,65 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
         holder.weekTextView.setText("Infections this week: " + week.getInfected());
         holder.seasonTextView.setText("Cumulative infections: " + week.getCumulativeInfected());
 
-        Drawable circle = ContextCompat.getDrawable(holder.mImageView.getContext(), R.drawable.circle);
+        //The current lowest/highest cumulative infection.
+        Integer highest = mDiseaseRecord.getMaxForWeek(week.getWeek()).getCumulativeInfected();
+        Integer lowest = mDiseaseRecord.getMinForWeek(week.getWeek()).getCumulativeInfected();
 
-        circle.setColorFilter(new
-                PorterDuffColorFilter(0xffff00, PorterDuff.Mode.MULTIPLY));
+        Integer greatestRange = highest - lowest;
 
-        holder.mImageView.setImageDrawable(circle);
+        Integer thisRange = week.getCumulativeInfected() - lowest;
+        float ratio;
+        if(greatestRange > 0) {
+            ratio = ((float) thisRange) / ((float) greatestRange);
+        } else {
+            ratio = 0;
+        }
+
+        SharedPreferences prefs = holder.mImageView.getContext().getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE);
+
+        Integer fromColor = prefs.getInt(ColorsActivity.SELECTED_COOL_COLOR, 0x00ff00);
+        Integer toColor = prefs.getInt(ColorsActivity.SELECTED_WARM_COLOR, 0xff0000);
+        int color = interpolateColor(fromColor, toColor, ratio);
 
 
+        //Edit the drawable/
+        Bitmap bitmap = BitmapFactory.decodeResource(holder.mImageView.getContext().getResources(),
+                R.drawable.circle);
+
+        bitmap = bitmap.copy( Bitmap.Config.ARGB_8888 , true);
+
+        int [] allpixels = new int [bitmap.getHeight() * bitmap.getWidth()];
+
+        bitmap.getPixels(allpixels, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
+
+        for(int i = 0; i < allpixels.length; i++)
+        {
+            if(allpixels[i] == Color.WHITE)
+            {
+                allpixels[i] = color;
+            }
+        }
+
+        bitmap.setPixels(allpixels,0,bitmap.getWidth(),0, 0, bitmap.getWidth(),bitmap.getHeight());
+
+        holder.mImageView.setImageDrawable(new BitmapDrawable(holder.mImageView.getContext().getResources(), bitmap));
+
+
+    }
+
+    private int interpolateColor(int a, int b, float proportion) {
+        float[] hsva = new float[3];
+        float[] hsvb = new float[3];
+        Color.colorToHSV(a, hsva);
+        Color.colorToHSV(b, hsvb);
+        for (int i = 0; i < 3; i++) {
+            hsvb[i] = interpolate(hsva[i], hsvb[i], proportion);
+        }
+        return Color.HSVToColor(hsvb);
+    }
+
+    private float interpolate(float a, float b, float proportion) {
+        return (a + ((b - a) * proportion));
     }
 
     @Override

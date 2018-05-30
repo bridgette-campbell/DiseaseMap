@@ -8,20 +8,20 @@ import android.widget.TextView;
 
 import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.database_connection.NNDSSConnection;
-import edu.uw.tacoma.css.diseasemap.disease.DiseaseListFragment.OnListFragmentInteractionListener;
+import edu.uw.tacoma.css.diseasemap.disease.DiseaseListFragment.DiseaseListListener;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link NNDSSConnection.DiseaseTable} and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ * specified {@link DiseaseListListener}.
  *
  * @author Bridgette Campbell, Daniel McBride, Matt Qunell
  */
 public class DiseaseRecyclerViewAdapter
         extends RecyclerView.Adapter<DiseaseRecyclerViewAdapter.ViewHolder> {
 
-    private final OnListFragmentInteractionListener mListener;
+    private final DiseaseListListener mListener;
 
-    public DiseaseRecyclerViewAdapter(OnListFragmentInteractionListener listener) {
+    public DiseaseRecyclerViewAdapter(DiseaseListListener listener) {
         mListener = listener;
     }
 
@@ -44,7 +44,7 @@ public class DiseaseRecyclerViewAdapter
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the fragment is
                     // attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mItem);
+                    mListener.selectDisease(holder.mItem);
                 }
             }
         });

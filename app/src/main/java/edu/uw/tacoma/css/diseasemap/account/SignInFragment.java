@@ -25,7 +25,7 @@ public class SignInFragment extends DialogFragment {
     /**
      * The URL for verifying a user on the web server
      */
-    public static final String VERIFY_ACCOUNT_URL =
+    private static final String VERIFY_ACCOUNT_URL =
             "http://diseasemapapp.000webhostapp.com/login.php?";
 
     private VerifyAccountListener mListener;

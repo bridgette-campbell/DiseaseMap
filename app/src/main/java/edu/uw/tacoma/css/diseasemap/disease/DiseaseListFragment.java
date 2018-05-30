@@ -20,7 +20,7 @@ import edu.uw.tacoma.css.diseasemap.database_connection.NNDSSConnection;
  */
 public class DiseaseListFragment extends Fragment {
 
-    private OnListFragmentInteractionListener mListener;
+    private DiseaseListListener mListener;
 
     /**
      * Mandatory empty constructor
@@ -47,11 +47,11 @@ public class DiseaseListFragment extends Fragment {
     public void onAttach(Context context) {
         super.onAttach(context);
 
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+        if (context instanceof DiseaseListListener) {
+            mListener = (DiseaseListListener) context;
         } else {
             throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
+                    + " must implement DiseaseListListener");
         }
     }
 
@@ -66,7 +66,7 @@ public class DiseaseListFragment extends Fragment {
      * interaction in this fragment to be communicated to the activity and potentially other
      * fragments contained in that activity.
      */
-    public interface OnListFragmentInteractionListener {
-        void onListFragmentInteraction(NNDSSConnection.DiseaseTable item);
+    public interface DiseaseListListener {
+        void selectDisease(NNDSSConnection.DiseaseTable item);
     }
 }
