@@ -53,7 +53,7 @@ public class SignInFragment extends DialogFragment {
 
                         // Attempt to verify the account and sign in the user
                         String url = buildSignInURL();
-                        mListener.verifyAccount(url);
+                        mListener.verifyAccount(url, mEmailEditText.getText().toString());
                     }
                 })
 
@@ -80,7 +80,7 @@ public class SignInFragment extends DialogFragment {
     }
 
     public interface VerifyAccountListener {
-        void verifyAccount(String url);
+        void verifyAccount(String url, String email);
     }
 
     /*

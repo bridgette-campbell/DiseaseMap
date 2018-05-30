@@ -59,7 +59,7 @@ public class CreateAccountFragment extends DialogFragment {
 
                             // Attempt to create the account and sign in the user
                             String url = buildCreateAccountURL();
-                            mListener.addAccount(url);
+                            mListener.addAccount(url, mEmailEditText.getText().toString());
                         }
                         else {
                             Toast.makeText(getContext(), "Passwords do not match",
@@ -91,7 +91,7 @@ public class CreateAccountFragment extends DialogFragment {
     }
 
     public interface CreateAccountListener {
-        void addAccount(String url);
+        void addAccount(String url, String email);
     }
 
     /*
