@@ -7,19 +7,16 @@
     tools:context=".ColorsActivity">
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/least_infected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="@string/txt_cool"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <Spinner
         android:id="@+id/cool_spinner"
@@ -29,22 +26,19 @@
         android:entries="@array/cool_colors_array"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/least_infected" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/most_infected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="36dp"
         android:text="@string/txt_warm"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cool_spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/cool_spinner"/>
 
     <Spinner
         android:id="@+id/warm_spinner"
@@ -54,16 +48,16 @@
         android:entries="@array/warm_colors_array"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintTop_toBottomOf="@+id/most_infected" />
 
     <Button
         android:id="@+id/btn_colors_selected"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="36dp"
         android:text="@string/colors_selected"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/warm_spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/warm_spinner"/>
+
 </android.support.constraint.ConstraintLayout>
