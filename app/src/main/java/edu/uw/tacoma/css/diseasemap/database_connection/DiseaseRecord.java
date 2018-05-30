@@ -90,7 +90,7 @@ public final class DiseaseRecord implements Serializable {
      *
      * @author Bridgette Campbell, Daniel McBride, Matt Qunell
      */
-    public static class WeekInfo implements Serializable{
+    public static class WeekInfo implements Serializable {
         private final Integer year;
         private final Integer week;
         private final Integer infected;
@@ -100,9 +100,9 @@ public final class DiseaseRecord implements Serializable {
         /**
          * Constructor
          *
-         * @param year the year that the week corresponds to (2018, 2017, etc.)
-         * @param week the week of the year (Week 1, Week 5, etc.)
-         * @param infected the number of reported infected
+         * @param year          the year that the week corresponds to (2018, 2017, etc.)
+         * @param week          the week of the year (Week 1, Week 5, etc.)
+         * @param infected      the number of reported infected
          * @param reportingArea the location that the report is coming from
          */
         public WeekInfo(Integer year, Integer week, Integer infected, Integer cumulativeInfected, String reportingArea) {
@@ -113,6 +113,7 @@ public final class DiseaseRecord implements Serializable {
             this.reportingArea = reportingArea;
         }
 
+
         public String getReportingArea() {
             return reportingArea;
         }
@@ -121,11 +122,15 @@ public final class DiseaseRecord implements Serializable {
             return this.week;
         }
 
+        public Integer getYear() {
+            return this.year;
+        }
+
         public Integer getInfected() {
             return infected;
         }
 
-        public Integer getCumulativeInfected(){
+        public Integer getCumulativeInfected() {
             return this.cumulativeInfected;
         }
     }

@@ -77,8 +77,8 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
 
         SharedPreferences prefs = holder.mImageView.getContext().getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE);
 
-        Integer fromColor = Color.parseColor(prefs.getString(ColorsActivity.SELECTED_COOL_COLOR, "GREEN"));
-        Integer toColor = Color.parseColor(prefs.getString(ColorsActivity.SELECTED_WARM_COLOR, "PURPLE"));
+        Integer fromColor = prefs.getInt(ColorsActivity.SELECTED_COOL_COLOR, 0x00ff00);
+        Integer toColor = prefs.getInt(ColorsActivity.SELECTED_WARM_COLOR, 0xff0000);
         int color = interpolateColor(fromColor, toColor, ratio);
 
 

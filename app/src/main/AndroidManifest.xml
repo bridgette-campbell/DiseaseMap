@@ -26,7 +26,9 @@
         <activity
             android:name=".week.WeekActivity"
             android:label="@string/select_week"></activity>
-        <activity android:name=".map.ColorsActivity"></activity>
+        <activity
+            android:name=".map.ColorsActivity"
+            android:label="Select Colors"></activity>
     </application>
 
 </manifest>
