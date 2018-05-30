@@ -13,11 +13,11 @@ import java.util.Map;
 
 import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.database_connection.DiseaseRecord;
-import edu.uw.tacoma.css.diseasemap.week.WeekListFragment.OnListFragmentInteractionListener;
+import edu.uw.tacoma.css.diseasemap.week.WeekListFragment.WeekListListener;
 
 /**
  * {@link RecyclerView.Adapter} that can display a week number and makes a call to the
- * specified {@link OnListFragmentInteractionListener}.
+ * specified {@link WeekListListener}.
  *
  * @author Bridgette Campbell, Daniel McBride, Matt Qunell
  */
@@ -25,16 +25,16 @@ public class WeekRecyclerViewAdapter
         extends RecyclerView.Adapter<WeekRecyclerViewAdapter.ViewHolder> {
 
     private DiseaseRecord mDiseaseRecord;
-    private final OnListFragmentInteractionListener mListener;
+    private final WeekListListener mListener;
 
     /**
      * Constructor
      *
      * @param diseaseRecord the {@link DiseaseRecord}
-     * @param listener the {@link OnListFragmentInteractionListener}
+     * @param listener the {@link WeekListListener}
      */
     public WeekRecyclerViewAdapter(DiseaseRecord diseaseRecord,
-                                   OnListFragmentInteractionListener listener) {
+                                   WeekListListener listener) {
         mDiseaseRecord = diseaseRecord;
         mListener = listener;
     }
@@ -74,7 +74,7 @@ public class WeekRecyclerViewAdapter
                 if (null != mListener) {
                     // Notify the active callbacks interface (the activity, if the fragment is
                     // attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(pos);
+                    mListener.selectWeek(pos);
                 }
             }
         });

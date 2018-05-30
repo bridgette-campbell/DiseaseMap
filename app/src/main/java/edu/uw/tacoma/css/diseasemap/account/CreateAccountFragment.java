@@ -25,7 +25,7 @@ public class CreateAccountFragment extends DialogFragment {
     /**
      * The URL for adding a user to the web server
      */
-    public static final String CREATE_ACCOUNT_URL =
+    private static final String CREATE_ACCOUNT_URL =
             "http://diseasemapapp.000webhostapp.com/addUser.php?";
 
     private CreateAccountListener mListener;
