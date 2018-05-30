@@ -14,6 +14,9 @@
     <!-- map -->
     <string name="state_desc">Representation of how comparatively diseased the state is</string>
     <string name="share">Share</string>
+    <string name="share_message">There were %1$d reported infections of %2$s in the United States
+        and territories during week %3$d of this year.
+        \n\nLearn more about %2$s and other diseases in DiseaseMap!</string>
     <string name="send_report_via">Send CDC data via</string>
     <string name="sign_out">Sign Out</string>
     <string name="signed_out">Signed Out</string>

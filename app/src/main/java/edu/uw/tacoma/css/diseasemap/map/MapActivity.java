@@ -41,7 +41,7 @@ public class MapActivity extends AppCompatActivity {
     private String mSelectedDisease;
     private String mSelectedDiseaseDisplayName;
     private int mSelectedWeek;
-    private String mSelectedSummary;
+    private int mNumberInfected;
 
     // The floating action button
     FloatingActionButton mDiseaseFab;
@@ -106,16 +106,15 @@ public class MapActivity extends AppCompatActivity {
             getSupportActionBar().setSubtitle(mSelectedDiseaseDisplayName
                     + " - Week " + mSelectedWeek);
 
-            updateSelectedSummary();
+            updateNumberInfected();
         }
     }
 
     /*
-     * Summarize the selected information
+     * Adds up the infections of all locations
      */
-    private void updateSelectedSummary() {
-        // Add up the infections of all locations
-        int infected = 0;
+    private void updateNumberInfected() {
+        mNumberInfected = 0;
 
         DiseaseRecord dr;
         try {
@@ -125,7 +124,7 @@ public class MapActivity extends AppCompatActivity {
             Map<String, DiseaseRecord.WeekInfo> map = dr.getInfoForWeek(mSelectedWeek);
             if (map != null) {
                 for (String s : map.keySet()) {
-                    infected += map.get(s).getInfected();
+                    mNumberInfected += map.get(s).getInfected();
                 }
             }
 
@@ -142,13 +141,6 @@ public class MapActivity extends AppCompatActivity {
         catch (Exception e) {
             e.printStackTrace();
         }
-
-
-        // Build the summary String
-        mSelectedSummary = "Selected disease: " + mSelectedDiseaseDisplayName + "\n";
-        mSelectedSummary += "Selected week number: " + mSelectedWeek + "\n";
-        mSelectedSummary += "Total number infected: ";
-        mSelectedSummary += (infected > 0) ? infected : "Data not yet published by CDC";
     }
 
     @Override
@@ -163,20 +155,12 @@ public class MapActivity extends AppCompatActivity {
 
             // Select Colors
             case R.id.select_colors:
-                chooseColors();
+                startActivity(new Intent(this, ColorsActivity.class));
                 return true;
 
             // Share
             case R.id.share:
-
-                // Make a Toast if a disease and week haven't been selected
-                if ("".equals(mSelectedSummary)) {
-                    Toast.makeText(this, "Select a disease and week before sharing",
-                            Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    share();
-                }
+                share();
                 return true;
 
             // Sign Out
@@ -195,36 +179,42 @@ public class MapActivity extends AppCompatActivity {
     }
 
     /*
-     * Shares the displayed information using an implicit Intent.
+     * Shares the displayed information using an implicit Intent if a disease and week have been
+     * selected.
      */
     private void share() {
 
-        // Set up the necessary Strings
-        String type = "text/plain";
-        String subject = getString(R.string.app_name);
-        String text = mSelectedSummary;
-        String chooserText = getString(R.string.send_report_via);
+        // Check if a disease and week have been selected
+        if (!mSelectedDisease.equals("none") && mSelectedWeek >= 0) {
 
-        // Build the Intent
-        Intent i = ShareCompat.IntentBuilder.from(this)
-                .setType(type)
-                .setSubject(subject)
-                .setText(text)
-                .getIntent();
+            // Set up the necessary Strings
+            String type = "text/plain";
+            String subject = getString(R.string.app_name);
+            String text = getString(R.string.share_message,
+                    mNumberInfected, mSelectedDiseaseDisplayName, mSelectedWeek);
+            String chooserText = getString(R.string.send_report_via);
 
-        // Force the chooser to be shown each time
-        i = Intent.createChooser(i, chooserText);
+            // Build the Intent
+            Intent i = ShareCompat.IntentBuilder.from(this)
+                    .setType(type)
+                    .setSubject(subject)
+                    .setText(text)
+                    .getIntent();
 
-        // Start the Intent
-        startActivity(i);
-    }
+            // Force the chooser to be shown each time
+            i = Intent.createChooser(i, chooserText);
 
-    private void chooseColors() {
-        startActivity(new Intent(this, ColorsActivity.class));
+            // Start the Intent
+            startActivity(i);
+        }
+        else {
+            Toast.makeText(this, "Select a disease and week before sharing",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     /*
-     * Handles signing out of the Google Account and returning to MainActivity.
+     * Handles signing out and returning to MainActivity.
      */
     private void signOut() {
         // Set the user as not signed in
