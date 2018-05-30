@@ -15,7 +15,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import edu.uw.tacoma.css.diseasemap.R;
 
@@ -93,6 +95,7 @@ public class ColorsActivity extends AppCompatActivity {//implements AdapterView.
                     //This is very gross. I am sorry.
                     if (position == 5) {
                         color = getResources().getColor(R.color.yellow_green);
+
                     } else if (position == 4) {
                         color = getResources().getColor(R.color.yellow);
                     } else if (position == 3) {
@@ -128,14 +131,15 @@ public class ColorsActivity extends AppCompatActivity {//implements AdapterView.
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSharedPreferences(ColorsActivity.SELECTED_COOL_COLOR, Context.MODE_PRIVATE)
+
+                getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE)
                         .edit()
                         .putString(ColorsActivity.SELECTED_COOL_COLOR, mCoolColor)
                         .apply();
 
                 Log.i(TAG, "Cool color ("+ mCoolColor +") selection saved");
 
-                getSharedPreferences(ColorsActivity.SELECTED_WARM_COLOR, Context.MODE_PRIVATE)
+                getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE)
                         .edit()
                         .putString(ColorsActivity.SELECTED_WARM_COLOR, mWarmColor)
                         .apply();
