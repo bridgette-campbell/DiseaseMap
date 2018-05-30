@@ -1,17 +1,11 @@
 package edu.uw.tacoma.css.diseasemap.map;
 
-import android.animation.ArgbEvaluator;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +18,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import edu.uw.tacoma.css.diseasemap.ColorsActivity;
 import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.database_connection.DiseaseRecord;
 
