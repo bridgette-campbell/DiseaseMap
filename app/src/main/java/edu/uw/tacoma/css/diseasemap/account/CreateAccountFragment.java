@@ -22,9 +22,7 @@ import edu.uw.tacoma.css.diseasemap.R;
  */
 public class CreateAccountFragment extends DialogFragment {
 
-    /**
-     * The URL for adding a user to the web server
-     */
+    // The URL for adding a user to the web server
     private static final String CREATE_ACCOUNT_URL =
             "http://diseasemapapp.000webhostapp.com/addUser.php?";
 

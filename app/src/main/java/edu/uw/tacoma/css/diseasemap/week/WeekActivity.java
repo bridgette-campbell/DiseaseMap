@@ -35,6 +35,7 @@ public class WeekActivity extends AppCompatActivity
     public void selectWeek(int weekNum) {
         String key = MapActivity.SELECTED_WEEK;
 
+        // Add the selected week to the SharedPreferences
         getSharedPreferences(key, Context.MODE_PRIVATE)
                 .edit()
                 .putInt(key, weekNum)

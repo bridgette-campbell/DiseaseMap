@@ -50,8 +50,7 @@ public class DiseaseListFragment extends Fragment {
         if (context instanceof DiseaseListListener) {
             mListener = (DiseaseListListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement DiseaseListListener");
+            throw new RuntimeException(context.toString() + " must implement DiseaseListListener");
         }
     }
 

@@ -1,17 +1,11 @@
 package edu.uw.tacoma.css.diseasemap.map;
 
-import android.animation.ArgbEvaluator;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.preference.PreferenceManager;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +18,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import edu.uw.tacoma.css.diseasemap.ColorsActivity;
 import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.database_connection.DiseaseRecord;
 
@@ -51,7 +46,7 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Map<String, DiseaseRecord.WeekInfo> map = mDiseaseRecord.getInfoForWeek(mWeek);
-        List<String> keyList = new ArrayList<String>(map.keySet());
+        List<String> keyList = new ArrayList<>(map.keySet());
         Collections.sort(keyList);
 
 
@@ -82,7 +77,7 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
         int color = interpolateColor(fromColor, toColor, ratio);
 
 
-        //Edit the drawable/
+        //Edit the drawable
         Bitmap bitmap = BitmapFactory.decodeResource(holder.mImageView.getContext().getResources(),
                 R.drawable.circle);
 
@@ -103,8 +98,6 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
         bitmap.setPixels(allpixels,0,bitmap.getWidth(),0, 0, bitmap.getWidth(),bitmap.getHeight());
 
         holder.mImageView.setImageDrawable(new BitmapDrawable(holder.mImageView.getContext().getResources(), bitmap));
-
-
     }
 
     private int interpolateColor(int a, int b, float proportion) {
@@ -112,9 +105,11 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
         float[] hsvb = new float[3];
         Color.colorToHSV(a, hsva);
         Color.colorToHSV(b, hsvb);
+
         for (int i = 0; i < 3; i++) {
             hsvb[i] = interpolate(hsva[i], hsvb[i], proportion);
         }
+
         return Color.HSVToColor(hsvb);
     }
 
@@ -132,7 +127,6 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        public final View mView;
         public final ImageView mImageView;
         public final TextView locationTextView;
         public final TextView seasonTextView;
@@ -140,7 +134,6 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
 
         public ViewHolder(View view) {
             super(view);
-            mView = view;
             mImageView = view.findViewById(R.id.imageView);
             locationTextView = view.findViewById(R.id.locationTextView);
             seasonTextView = view.findViewById(R.id.seasonTextView);

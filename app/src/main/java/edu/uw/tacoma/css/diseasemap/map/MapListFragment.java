@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.database_connection.DiseaseRecord;
-import edu.uw.tacoma.css.diseasemap.week.WeekListFragment;
 
 /**
  * Represents a list of MapItems
@@ -35,8 +34,6 @@ public class MapListFragment extends Fragment {
 
             DiseaseRecord record = (DiseaseRecord) getArguments().getSerializable("disease");
             int week = getArguments().getInt("week");
-
-
 
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
