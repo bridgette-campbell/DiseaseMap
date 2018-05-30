@@ -218,9 +218,9 @@ public class MapActivity extends AppCompatActivity {
      */
     private void signOut() {
         // Set the user as not signed in
-        getSharedPreferences(MainActivity.SIGNED_IN, Context.MODE_PRIVATE)
+        getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE)
                 .edit()
-                .putBoolean(MainActivity.SIGNED_IN, false)
+                .putString(MainActivity.EMAIL_ADDRESS, "")
                 .apply();
 
         Toast.makeText(this, R.string.signed_out, Toast.LENGTH_SHORT).show();
