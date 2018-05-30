@@ -1,4 +1,5 @@
 <resources>
+    <string name="app">edu.uw.tacoma.css.diseasemap</string>
 
     <!-- account -->
     <string name="app_name">Disease Map</string>
