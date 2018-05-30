@@ -109,19 +109,22 @@ public class ColorsActivity extends AppCompatActivity {
                 TextView tv = (TextView) view;
 
                 int color = Color.WHITE;
-                //This is very gross. I am sorry.
-                if (position == 5) {
-                    color = getResources().getColor(R.color.yellow_green);
-                } else if (position == 4) {
-                    color = getResources().getColor(R.color.yellow);
-                } else if (position == 3) {
-                    color = getResources().getColor(R.color.orange_yellow);
-                } else if (position == 2) {
-                    color = getResources().getColor(R.color.orange);
-                } else if (position == 1) {
-                    color = getResources().getColor(R.color.red_orange);
-                } else if (position == 0) {
-                    color = getResources().getColor(R.color.red);
+                for (String name : warmList) {
+                    //This is very gross. I am sorry.
+                    if (position == 5) {
+                        color = getResources().getColor(R.color.yellow_green);
+
+                    } else if (position == 4) {
+                        color = getResources().getColor(R.color.yellow);
+                    } else if (position == 3) {
+                        color = getResources().getColor(R.color.orange_yellow);
+                    } else if (position == 2) {
+                        color = getResources().getColor(R.color.orange);
+                    } else if (position == 1) {
+                        color = getResources().getColor(R.color.red_orange);
+                    } else if (position == 0) {
+                        color = getResources().getColor(R.color.red);
+                    }
                 }
                 tv.setBackgroundColor(color);
                 return view;
@@ -146,14 +149,15 @@ public class ColorsActivity extends AppCompatActivity {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getSharedPreferences(ColorsActivity.SELECTED_COOL_COLOR, Context.MODE_PRIVATE)
+
+                getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE)
                         .edit()
                         .putInt(ColorsActivity.SELECTED_COOL_COLOR, mCoolMap.get(mCoolColor))
                         .apply();
 
                 Log.i(TAG, "Cool color (" + mCoolColor + ") selection saved");
 
-                getSharedPreferences(ColorsActivity.SELECTED_WARM_COLOR, Context.MODE_PRIVATE)
+                getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE)
                         .edit()
                         .putInt(ColorsActivity.SELECTED_WARM_COLOR, mWarmMap.get(mWarmColor))
                         .apply();
