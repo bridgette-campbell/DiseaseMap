@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import java.util.Map;
 
+import edu.uw.tacoma.css.diseasemap.AboutActivity;
+import edu.uw.tacoma.css.diseasemap.ColorsActivity;
 import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.account.MainActivity;
 import edu.uw.tacoma.css.diseasemap.database_connection.DiseaseRecord;
@@ -159,12 +161,16 @@ public class MapActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
+            // Select Colors
+            case R.id.select_colors:
+                chooseColors();
+                return true;
+
             // Share
             case R.id.share:
 
                 // Make a Toast if a disease and week haven't been selected
-                String summary = mSelectedSummary;
-                if ("".equals(summary)) {
+                if ("".equals(mSelectedSummary)) {
                     Toast.makeText(this, "Select a disease and week before sharing",
                             Toast.LENGTH_SHORT).show();
                 }
@@ -173,14 +179,14 @@ public class MapActivity extends AppCompatActivity {
                 }
                 return true;
 
-            //Choose colors
-            case R.id.choose_colors:
-                chooseColors();
-                return true;
-
             // Sign Out
             case R.id.sign_out:
                 signOut();
+                return true;
+
+            // About
+            case R.id.about:
+                startActivity(new Intent(this, AboutActivity.class));
                 return true;
 
             default:

@@ -1,4 +1,4 @@
-package edu.uw.tacoma.css.diseasemap.map;
+package edu.uw.tacoma.css.diseasemap;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -17,9 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import edu.uw.tacoma.css.diseasemap.R;
-
-public class ColorsActivity extends AppCompatActivity {//implements AdapterView.OnItemSelectedListener {
+public class ColorsActivity extends AppCompatActivity {
     private static final String TAG = "ColorsActivity";
 
     /**
