@@ -76,12 +76,8 @@ public final class NNDSSConnection
         return dList.get(0);
     }
 
-    /**
-     * This creates a {@link URL} used to query the specified table.
-     *
-     * @param diseaseTable the {@link DiseaseTable} to query
-     * @return the {@link URL} connection to the table
-     * @throws MalformedURLException
+    /*
+     * Creates a URL used to query the specified table
      */
     private URL createConnectionURL(DiseaseTable diseaseTable) throws MalformedURLException {
         String url = CDC_DATABASE_ADDRESS +
@@ -106,9 +102,8 @@ public final class NNDSSConnection
         List<DiseaseRecord> dList = new ArrayList<>();
         try {
             for (DiseaseTable dt : diseaseTables) {
-
-
                 //Log.i(TAG, "Reading from: " + dt.getTableName());
+
                 HttpURLConnection conn = (HttpURLConnection) createConnectionURL(dt)
                         .openConnection();
                 conn.setRequestMethod("GET");
@@ -154,8 +149,6 @@ public final class NNDSSConnection
                     } else {
                         cumInfected = jsonArray.getJSONObject(i).getInt(yearlyCumulative);
                     }
-
-
 
                     String reportingArea = jsonArray.getJSONObject(i).getString(REPORTING_AREA);
 

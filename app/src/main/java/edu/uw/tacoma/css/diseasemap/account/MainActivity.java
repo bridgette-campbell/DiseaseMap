@@ -105,9 +105,6 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().popBackStackImmediate();
     }
 
-
-    // todo: Simplify Toasts in the following the inner classes
-
     /*
      * Inner class that handles adding accounts to the website's database
      */

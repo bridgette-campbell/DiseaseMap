@@ -22,9 +22,7 @@ import edu.uw.tacoma.css.diseasemap.R;
  */
 public class SignInFragment extends DialogFragment {
 
-    /**
-     * The URL for verifying a user on the web server
-     */
+    // The URL for verifying a user on the web server
     private static final String VERIFY_ACCOUNT_URL =
             "http://diseasemapapp.000webhostapp.com/login.php?";
 

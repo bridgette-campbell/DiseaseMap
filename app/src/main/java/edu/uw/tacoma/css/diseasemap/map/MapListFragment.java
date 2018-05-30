@@ -35,8 +35,6 @@ public class MapListFragment extends Fragment {
             DiseaseRecord record = (DiseaseRecord) getArguments().getSerializable("disease");
             int week = getArguments().getInt("week");
 
-
-
             RecyclerView recyclerView = (RecyclerView) view;
             recyclerView.setLayoutManager(new LinearLayoutManager(context));
             recyclerView.setAdapter(new MapRecyclerViewAdapter(record, week));

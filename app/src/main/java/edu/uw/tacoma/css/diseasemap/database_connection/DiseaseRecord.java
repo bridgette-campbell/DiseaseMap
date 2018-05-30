@@ -103,7 +103,6 @@ public final class DiseaseRecord implements Serializable {
             this.reportingArea = reportingArea;
         }
 
-
         public String getReportingArea() {
             return reportingArea;
         }

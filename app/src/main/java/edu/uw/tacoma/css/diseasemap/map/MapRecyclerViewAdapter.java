@@ -77,7 +77,7 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
         int color = interpolateColor(fromColor, toColor, ratio);
 
 
-        //Edit the drawable/
+        //Edit the drawable
         Bitmap bitmap = BitmapFactory.decodeResource(holder.mImageView.getContext().getResources(),
                 R.drawable.circle);
 
@@ -98,8 +98,6 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
         bitmap.setPixels(allpixels,0,bitmap.getWidth(),0, 0, bitmap.getWidth(),bitmap.getHeight());
 
         holder.mImageView.setImageDrawable(new BitmapDrawable(holder.mImageView.getContext().getResources(), bitmap));
-
-
     }
 
     private int interpolateColor(int a, int b, float proportion) {
@@ -107,9 +105,11 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
         float[] hsvb = new float[3];
         Color.colorToHSV(a, hsva);
         Color.colorToHSV(b, hsvb);
+
         for (int i = 0; i < 3; i++) {
             hsvb[i] = interpolate(hsva[i], hsvb[i], proportion);
         }
+
         return Color.HSVToColor(hsvb);
     }
 

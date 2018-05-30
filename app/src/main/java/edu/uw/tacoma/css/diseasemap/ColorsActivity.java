@@ -177,6 +177,5 @@ public class ColorsActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 }

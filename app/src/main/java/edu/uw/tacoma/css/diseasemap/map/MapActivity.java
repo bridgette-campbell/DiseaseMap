@@ -180,7 +180,7 @@ public class MapActivity extends AppCompatActivity {
 
     /*
      * Shares the displayed information using an implicit Intent if a disease and week have been
-     * selected.
+     * selected
      */
     private void share() {
 
@@ -214,7 +214,7 @@ public class MapActivity extends AppCompatActivity {
     }
 
     /*
-     * Handles signing out and returning to MainActivity.
+     * Signs the user out and returns to MainActivity
      */
     private void signOut() {
         // Set the user as not signed in
