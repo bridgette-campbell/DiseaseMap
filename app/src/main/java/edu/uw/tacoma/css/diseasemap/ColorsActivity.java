@@ -103,7 +103,16 @@ public class ColorsActivity extends AppCompatActivity {
 
             }
         });
-        coolSpinner.setSelection(coolAdapter.getPosition(coolList.get(0)));
+        int savedColor = getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE)
+                .getInt(SELECTED_COOL_COLOR, 0x00cd00);
+        String selectedName = coolList.get(0);
+        for (String name : mCoolMap.keySet()) {
+            if (mCoolMap.get(name) == (savedColor)){
+                selectedName = name;
+            }
+        }
+        coolSpinner.setSelection(coolAdapter.getPosition(selectedName));
+
 
         // Warm Spinner
         final Spinner warmSpinner = findViewById(R.id.warm_spinner);
@@ -153,7 +162,15 @@ public class ColorsActivity extends AppCompatActivity {
 
             }
         });
-        warmSpinner.setSelection(warmAdapter.getPosition(warmList.get(0)));
+        savedColor = getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE)
+                .getInt(SELECTED_WARM_COLOR, 0xff0000);
+        selectedName = warmList.get(0);
+        for (String name : mWarmMap.keySet()) {
+            if (mWarmMap.get(name) == (savedColor)){
+                selectedName = name;
+            }
+        }
+        warmSpinner.setSelection(warmAdapter.getPosition(selectedName));
 
         Button confirm = findViewById(R.id.btn_colors_selected);
         confirm.setOnClickListener(new View.OnClickListener() {
