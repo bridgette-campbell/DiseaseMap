@@ -70,7 +70,7 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
             ratio = 0;
         }
 
-        SharedPreferences prefs = holder.mImageView.getContext().getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE);
+        SharedPreferences prefs = holder.mImageView.getContext().getSharedPreferences(holder.mImageView.getContext().getString(R.string.app), Context.MODE_PRIVATE);
 
         Integer fromColor = prefs.getInt(ColorsActivity.SELECTED_COOL_COLOR, 0x00ff00);
         Integer toColor = prefs.getInt(ColorsActivity.SELECTED_WARM_COLOR, 0xff0000);
