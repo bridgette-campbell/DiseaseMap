@@ -22,12 +22,16 @@ public final class DiseaseRecord implements Serializable {
     private Map<Integer, WeekInfo> weekMax = new HashMap<>();
     private Map<Integer, WeekInfo> weekMin = new HashMap<>();
 
+
     /**
      * This takes the list of WeekInfo and map it into a format that can be more readily used.
      *
      * @param weekInfo the week-by-week data of the disease
      */
     public DiseaseRecord(List<WeekInfo> weekInfo) {
+        if(weekInfo == null){
+            throw new IllegalArgumentException("Null arguments are not allowed.");
+        }
 
         for (WeekInfo wi : weekInfo) {
 

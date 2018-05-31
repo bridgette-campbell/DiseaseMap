@@ -46,6 +46,9 @@ public final class NNDSSConnection
     private static final String _FLAG = "_flag";
     private static final String REPORTING_AREA = "reporting_area";
 
+    /**
+     * This is a list of areas to exclude.
+     */
     private static final List<String> EXLUDE_AREAS = new ArrayList<String>(){{
         add("UNITED STATES");
         add("S. ATLANTIC");
@@ -60,6 +63,8 @@ public final class NNDSSConnection
         add("C.N.M.I.");
     }};
 
+    //A tag.
+    private static final String TAG = "NNDSSConnection";
     /**
      * This will return a {@link DiseaseRecord} constructed for the specified {@link DiseaseTable}.
      *
@@ -182,37 +187,64 @@ public final class NNDSSConnection
         Babesiosis("nkqh-e867", "babesiosis", "Babesiosis"),
         Campylobacteriosis("nkqh-e867", "campylobacteriosis", "Campylobacteriosis"),
         Chlamydia_Trachomatis("dsz3-9wvn", "chlamydia_trachomatis_infection", "Chlamydia Trachomatis"),
-        Coccidioidomycosis("dsz3-9wvn", "Coccidioidomycosis", "Coccidioidomycosis"),
         Meningococcal_Disease("w3an-exa3", "meningococcal_disease_all_serogroups", "Meningococcal Disease"),
         Mumps("w3an-exa3", "mumps", "Mumps"),
         Pertussis("w3an-exa3", "pertussis", "Pertussis"),
         Rabies("j75t-qfp3", "rabies_animal", "Rabies"),
-        Rubella_Congenital_Syndrome("j75t-qfp3", "rubella_congenital_syndrome", "Rubella Syndrome"),
         Varicella("v9up-rs3x", "varicella", "Varicella"),
         Salmonellosis("rhry-k9aj", "salmonellosis_excluding_paratyphoid_fever_andtyphoid_fever", "Salmonellosis");
 
+        private static final String TAG = "DiseaseTable";
+
+        //The name of the table that the disease is in.
         private final String tableName;
+        //The name of the disease in the table.
         private final String diseaseName;
+        //The name as the disease should be displayed.
         private final String displayName;
 
+        /**
+         * Basic constructor.
+         * @param tableName
+         * @param diseaseName
+         * @param displayName
+         */
         DiseaseTable(String tableName, String diseaseName, String displayName) {
             this.tableName = tableName;
             this.diseaseName = diseaseName;
             this.displayName = displayName;
         }
 
+        /**
+         * Returns the name of the table
+         * @return
+         */
         public String getTableName() {
             return this.tableName;
         }
 
+        /**
+         * Returns the name of the disease.
+         * @return
+         */
         public String getDiseaseName() {
             return this.diseaseName;
         }
 
+        /**
+         * returns the name as it should be displayed to the user.
+         * @return
+         */
         public String getDisplayName() {
             return this.displayName;
         }
 
+        /**
+         * Gets the DiseaseTable that matches this name.
+         * @param tableName
+         * @return
+         * @throws IllegalAccessException
+         */
         public static DiseaseTable getOfName(String tableName) throws IllegalAccessException {
             for (DiseaseTable dt : DiseaseTable.values()) {
                 if (dt.getDiseaseName().equals(tableName)) {
