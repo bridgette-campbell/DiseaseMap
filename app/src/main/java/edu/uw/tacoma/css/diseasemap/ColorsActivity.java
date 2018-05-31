@@ -103,7 +103,7 @@ public class ColorsActivity extends AppCompatActivity {
 
             }
         });
-        int savedColor = getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE)
+        int savedColor = getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE)
                 .getInt(SELECTED_COOL_COLOR, 0x00cd00);
         String selectedName = coolList.get(0);
         for (String name : mCoolMap.keySet()) {
@@ -162,7 +162,7 @@ public class ColorsActivity extends AppCompatActivity {
 
             }
         });
-        savedColor = getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE)
+        savedColor = getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE)
                 .getInt(SELECTED_WARM_COLOR, 0xff0000);
         selectedName = warmList.get(0);
         for (String name : mWarmMap.keySet()) {
@@ -177,14 +177,14 @@ public class ColorsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE)
+                getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE)
                         .edit()
                         .putInt(ColorsActivity.SELECTED_COOL_COLOR, mCoolMap.get(mCoolColor))
                         .apply();
 
                 Log.i(TAG, "Cool color (" + mCoolColor + ") selection saved");
 
-                getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE)
+                getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE)
                         .edit()
                         .putInt(ColorsActivity.SELECTED_WARM_COLOR, mWarmMap.get(mWarmColor))
                         .apply();
