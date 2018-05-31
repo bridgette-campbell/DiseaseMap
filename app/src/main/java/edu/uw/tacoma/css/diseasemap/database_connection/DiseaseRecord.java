@@ -32,6 +32,9 @@ public final class DiseaseRecord implements Serializable {
      * @param weekInfo the week-by-week data of the disease
      */
     public DiseaseRecord(String name, List<WeekInfo> weekInfo) {
+        if(name == null || weekInfo == null){
+            throw new IllegalArgumentException("Null arguments are not allowed.");
+        }
 
         this.name = name;
 

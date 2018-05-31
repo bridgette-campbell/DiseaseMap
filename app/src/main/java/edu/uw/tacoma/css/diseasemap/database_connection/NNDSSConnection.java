@@ -47,6 +47,9 @@ public final class NNDSSConnection
     private static final String _FLAG = "_flag";
     private static final String REPORTING_AREA = "reporting_area";
 
+    /**
+     * This is a list of areas to exclude.
+     */
     private static final List<String> EXLUDE_AREAS = new ArrayList<String>(){{
         add("UNITED STATES");
         add("S. ATLANTIC");
@@ -61,6 +64,7 @@ public final class NNDSSConnection
         add("C.N.M.I.");
     }};
 
+    //A tag.
     private static final String TAG = "NNDSSConnection";
 
     /**
@@ -205,28 +209,55 @@ public final class NNDSSConnection
 
         private static final String TAG = "DiseaseTable";
 
+        //The name of the table that the disease is in.
         private final String tableName;
+        //The name of the disease in the table.
         private final String diseaseName;
+        //The name as the disease should be displayed.
         private final String displayName;
 
+        /**
+         * Basic constructor.
+         * @param tableName
+         * @param diseaseName
+         * @param displayName
+         */
         DiseaseTable(String tableName, String diseaseName, String displayName) {
             this.tableName = tableName;
             this.diseaseName = diseaseName;
             this.displayName = displayName;
         }
 
+        /**
+         * Returns the name of the table
+         * @return
+         */
         public String getTableName() {
             return this.tableName;
         }
 
+        /**
+         * Returns the name of the disease.
+         * @return
+         */
         public String getDiseaseName() {
             return this.diseaseName;
         }
 
+        /**
+         * returns the name as it should be displayed to the user.
+         * @return
+         */
         public String getDisplayName() {
             return this.displayName;
         }
 
+        /**
+         * Gets the DiseaseTable that matches this name.
+         * @param tableName
+         * @return
+         * @throws IllegalAccessException
+         */
         public static DiseaseTable getOfName(String tableName) throws IllegalAccessException {
             for (DiseaseTable dt : DiseaseTable.values()) {
                 if (dt.getDiseaseName().equals(tableName)) {
