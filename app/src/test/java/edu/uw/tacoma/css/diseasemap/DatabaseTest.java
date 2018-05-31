@@ -24,7 +24,7 @@ public class DatabaseTest extends TestCase {
         List<DiseaseRecord.WeekInfo> weekInfo = new ArrayList<>();
         weekInfo.add(wi1);
         weekInfo.add(wi2);
-        sample = new DiseaseRecord(name, weekInfo);
+        sample = new DiseaseRecord(weekInfo);
 
     }
 
@@ -43,8 +43,6 @@ public class DatabaseTest extends TestCase {
     public void testDiseaseRecordGetters(){
         assertEquals(infected, sample.getMaxForWeek(1).getCumulativeInfected());
         assertEquals(infected, sample.getMinForWeek(1).getCumulativeInfected());
-
-        assertEquals(name, sample.getName());
     }
 
     @Test

@@ -57,12 +57,12 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
         holder.seasonTextView.setText("Cumulative infections: " + week.getCumulativeInfected());
 
         //The current lowest/highest cumulative infection.
-        Integer highest = mDiseaseRecord.getMaxForWeek(week.getWeek()).getCumulativeInfected();
-        Integer lowest = mDiseaseRecord.getMinForWeek(week.getWeek()).getCumulativeInfected();
+        Integer highest = mDiseaseRecord.getMaxForWeek(week.getWeek()).getInfected();
+        Integer lowest = mDiseaseRecord.getMinForWeek(week.getWeek()).getInfected();
 
         Integer greatestRange = highest - lowest;
 
-        Integer thisRange = week.getCumulativeInfected() - lowest;
+        Integer thisRange = week.getInfected() - lowest;
         float ratio;
         if(greatestRange > 0) {
             ratio = ((float) thisRange) / ((float) greatestRange);

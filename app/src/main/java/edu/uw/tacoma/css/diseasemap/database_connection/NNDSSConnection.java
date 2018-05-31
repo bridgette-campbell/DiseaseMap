@@ -187,12 +187,10 @@ public final class NNDSSConnection
         Babesiosis("nkqh-e867", "babesiosis", "Babesiosis"),
         Campylobacteriosis("nkqh-e867", "campylobacteriosis", "Campylobacteriosis"),
         Chlamydia_Trachomatis("dsz3-9wvn", "chlamydia_trachomatis_infection", "Chlamydia Trachomatis"),
-        Coccidioidomycosis("dsz3-9wvn", "Coccidioidomycosis", "Coccidioidomycosis"),
         Meningococcal_Disease("w3an-exa3", "meningococcal_disease_all_serogroups", "Meningococcal Disease"),
         Mumps("w3an-exa3", "mumps", "Mumps"),
         Pertussis("w3an-exa3", "pertussis", "Pertussis"),
         Rabies("j75t-qfp3", "rabies_animal", "Rabies"),
-        Rubella_Congenital_Syndrome("j75t-qfp3", "rubella_congenital_syndrome", "Rubella Syndrome"),
         Varicella("v9up-rs3x", "varicella", "Varicella"),
         Salmonellosis("rhry-k9aj", "salmonellosis_excluding_paratyphoid_fever_andtyphoid_fever", "Salmonellosis");
 
