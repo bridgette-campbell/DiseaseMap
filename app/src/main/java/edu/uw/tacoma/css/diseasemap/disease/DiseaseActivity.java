@@ -38,6 +38,7 @@ public class DiseaseActivity extends AppCompatActivity
     public void selectDisease(NNDSSConnection.DiseaseTable item) {
         String key = MapActivity.SELECTED_DISEASE;
 
+        // Add the selected disease to the SharedPreferences
         getSharedPreferences(key, Context.MODE_PRIVATE)
                 .edit()
                 .putString(key, item.getDiseaseName())

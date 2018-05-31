@@ -22,9 +22,7 @@ import edu.uw.tacoma.css.diseasemap.R;
  */
 public class SignInFragment extends DialogFragment {
 
-    /**
-     * The URL for verifying a user on the web server
-     */
+    // The URL for verifying a user on the web server
     private static final String VERIFY_ACCOUNT_URL =
             "http://diseasemapapp.000webhostapp.com/login.php?";
 
@@ -55,7 +53,7 @@ public class SignInFragment extends DialogFragment {
 
                         // Attempt to verify the account and sign in the user
                         String url = buildSignInURL();
-                        mListener.verifyAccount(url);
+                        mListener.verifyAccount(url, mEmailEditText.getText().toString());
                     }
                 })
 
@@ -82,7 +80,7 @@ public class SignInFragment extends DialogFragment {
     }
 
     public interface VerifyAccountListener {
-        void verifyAccount(String url);
+        void verifyAccount(String url, String email);
     }
 
     /*

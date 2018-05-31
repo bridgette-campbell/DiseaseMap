@@ -66,8 +66,7 @@ public class WeekListFragment extends Fragment {
         if (context instanceof WeekListListener) {
             mListener = (WeekListListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement DiseaseListListener");
+            throw new RuntimeException(context.toString() + " must implement DiseaseListListener");
         }
     }
 

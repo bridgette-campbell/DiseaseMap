@@ -1,7 +1,6 @@
 package edu.uw.tacoma.css.diseasemap.database_connection;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -66,7 +65,6 @@ public final class NNDSSConnection
 
     //A tag.
     private static final String TAG = "NNDSSConnection";
-
     /**
      * This will return a {@link DiseaseRecord} constructed for the specified {@link DiseaseTable}.
      *
@@ -83,22 +81,16 @@ public final class NNDSSConnection
         return dList.get(0);
     }
 
-    /**
-     * This creates a {@link URL} used to query the specified table.
-     *
-     * @param diseaseTable the {@link DiseaseTable} to query
-     * @return the {@link URL} connection to the table
-     * @throws MalformedURLException
+    /*
+     * Creates a URL used to query the specified table
      */
     private URL createConnectionURL(DiseaseTable diseaseTable) throws MalformedURLException {
-        StringBuilder sb = new StringBuilder();
+        String url = CDC_DATABASE_ADDRESS +
+                diseaseTable.getTableName() +
+                JSON_SUFFIX +
+                APP_TOKEN;
 
-        sb.append(CDC_DATABASE_ADDRESS);
-        sb.append(diseaseTable.getTableName());
-        sb.append(JSON_SUFFIX);
-        sb.append(APP_TOKEN);
-
-        return new URL(sb.toString());
+        return new URL(url);
     }
 
     /**
@@ -115,9 +107,8 @@ public final class NNDSSConnection
         List<DiseaseRecord> dList = new ArrayList<>();
         try {
             for (DiseaseTable dt : diseaseTables) {
-
-
                 //Log.i(TAG, "Reading from: " + dt.getTableName());
+
                 HttpURLConnection conn = (HttpURLConnection) createConnectionURL(dt)
                         .openConnection();
                 conn.setRequestMethod("GET");
@@ -164,8 +155,6 @@ public final class NNDSSConnection
                         cumInfected = jsonArray.getJSONObject(i).getInt(yearlyCumulative);
                     }
 
-
-
                     String reportingArea = jsonArray.getJSONObject(i).getString(REPORTING_AREA);
 
                     if(EXLUDE_AREAS.contains(reportingArea)){
@@ -178,7 +167,7 @@ public final class NNDSSConnection
                             new DiseaseRecord.WeekInfo(year, week, infected, cumInfected, reportingArea));
                 }
 
-                dList.add(new DiseaseRecord(dt.getDiseaseName(), weekInfoList));
+                dList.add(new DiseaseRecord(weekInfoList));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -192,7 +181,7 @@ public final class NNDSSConnection
 
     /**
      * These are complex enums that contain information about disease tables.
-     * Its just an enum with fields.
+     * It's just an enum with fields.
      */
     public enum DiseaseTable {
         Babesiosis("nkqh-e867", "babesiosis", "Babesiosis"),

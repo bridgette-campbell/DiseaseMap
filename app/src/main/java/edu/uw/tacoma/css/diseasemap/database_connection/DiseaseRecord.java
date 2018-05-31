@@ -22,21 +22,15 @@ public final class DiseaseRecord implements Serializable {
     private Map<Integer, WeekInfo> weekMax = new HashMap<>();
     private Map<Integer, WeekInfo> weekMin = new HashMap<>();
 
-    // Name of the disease
-    private final String name;
-
     /**
      * This takes the list of WeekInfo and map it into a format that can be more readily used.
      *
-     * @param name     the disease name
      * @param weekInfo the week-by-week data of the disease
      */
     public DiseaseRecord(String name, List<WeekInfo> weekInfo) {
         if(name == null || weekInfo == null){
             throw new IllegalArgumentException("Null arguments are not allowed.");
         }
-
-        this.name = name;
 
         for (WeekInfo wi : weekInfo) {
 
@@ -55,10 +49,6 @@ public final class DiseaseRecord implements Serializable {
 
             this.weekInfo.get(wi.getWeek()).put(wi.getReportingArea(), wi);
         }
-    }
-
-    public String getName() {
-        return name;
     }
 
     /**
@@ -115,7 +105,6 @@ public final class DiseaseRecord implements Serializable {
             this.cumulativeInfected = cumulativeInfected;
             this.reportingArea = reportingArea;
         }
-
 
         public String getReportingArea() {
             return reportingArea;

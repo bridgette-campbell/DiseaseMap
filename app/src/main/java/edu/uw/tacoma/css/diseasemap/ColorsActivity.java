@@ -1,4 +1,4 @@
-package edu.uw.tacoma.css.diseasemap.map;
+package edu.uw.tacoma.css.diseasemap;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -19,8 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import edu.uw.tacoma.css.diseasemap.R;
-
 public class ColorsActivity extends AppCompatActivity {
     private static final String TAG = "ColorsActivity";
 
@@ -30,29 +28,28 @@ public class ColorsActivity extends AppCompatActivity {
     public static final String SELECTED_COOL_COLOR = "selected_cool_color";
     public static final String SELECTED_WARM_COLOR = "selected_warm_color";
 
-    /**
+    /*
      * User-selected colors
      */
     private String mCoolColor;
     private String mWarmColor;
 
-
-    private Map<String, Integer> coolMap = new HashMap<String, Integer>();
-    private Map<String, Integer> warmMap = new HashMap<String, Integer>();
+    private Map<String, Integer> mCoolMap = new HashMap<>();
+    private Map<String, Integer> mWarmMap = new HashMap<>();
     {
-        coolMap.put("Green", 0x00cd00);
-        coolMap.put("Blue-Green", 0x00868b);
-        coolMap.put("Blue", 0x0000ff);
-        coolMap.put("Blue-Violet", 0x483d8b);
-        coolMap.put("Violet", 0x7a378b);
-        coolMap.put("Violet-Red", 0xc71585);
+        mCoolMap.put("Green", 0x00cd00);
+        mCoolMap.put("Blue-Green", 0x00868b);
+        mCoolMap.put("Blue", 0x0000ff);
+        mCoolMap.put("Blue-Violet", 0x483d8b);
+        mCoolMap.put("Violet", 0x7a378b);
+        mCoolMap.put("Violet-Red", 0xc71585);
 
-        warmMap.put("Yellow-Green", 0xadff2f);
-        warmMap.put("Yellow", 0xffff00);
-        warmMap.put("Orange-Yellow", 0xffa500);
-        warmMap.put("Orange", 0xee7600);
-        warmMap.put("Red-Orange", 0xee4000);
-        warmMap.put("Red", 0xff0000);
+        mWarmMap.put("Yellow-Green", 0xadff2f);
+        mWarmMap.put("Yellow", 0xffff00);
+        mWarmMap.put("Orange-Yellow", 0xffa500);
+        mWarmMap.put("Orange", 0xee7600);
+        mWarmMap.put("Red-Orange", 0xee4000);
+        mWarmMap.put("Red", 0xff0000);
     }
 
     @Override
@@ -61,26 +58,34 @@ public class ColorsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_colors);
 
         final List<String> coolList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.cool_colors_array)));
-        final Spinner coolSpinner = (Spinner) findViewById(R.id.cool_spinner);
+
+        // Cool Spinner
+        final Spinner coolSpinner = findViewById(R.id.cool_spinner);
         ArrayAdapter<CharSequence> coolAdapter = new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, coolList) {
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
 
                 int color = Color.WHITE;
-                //This is very gross. I am sorry.
-                if (position == 0) {
-                    color = getResources().getColor(R.color.green);
-                } else if (position == 1) {
-                    color = getResources().getColor(R.color.blue_green);
-                } else if (position == 2) {
-                    color = getResources().getColor(R.color.blue);
-                } else if (position == 3) {
-                    color = getResources().getColor(R.color.blue_violet);
-                } else if (position == 4) {
-                    color = getResources().getColor(R.color.violet);
-                } else if (position == 5) {
-                    color = getResources().getColor(R.color.violet_red);
+                switch (position) {
+                    case 0:
+                        color = getResources().getColor(R.color.green);
+                        break;
+                    case 1:
+                        color = getResources().getColor(R.color.blue_green);
+                        break;
+                    case 2:
+                        color = getResources().getColor(R.color.blue);
+                        break;
+                    case 3:
+                        color = getResources().getColor(R.color.blue_violet);
+                        break;
+                    case 4:
+                        color = getResources().getColor(R.color.violet);
+                        break;
+                    case 5:
+                        color = getResources().getColor(R.color.violet_red);
+                        break;
                 }
                 tv.setBackgroundColor(color);
                 return view;
@@ -98,11 +103,20 @@ public class ColorsActivity extends AppCompatActivity {
 
             }
         });
-        coolSpinner.setSelection(coolAdapter.getPosition(coolList.get(0)));
+        int savedColor = getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE)
+                .getInt(SELECTED_COOL_COLOR, 0x00cd00);
+        String selectedName = coolList.get(0);
+        for (String name : mCoolMap.keySet()) {
+            if (mCoolMap.get(name) == (savedColor)){
+                selectedName = name;
+            }
+        }
+        coolSpinner.setSelection(coolAdapter.getPosition(selectedName));
 
 
+        // Warm Spinner
+        final Spinner warmSpinner = findViewById(R.id.warm_spinner);
         final List<String> warmList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.warm_colors_array)));
-        final Spinner warmSpinner = (Spinner) findViewById(R.id.warm_spinner);
         ArrayAdapter<CharSequence> warmAdapter = new ArrayAdapter(this.getBaseContext(), android.R.layout.simple_dropdown_item_1line, warmList) {
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 View view = super.getDropDownView(position, convertView, parent);
@@ -110,20 +124,25 @@ public class ColorsActivity extends AppCompatActivity {
 
                 int color = Color.WHITE;
                 for (String name : warmList) {
-                    //This is very gross. I am sorry.
-                    if (position == 5) {
-                        color = getResources().getColor(R.color.yellow_green);
-
-                    } else if (position == 4) {
-                        color = getResources().getColor(R.color.yellow);
-                    } else if (position == 3) {
-                        color = getResources().getColor(R.color.orange_yellow);
-                    } else if (position == 2) {
-                        color = getResources().getColor(R.color.orange);
-                    } else if (position == 1) {
-                        color = getResources().getColor(R.color.red_orange);
-                    } else if (position == 0) {
-                        color = getResources().getColor(R.color.red);
+                    switch (position) {
+                        case 5:
+                            color = getResources().getColor(R.color.yellow_green);
+                            break;
+                        case 4:
+                            color = getResources().getColor(R.color.yellow);
+                            break;
+                        case 3:
+                            color = getResources().getColor(R.color.orange_yellow);
+                            break;
+                        case 2:
+                            color = getResources().getColor(R.color.orange);
+                            break;
+                        case 1:
+                            color = getResources().getColor(R.color.red_orange);
+                            break;
+                        case 0:
+                            color = getResources().getColor(R.color.red);
+                            break;
                     }
                 }
                 tv.setBackgroundColor(color);
@@ -143,23 +162,31 @@ public class ColorsActivity extends AppCompatActivity {
 
             }
         });
-        warmSpinner.setSelection(warmAdapter.getPosition(warmList.get(0)));
+        savedColor = getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE)
+                .getInt(SELECTED_WARM_COLOR, 0xff0000);
+        selectedName = warmList.get(0);
+        for (String name : mWarmMap.keySet()) {
+            if (mWarmMap.get(name) == (savedColor)){
+                selectedName = name;
+            }
+        }
+        warmSpinner.setSelection(warmAdapter.getPosition(selectedName));
 
-        Button confirm = (Button) findViewById(R.id.btn_colors_selected);
+        Button confirm = findViewById(R.id.btn_colors_selected);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE)
                         .edit()
-                        .putInt(ColorsActivity.SELECTED_COOL_COLOR, coolMap.get(mCoolColor))
+                        .putInt(ColorsActivity.SELECTED_COOL_COLOR, mCoolMap.get(mCoolColor))
                         .apply();
 
                 Log.i(TAG, "Cool color (" + mCoolColor + ") selection saved");
 
                 getSharedPreferences("com.uw.diseasemaps", Context.MODE_PRIVATE)
                         .edit()
-                        .putInt(ColorsActivity.SELECTED_WARM_COLOR, warmMap.get(mWarmColor))
+                        .putInt(ColorsActivity.SELECTED_WARM_COLOR, mWarmMap.get(mWarmColor))
                         .apply();
 
                 Log.i(TAG, "Warm color (" + mWarmColor + ") selection saved");
@@ -167,6 +194,5 @@ public class ColorsActivity extends AppCompatActivity {
                 finish();
             }
         });
-
     }
 }

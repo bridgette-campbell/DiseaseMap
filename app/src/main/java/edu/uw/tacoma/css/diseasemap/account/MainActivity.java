@@ -32,9 +32,11 @@ public class MainActivity extends AppCompatActivity
         SignInFragment.VerifyAccountListener {
 
     /**
-     * SharedPreferences key for determining if the user is signed in
+     * SharedPreferences key for the signed-in user's email address
      */
-    public static final String SIGNED_IN = "signed_in";
+    public static final String EMAIL_ADDRESS = "email_address";
+
+    private String mTempEmail;
 
     // Debugging tag
     private static final String TAG = "MainActivity";
@@ -50,7 +52,9 @@ public class MainActivity extends AppCompatActivity
         super.onStart();
 
         // Launch MapActivity if the user is already signed in
-        if (getSharedPreferences(SIGNED_IN, Context.MODE_PRIVATE).getBoolean(SIGNED_IN, false)) {
+        if (!getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE)
+                .getString(EMAIL_ADDRESS, "")
+                .equals("")) {
             startActivity(new Intent(this, MapActivity.class));
             finish();
         }
@@ -80,9 +84,9 @@ public class MainActivity extends AppCompatActivity
      * Signs the user in and starts MapActivity
      */
     public void signIn() {
-        getSharedPreferences(SIGNED_IN, Context.MODE_PRIVATE)
+        getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE)
                 .edit()
-                .putBoolean(SIGNED_IN, true)
+                .putString(EMAIL_ADDRESS, mTempEmail)
                 .apply();
 
         startActivity(new Intent(this, MapActivity.class));
@@ -90,7 +94,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void addAccount(String url) {
+    public void addAccount(String url, String email) {
+        mTempEmail = email;
         new AddAccountTask().execute(new String[]{url});
 
         // Takes you back to the previous screen by popping the current fragment
@@ -98,15 +103,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
-    public void verifyAccount(String url) {
+    public void verifyAccount(String url, String email) {
+        mTempEmail = email;
         new VerifyAccountTask().execute(new String[]{url});
 
         // Takes you back to the previous screen by popping the current fragment
         getSupportFragmentManager().popBackStackImmediate();
     }
-
-
-    // todo: Simplify Toasts in the following the inner classes
 
     /*
      * Inner class that handles adding accounts to the website's database

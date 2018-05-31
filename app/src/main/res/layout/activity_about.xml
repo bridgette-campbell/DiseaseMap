@@ -5,41 +5,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".account.MainActivity">
+    tools:context=".AboutActivity">
 
-    <ImageView
-        android:id="@+id/logo"
+    <TextView
+        android:id="@+id/about_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:adjustViewBounds="true"
-        android:contentDescription="@string/logo_desc"
-        android:scaleType="centerCrop"
-        app:layout_constraintBottom_toTopOf="@+id/buttonCreateAccount"
+        android:layout_margin="16dp"
+        android:text="@string/app_name"
+        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_transparent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <Button
-        android:id="@+id/buttonCreateAccount"
+    <TextView
+        android:id="@+id/about_authors"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:onClick="launchCreateAccount"
-        android:text="@string/create_account"
-        app:layout_constraintBottom_toTopOf="@+id/buttonSignIn"
+        android:text="@string/about_authors"
+        android:textSize="18sp"
+        android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/about_title"/>
 
-    <Button
-        android:id="@+id/buttonSignIn"
+    <TextView
+        android:id="@+id/about_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:onClick="launchSignIn"
-        android:text="@string/sign_in"
+        android:text="@string/about_content"
+        android:textAlignment="center"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
 </android.support.constraint.ConstraintLayout>

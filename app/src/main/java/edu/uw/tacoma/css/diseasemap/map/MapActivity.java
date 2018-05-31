@@ -2,7 +2,6 @@ package edu.uw.tacoma.css.diseasemap.map;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ShareCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -14,6 +13,8 @@ import android.widget.Toast;
 
 import java.util.Map;
 
+import edu.uw.tacoma.css.diseasemap.AboutActivity;
+import edu.uw.tacoma.css.diseasemap.ColorsActivity;
 import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.account.MainActivity;
 import edu.uw.tacoma.css.diseasemap.database_connection.DiseaseRecord;
@@ -40,7 +41,7 @@ public class MapActivity extends AppCompatActivity {
     private String mSelectedDisease;
     private String mSelectedDiseaseDisplayName;
     private int mSelectedWeek;
-    private String mSelectedSummary;
+    private int mNumberInfected;
 
     // The floating action button
     private FloatingActionButton mDiseaseFab;
@@ -105,16 +106,15 @@ public class MapActivity extends AppCompatActivity {
             getSupportActionBar().setSubtitle(mSelectedDiseaseDisplayName
                     + " - Week " + mSelectedWeek);
 
-            updateSelectedSummary();
+            updateNumberInfected();
         }
     }
 
     /*
-     * Summarize the selected information
+     * Adds up the infections of all locations
      */
-    private void updateSelectedSummary() {
-        // Add up the infections of all locations
-        int infected = 0;
+    private void updateNumberInfected() {
+        mNumberInfected = 0;
 
         DiseaseRecord dr;
         try {
@@ -124,7 +124,7 @@ public class MapActivity extends AppCompatActivity {
             Map<String, DiseaseRecord.WeekInfo> map = dr.getInfoForWeek(mSelectedWeek);
             if (map != null) {
                 for (String s : map.keySet()) {
-                    infected += map.get(s).getInfected();
+                    mNumberInfected += map.get(s).getInfected();
                 }
             }
 
@@ -141,13 +141,6 @@ public class MapActivity extends AppCompatActivity {
         catch (Exception e) {
             e.printStackTrace();
         }
-
-
-        // Build the summary String
-        mSelectedSummary = "Selected disease: " + mSelectedDiseaseDisplayName + "\n";
-        mSelectedSummary += "Selected week number: " + mSelectedWeek + "\n";
-        mSelectedSummary += "Total number infected: ";
-        mSelectedSummary += (infected > 0) ? infected : "Data not yet published by CDC";
     }
 
     @Override
@@ -160,28 +153,24 @@ public class MapActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
-            // Share
-            case R.id.share:
-
-                // Make a Toast if a disease and week haven't been selected
-                String summary = mSelectedSummary;
-                if ("".equals(summary)) {
-                    Toast.makeText(this, "Select a disease and week before sharing",
-                            Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    share();
-                }
+            // Select Colors
+            case R.id.select_colors:
+                startActivity(new Intent(this, ColorsActivity.class));
                 return true;
 
-            //Choose colors
-            case R.id.choose_colors:
-                chooseColors();
+            // Share
+            case R.id.share:
+                share();
                 return true;
 
             // Sign Out
             case R.id.sign_out:
                 signOut();
+                return true;
+
+            // About
+            case R.id.about:
+                startActivity(new Intent(this, AboutActivity.class));
                 return true;
 
             default:
@@ -190,42 +179,48 @@ public class MapActivity extends AppCompatActivity {
     }
 
     /*
-     * Shares the displayed information using an implicit Intent.
+     * Shares the displayed information using an implicit Intent if a disease and week have been
+     * selected
      */
     private void share() {
 
-        // Set up the necessary Strings
-        String type = "text/plain";
-        String subject = getString(R.string.app_name);
-        String text = mSelectedSummary;
-        String chooserText = getString(R.string.send_report_via);
+        // Check if a disease and week have been selected
+        if (!mSelectedDisease.equals("none") && mSelectedWeek >= 0) {
 
-        // Build the Intent
-        Intent i = ShareCompat.IntentBuilder.from(this)
-                .setType(type)
-                .setSubject(subject)
-                .setText(text)
-                .getIntent();
+            // Set up the necessary Strings
+            String type = "text/plain";
+            String subject = getString(R.string.app_name);
+            String text = getString(R.string.share_message,
+                    mNumberInfected, mSelectedDiseaseDisplayName, mSelectedWeek);
+            String chooserText = getString(R.string.send_report_via);
 
-        // Force the chooser to be shown each time
-        i = Intent.createChooser(i, chooserText);
+            // Build the Intent
+            Intent i = ShareCompat.IntentBuilder.from(this)
+                    .setType(type)
+                    .setSubject(subject)
+                    .setText(text)
+                    .getIntent();
 
-        // Start the Intent
-        startActivity(i);
-    }
+            // Force the chooser to be shown each time
+            i = Intent.createChooser(i, chooserText);
 
-    private void chooseColors() {
-        startActivity(new Intent(this, ColorsActivity.class));
+            // Start the Intent
+            startActivity(i);
+        }
+        else {
+            Toast.makeText(this, "Select a disease and week before sharing",
+                    Toast.LENGTH_SHORT).show();
+        }
     }
 
     /*
-     * Handles signing out of the Google Account and returning to MainActivity.
+     * Signs the user out and returns to MainActivity
      */
     private void signOut() {
         // Set the user as not signed in
-        getSharedPreferences(MainActivity.SIGNED_IN, Context.MODE_PRIVATE)
+        getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE)
                 .edit()
-                .putBoolean(MainActivity.SIGNED_IN, false)
+                .putString(MainActivity.EMAIL_ADDRESS, "")
                 .apply();
 
         Toast.makeText(this, R.string.signed_out, Toast.LENGTH_SHORT).show();

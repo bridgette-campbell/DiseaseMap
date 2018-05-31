@@ -22,9 +22,7 @@ import edu.uw.tacoma.css.diseasemap.R;
  */
 public class CreateAccountFragment extends DialogFragment {
 
-    /**
-     * The URL for adding a user to the web server
-     */
+    // The URL for adding a user to the web server
     private static final String CREATE_ACCOUNT_URL =
             "http://diseasemapapp.000webhostapp.com/addUser.php?";
 
@@ -61,7 +59,7 @@ public class CreateAccountFragment extends DialogFragment {
 
                             // Attempt to create the account and sign in the user
                             String url = buildCreateAccountURL();
-                            mListener.addAccount(url);
+                            mListener.addAccount(url, mEmailEditText.getText().toString());
                         }
                         else {
                             Toast.makeText(getContext(), "Passwords do not match",
@@ -93,7 +91,7 @@ public class CreateAccountFragment extends DialogFragment {
     }
 
     public interface CreateAccountListener {
-        void addAccount(String url);
+        void addAccount(String url, String email);
     }
 
     /*

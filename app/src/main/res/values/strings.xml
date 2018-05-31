@@ -1,41 +1,46 @@
 <resources>
+    <string name="app">edu.uw.tacoma.css.diseasemap</string>
+
+    <!-- account -->
     <string name="app_name">Disease Map</string>
-    <string name="logo">Logo</string>
+    <string name="logo_desc">Logo</string>
     <string name="create_account">Create Account</string>
-    <string name="sign_in">Sign In</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="verify_password">Verify Password</string>
     <string name="cancel">Cancel</string>
+    <string name="sign_in">Sign In</string>
     <string name="signed_in">Signed In</string>
-    <string name="signed_out">Signed Out</string>
 
+    <!-- map -->
+    <string name="state_desc">Representation of how comparatively diseased the state is</string>
     <string name="share">Share</string>
+    <string name="share_message">There were %1$d reported infections of %2$s in the United States
+        and territories during week %3$d of this year.
+        \n\nLearn more about %2$s and other diseases in DiseaseMap!</string>
     <string name="send_report_via">Send CDC data via</string>
     <string name="sign_out">Sign Out</string>
+    <string name="signed_out">Signed Out</string>
+    <string name="about">About</string>
 
+    <!-- disease/week -->
     <string name="select_disease">Select Disease</string>
     <string name="select_week">Select Week</string>
-    <string name="about">About</string>
-    <string name="choose_colors">Choose colors</string>
-    <string name="colors_selected">Okay</string>
-    <string name="txt_cool">Select a color to indicate the least infected</string>
-    <string name="txt_warm">Select a color to indicate the most infected</string>
 
-    <!--
-    <string name="red">Red</string>
-    <string name="red_orange">Red-Orange</string>
-    <string name="orange">Orange</string>
-    <string name="orange_yellow">Orange-Yellow</string>
-    <string name="yellow">Yellow</string>
-    <string name="yellow_green">Yellow-Green</string>
-    <string name="green">Green</string>
-    <string name="blue_green">Blue-Green</string>
-    <string name="blue">Blue</string>
-    <string name="blue_violet">Blue-Violet</string>
-    <string name="violet">Violet</string>
-    <string name="violet_red">Violet-Red</string>
-    -->
+    <!-- ColorsActivity -->
+    <string name="select_colors">Select Colors</string>
+    <string name="txt_cool">Select a color to indicate low amounts of infection</string>
+    <string name="txt_warm">Select a color to indicate high amounts of infection</string>
+    <string name="colors_selected">Okay</string>
+
+    <string-array name="cool_colors_array">
+        <item>Green</item>
+        <item>Blue-Green</item>
+        <item>Blue</item>
+        <item>Blue-Violet</item>
+        <item>Violet</item>
+        <item>Violet-Red</item>
+    </string-array>
 
     <string-array name="warm_colors_array">
         <item>Red</item>
@@ -46,13 +51,11 @@
         <item>Yellow-Green</item>
     </string-array>
 
-    <string-array name="cool_colors_array">
-        <item>Green</item>
-        <item>Blue-Green</item>
-        <item>Blue</item>
-        <item>Blue-Violet</item>
-        <item>Violet</item>
-        <item>Violet-Red</item>
-    </string-array>
+    <!-- AboutActivity -->
+    <string name="about_authors">Bridgette Campbell, Daniel McBride, Matt Qunell</string>
+    <string name="about_content">This application retrieves and displays as much information from
+        the Centers for Disease Control as they have to offer. The CDC does not publish new data
+        instantly, so when selecting a time period you may have fewer weeks to choose from than the
+        current number of weeks in the current calendar year.</string>
 
 </resources>
