@@ -7,7 +7,7 @@ download disease data from Centers for Disease Control's National Notifiable Dis
 choose from a list of diseases to view, 
 choose a time period of the disease to view, 
 choose color preferences, 
-save color preferences, login status, and email to device
+save login status and email to device (Shared Preferences) and save color preferences to the device database (SQLite -> UserPrefs.db).
 
 User stories implemented: 
 As a user, I can create an account and sign in. 
