@@ -21,6 +21,9 @@ import java.util.Map;
 import edu.uw.tacoma.css.diseasemap.ColorsActivity;
 import edu.uw.tacoma.css.diseasemap.R;
 import edu.uw.tacoma.css.diseasemap.database_connection.DiseaseRecord;
+import edu.uw.tacoma.css.diseasemap.database_connection.UserPrefsDB;
+
+import static edu.uw.tacoma.css.diseasemap.account.MainActivity.EMAIL_ADDRESS;
 
 /**
  * {@link RecyclerView.Adapter} that can display MapItems
@@ -29,6 +32,7 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
 
     private DiseaseRecord mDiseaseRecord;
     private int mWeek;
+    private UserPrefsDB mUserPrefsDB;
 
     public MapRecyclerViewAdapter(DiseaseRecord diseaseRecord, int week) {
         mDiseaseRecord = diseaseRecord;
@@ -39,6 +43,8 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.fragment_map_item, parent, false);
+
+        mUserPrefsDB = new UserPrefsDB(parent.getContext());
 
         return new ViewHolder(view);
     }
@@ -64,16 +70,29 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
 
         Integer thisRange = week.getInfected() - lowest;
         float ratio;
-        if(greatestRange > 0) {
+        if (greatestRange > 0) {
             ratio = ((float) thisRange) / ((float) greatestRange);
         } else {
             ratio = 0;
         }
 
-        SharedPreferences prefs = holder.mImageView.getContext().getSharedPreferences(holder.mImageView.getContext().getString(R.string.app), Context.MODE_PRIVATE);
+        String email = holder.mImageView.getContext()
+                .getSharedPreferences(holder.mImageView
+                        .getContext().getString(R.string.app),
+                        Context.MODE_PRIVATE).getString(EMAIL_ADDRESS, "");
 
-        Integer fromColor = prefs.getInt(ColorsActivity.SELECTED_COOL_COLOR, 0x00ff00);
-        Integer toColor = prefs.getInt(ColorsActivity.SELECTED_WARM_COLOR, 0xff0000);
+        List<Integer> savedColors = new ArrayList<>();
+        if (mUserPrefsDB.getColors(email).size() > 0) {
+            savedColors = mUserPrefsDB.getColors(email);
+        } else {
+            savedColors.add(0x00cd00);
+            savedColors.add(0xff0000);
+        }
+
+        //SharedPreferences prefs = holder.mImageView.getContext().getSharedPreferences(holder.mImageView.getContext().getString(R.string.app), Context.MODE_PRIVATE);
+
+        Integer fromColor = savedColors.get(0);//prefs.getInt(ColorsActivity.SELECTED_COOL_COLOR, 0x00ff00);
+        Integer toColor = savedColors.get(1);//prefs.getInt(ColorsActivity.SELECTED_WARM_COLOR, 0xff0000);
         int color = interpolateColor(fromColor, toColor, ratio);
 
 
@@ -81,21 +100,19 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
         Bitmap bitmap = BitmapFactory.decodeResource(holder.mImageView.getContext().getResources(),
                 R.drawable.circle);
 
-        bitmap = bitmap.copy( Bitmap.Config.ARGB_8888 , true);
+        bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
 
-        int [] allpixels = new int [bitmap.getHeight() * bitmap.getWidth()];
+        int[] allpixels = new int[bitmap.getHeight() * bitmap.getWidth()];
 
         bitmap.getPixels(allpixels, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
 
-        for(int i = 0; i < allpixels.length; i++)
-        {
-            if(allpixels[i] == Color.WHITE)
-            {
+        for (int i = 0; i < allpixels.length; i++) {
+            if (allpixels[i] == Color.WHITE) {
                 allpixels[i] = color;
             }
         }
 
-        bitmap.setPixels(allpixels,0,bitmap.getWidth(),0, 0, bitmap.getWidth(),bitmap.getHeight());
+        bitmap.setPixels(allpixels, 0, bitmap.getWidth(), 0, 0, bitmap.getWidth(), bitmap.getHeight());
 
         holder.mImageView.setImageDrawable(new BitmapDrawable(holder.mImageView.getContext().getResources(), bitmap));
     }
@@ -119,7 +136,7 @@ public class MapRecyclerViewAdapter extends RecyclerView.Adapter<MapRecyclerView
 
     @Override
     public int getItemCount() {
-        if(mDiseaseRecord != null) {
+        if (mDiseaseRecord != null) {
             return mDiseaseRecord.getInfoForWeek(mWeek).keySet().size();
         } else {
             return 0;

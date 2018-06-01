@@ -19,6 +19,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import edu.uw.tacoma.css.diseasemap.database_connection.UserPrefsDB;
+
+import static edu.uw.tacoma.css.diseasemap.account.MainActivity.EMAIL_ADDRESS;
+
 public class ColorsActivity extends AppCompatActivity {
     private static final String TAG = "ColorsActivity";
 
@@ -28,6 +32,8 @@ public class ColorsActivity extends AppCompatActivity {
     public static final String SELECTED_COOL_COLOR = "selected_cool_color";
     public static final String SELECTED_WARM_COLOR = "selected_warm_color";
 
+    private UserPrefsDB mUserPrefsDB;
+    private String mEmail = "";
     /*
      * User-selected colors
      */
@@ -36,6 +42,7 @@ public class ColorsActivity extends AppCompatActivity {
 
     private Map<String, Integer> mCoolMap = new HashMap<>();
     private Map<String, Integer> mWarmMap = new HashMap<>();
+
     {
         mCoolMap.put("Green", 0x00cd00);
         mCoolMap.put("Blue-Green", 0x00868b);
@@ -56,6 +63,22 @@ public class ColorsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_colors);
+
+        mUserPrefsDB = new UserPrefsDB(this);
+
+        mEmail = getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE)
+                .getString(EMAIL_ADDRESS, "");
+
+        List<Integer> savedColors = new ArrayList<>(2);
+        if (mUserPrefsDB.getColors(mEmail).size() > 0) {
+            savedColors = mUserPrefsDB.getColors(mEmail);
+        } else {
+            savedColors.add(0x00cd00);
+            savedColors.add(0xff0000);
+            mUserPrefsDB.insertPrefs(mEmail, savedColors.get(0), savedColors.get(1));
+        }
+
+
 
         final List<String> coolList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.cool_colors_array)));
 
@@ -103,11 +126,11 @@ public class ColorsActivity extends AppCompatActivity {
 
             }
         });
-        int savedColor = getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE)
-                .getInt(SELECTED_COOL_COLOR, 0x00cd00);
+        int savedColor = savedColors.get(0);
+        //getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE).getInt(SELECTED_COOL_COLOR, 0x00cd00);
         String selectedName = coolList.get(0);
         for (String name : mCoolMap.keySet()) {
-            if (mCoolMap.get(name) == (savedColor)){
+            if (mCoolMap.get(name) == (savedColor)) {
                 selectedName = name;
             }
         }
@@ -162,11 +185,11 @@ public class ColorsActivity extends AppCompatActivity {
 
             }
         });
-        savedColor = getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE)
-                .getInt(SELECTED_WARM_COLOR, 0xff0000);
+        savedColor = savedColors.get(1);
+        //getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE).getInt(SELECTED_WARM_COLOR, 0xff0000);
         selectedName = warmList.get(0);
         for (String name : mWarmMap.keySet()) {
-            if (mWarmMap.get(name) == (savedColor)){
+            if (mWarmMap.get(name) == (savedColor)) {
                 selectedName = name;
             }
         }
@@ -177,7 +200,18 @@ public class ColorsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE)
+                //if user prefs exist update user prefs
+                // else insert user prefs
+
+                if (mUserPrefsDB.getColors(mEmail) != null) {
+                    mUserPrefsDB.updatePrefs(mEmail, mCoolMap.get(mCoolColor), mWarmMap.get(mWarmColor));
+                } else {
+                    mUserPrefsDB.insertPrefs(mEmail, mCoolMap.get(mCoolColor), mWarmMap.get(mWarmColor));
+                }
+
+
+               /*
+               getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE)
                         .edit()
                         .putInt(ColorsActivity.SELECTED_COOL_COLOR, mCoolMap.get(mCoolColor))
                         .apply();
@@ -190,6 +224,8 @@ public class ColorsActivity extends AppCompatActivity {
                         .apply();
 
                 Log.i(TAG, "Warm color (" + mWarmColor + ") selection saved");
+                */
+
 
                 finish();
             }
