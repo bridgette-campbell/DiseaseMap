@@ -93,7 +93,7 @@ public class UserPrefsDB {
                 null // The sort order
         );
         c.moveToFirst();
-        List<Integer> list = new ArrayList<Integer>(2);
+        List<Integer> list = new ArrayList<Integer>();
         for (int i = 0; i < c.getCount(); i++) {
             Integer cool = c.getInt(0);
             list.add(cool);
@@ -110,7 +110,7 @@ public class UserPrefsDB {
      *
      * @author Bridgette Campbell, Daniel McBride, Matt Qunell
      */
-    class UserPrefsDBHelper extends SQLiteOpenHelper {
+    private class UserPrefsDBHelper extends SQLiteOpenHelper {
         private final String CREATE_PREFS_SQL;
         private final String DROP_PREFS_SQL;
 
