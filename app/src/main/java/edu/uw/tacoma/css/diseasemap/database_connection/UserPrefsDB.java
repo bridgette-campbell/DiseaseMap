@@ -11,6 +11,12 @@ import java.util.List;
 
 import edu.uw.tacoma.css.diseasemap.R;
 
+/**
+ * The class used to store user preferences (preferred warm and cool colors)
+ * to a SQLite database on the device.
+ *
+ * @author Bridgette Campbell, Daniel McBride, Matt Qunell
+ */
 public class UserPrefsDB {
     public static final int DB_VERSION = 1;
     public static final String DB_NAME = "UserPrefs.db";
@@ -71,7 +77,7 @@ public class UserPrefsDB {
     /**
      * Returns the colors for the given email.
      *
-     * @return list
+     * @return list list[0] = cool color, list[1] = warm color
      */
     public List<Integer> getColors(String email) {
         String[] columns = {"cool_color", "warm_color"};
@@ -99,6 +105,11 @@ public class UserPrefsDB {
         return list;
     }
 
+    /**
+     * SQLite helper for UserPrefsDB.
+     *
+     * @author Bridgette Campbell, Daniel McBride, Matt Qunell
+     */
     class UserPrefsDBHelper extends SQLiteOpenHelper {
         private final String CREATE_PREFS_SQL;
         private final String DROP_PREFS_SQL;

@@ -23,16 +23,18 @@ import edu.uw.tacoma.css.diseasemap.database_connection.UserPrefsDB;
 
 import static edu.uw.tacoma.css.diseasemap.account.MainActivity.EMAIL_ADDRESS;
 
+/**
+ * The {@link AppCompatActivity} that handles color changing for the
+ * {@link edu.uw.tacoma.css.diseasemap.map.MapActivity}
+ *
+ * @author Bridgette Campbell, Daniel McBride, Matt Qunell
+ */
 public class ColorsActivity extends AppCompatActivity {
     private static final String TAG = "ColorsActivity";
 
-    /**
-     * SharedPreferences keys for the user-selected colors
-     */
-    public static final String SELECTED_COOL_COLOR = "selected_cool_color";
-    public static final String SELECTED_WARM_COLOR = "selected_warm_color";
-
+    /* The SQLite database for user preferences*/
     private UserPrefsDB mUserPrefsDB;
+    /* The email address ID for the above SQLite db*/
     private String mEmail = "";
     /*
      * User-selected colors
@@ -40,9 +42,11 @@ public class ColorsActivity extends AppCompatActivity {
     private String mCoolColor;
     private String mWarmColor;
 
+    /*Maps for the color name to hex value*/
     private Map<String, Integer> mCoolMap = new HashMap<>();
     private Map<String, Integer> mWarmMap = new HashMap<>();
 
+    //populate the color maps
     {
         mCoolMap.put("Green", 0x00cd00);
         mCoolMap.put("Blue-Green", 0x00868b);
@@ -66,10 +70,12 @@ public class ColorsActivity extends AppCompatActivity {
 
         mUserPrefsDB = new UserPrefsDB(this);
 
+        //get saved email for saving/editing user preferences
         mEmail = getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE)
                 .getString(EMAIL_ADDRESS, "");
 
-        List<Integer> savedColors = new ArrayList<>(2);
+        //references to the saved user preferences (colors)
+        List<Integer> savedColors = new ArrayList<>();
         if (mUserPrefsDB.getColors(mEmail).size() > 0) {
             savedColors = mUserPrefsDB.getColors(mEmail);
         } else {
@@ -79,7 +85,7 @@ public class ColorsActivity extends AppCompatActivity {
         }
 
 
-
+        //get cool colors list.
         final List<String> coolList = new ArrayList<>(Arrays.asList(getResources().getStringArray(R.array.cool_colors_array)));
 
         // Cool Spinner
@@ -89,6 +95,8 @@ public class ColorsActivity extends AppCompatActivity {
                 View view = super.getDropDownView(position, convertView, parent);
                 TextView tv = (TextView) view;
 
+                //set the background color of the spinner item to the corresponding color
+                //white if the color doesn't exist.
                 int color = Color.WHITE;
                 switch (position) {
                     case 0:
@@ -114,8 +122,11 @@ public class ColorsActivity extends AppCompatActivity {
                 return view;
             }
         };
+        //set the adapter item layout
         coolAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        //set the adapter for the spinner
         coolSpinner.setAdapter(coolAdapter);
+        //make the spinner do something on click.
         coolSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 mCoolColor = parent.getItemAtPosition(position).toString();
@@ -126,8 +137,8 @@ public class ColorsActivity extends AppCompatActivity {
 
             }
         });
+        //set the selected spinner item to the saved color or the first list item
         int savedColor = savedColors.get(0);
-        //getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE).getInt(SELECTED_COOL_COLOR, 0x00cd00);
         String selectedName = coolList.get(0);
         for (String name : mCoolMap.keySet()) {
             if (mCoolMap.get(name) == (savedColor)) {
@@ -186,7 +197,6 @@ public class ColorsActivity extends AppCompatActivity {
             }
         });
         savedColor = savedColors.get(1);
-        //getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE).getInt(SELECTED_WARM_COLOR, 0xff0000);
         selectedName = warmList.get(0);
         for (String name : mWarmMap.keySet()) {
             if (mWarmMap.get(name) == (savedColor)) {
@@ -195,38 +205,19 @@ public class ColorsActivity extends AppCompatActivity {
         }
         warmSpinner.setSelection(warmAdapter.getPosition(selectedName));
 
+        //save the colors in the SQLite db. update if the user already exists
+        //insert if they don't
         Button confirm = findViewById(R.id.btn_colors_selected);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 //if user prefs exist update user prefs
                 // else insert user prefs
-
                 if (mUserPrefsDB.getColors(mEmail) != null) {
                     mUserPrefsDB.updatePrefs(mEmail, mCoolMap.get(mCoolColor), mWarmMap.get(mWarmColor));
                 } else {
                     mUserPrefsDB.insertPrefs(mEmail, mCoolMap.get(mCoolColor), mWarmMap.get(mWarmColor));
                 }
-
-
-               /*
-               getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE)
-                        .edit()
-                        .putInt(ColorsActivity.SELECTED_COOL_COLOR, mCoolMap.get(mCoolColor))
-                        .apply();
-
-                Log.i(TAG, "Cool color (" + mCoolColor + ") selection saved");
-
-                getSharedPreferences(getString(R.string.app), Context.MODE_PRIVATE)
-                        .edit()
-                        .putInt(ColorsActivity.SELECTED_WARM_COLOR, mWarmMap.get(mWarmColor))
-                        .apply();
-
-                Log.i(TAG, "Warm color (" + mWarmColor + ") selection saved");
-                */
-
-
                 finish();
             }
         });
