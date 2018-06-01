@@ -16,30 +16,51 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toTopOf="@+id/buttonCreateAccount"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.406"
         app:srcCompat="@drawable/icon_transparent" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login_hint"
+        app:layout_constraintHorizontal_bias="0.55"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/logo"
+        app:layout_constraintBottom_toTopOf="@+id/buttonCreateAccount"
+        app:layout_constraintVertical_bias="0.406"
+        tools:layout_editor_absoluteY="369dp" />
 
     <Button
         android:id="@+id/buttonCreateAccount"
-        android:layout_width="wrap_content"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:layout_marginTop="8dp"
         android:onClick="launchCreateAccount"
         android:text="@string/create_account"
         app:layout_constraintBottom_toTopOf="@+id/buttonSignIn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/buttonSignIn"
-        android:layout_width="wrap_content"
+        android:layout_width="170dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
+        android:layout_marginBottom="48dp"
         android:onClick="launchSignIn"
         android:text="@string/sign_in"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonCreateAccount" />
 
 </android.support.constraint.ConstraintLayout>

@@ -57,5 +57,6 @@
         the Centers for Disease Control as they have to offer. The CDC does not publish new data
         instantly, so when selecting a time period you may have fewer weeks to choose from than the
         current number of weeks in the current calendar year.</string>
+    <string name="login_hint">To see data about the diseases you must login.</string>
 
 </resources>
