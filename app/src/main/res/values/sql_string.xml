@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="CREATE_PREFS_SQL">
+        CREATE TABLE IF NOT EXISTS UserPrefs (email TEXT PRIMARY KEY, cool_color INTEGER, warm_color INTEGER)
+    </string>
+
+    <string name="DROP_PREFS_SQL">
+        DROP TABLE IF EXISTS UserPrefs
+    </string>
+
+</resources>
